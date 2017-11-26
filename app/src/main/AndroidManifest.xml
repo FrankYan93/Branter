@@ -36,11 +36,26 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="AIzaSyAsAvkQ8Yb33TPSGU3nffpKKYfle9HtXU8" />
 
         <activity
             android:name=".MapsViewActivity"
-            android:label="@string/title_activity_maps_view"></activity>
+            android:label="@string/title_activity_maps_view">
+            <intent-filter>
+                <action android:name="com.branter.jiadongyan.branter.MapsViewActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MyAccountActivity"
+            android:label="@string/title_activity_my_account"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.branter.jadongyan.branter.MyAccountActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.branter.jiadongyan.branter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -67,8 +68,15 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_account) {
+            startActivity(new Intent("com.branter.jadongyan.branter.MyAccountActivity"));
+
+
             return true;
+        }
+        else if (id == R.id.action_mapview){
+            startActivity(new Intent("com.branter.jiadongyan.branter.MapsViewActivity"));
+
         }
 
         return super.onOptionsItemSelected(item);
