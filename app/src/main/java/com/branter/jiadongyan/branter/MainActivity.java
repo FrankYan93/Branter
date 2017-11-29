@@ -167,9 +167,7 @@ public class MainActivity extends AppCompatActivity
         imgs2="http://rj1.douguo.net/upload/diet/6/6/8/666f180617cab130bef1dea9fb3f7fe8.jpg#" +
                 "http://img4.duitang.com/uploads/blog/201312/01/20131201120117_F5QXY.jpeg#"+
                 "http://www.sh.xinhuanet.com/133071048_13905438457501n.jpg";
-        imgs3="http://t2.fansimg.com/uploads2011/02/userid290276time20110205120020.jpg#" +
-                "http://image81.360doc.com/DownloadImg/2015/01/2113/49316679_9.jpg#" +
-                "http://image.tianjimedia.com/uploadImages/2014/133/11/EN2I6768CHU1_1000x500.jpg#"+
+        imgs3= "http://image.tianjimedia.com/uploadImages/2014/133/11/EN2I6768CHU1_1000x500.jpg#"+
                 "http://pic72.nipic.com/file/20150716/6659253_104414205000_2.jpg#"+
                 "http://pic36.nipic.com/20131222/10558908_214221305000_2.jpg";
         imgs4 = "http://h.hiphotos.baidu.com/zhidao/pic/item/5243fbf2b21193133f9f1e3967380cd790238d5f.jpg";
@@ -178,14 +176,14 @@ public class MainActivity extends AppCompatActivity
             gridTest = new GridTest();
             switch (i){
                 case 0:gridTest.setEventTitle("Cat discovery");
-                    gridTest.setHeadphoto("http://cdn.duitang.com/uploads/item/201412/12/20141212184514_BJjWy.jpeg");
+                    gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
                     gridTest.setContent("This is the cat event!......");
                     gridTest.setTime("11/25/2017 - 11/28/2017");
                     gridTest.setImage(imgs1);
                     break;
                 case 1:
                     gridTest.setEventTitle("Enjoy Japanese Food");
-                    gridTest.setHeadphoto("http://cdn.duitang.com/uploads/item/201501/19/20150119171935_ZkRsZ.thumb.224_0.jpeg");
+                    gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
                     gridTest.setContent("This is the food event!.....");
                     gridTest.setTime("11/20/2017 - 11/27/2017");
                     gridTest.setImage(imgs2);

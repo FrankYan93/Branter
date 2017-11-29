@@ -119,9 +119,10 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
         buttonPublish = (Button) findViewById(R.id.buttonpublish);
         buttonPublish.setTag(1);
+        buttonPublish.setOnClickListener(CreateEventActivity.this);
         buttonCancel = (Button) findViewById(R.id.buttoncancel);
         buttonCancel.setTag(2);
-
+        buttonCancel.setOnClickListener(CreateEventActivity.this);
 
     }
 
@@ -131,7 +132,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         Intent intent=new Intent(this,MainActivity.class);
         switch (tag) {
             case 1:
-                Event newEvent = new Event();
+//                Event newEvent = new Event("","","");
                 //TODO: create new event to data servive
 
                 startActivity(intent);
