@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_account) {
-            startActivity(new Intent("com.branter.jadongyan.branter.MyAccountActivity"));
+            startActivity(new Intent("com.branter.jiadongyan.branter.MyAccountActivity"));
 
 
             return true;

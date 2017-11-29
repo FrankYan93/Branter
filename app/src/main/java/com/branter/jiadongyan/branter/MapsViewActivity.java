@@ -1,16 +1,26 @@
 package com.branter.jiadongyan.branter;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsViewActivity extends FragmentActivity implements OnMapReadyCallback {
+import java.util.ArrayList;
+
+public class MapsViewActivity extends FragmentActivity implements GoogleMap.OnInfoWindowClickListener,OnMapReadyCallback {
+
+    //event_id = getEventId
+
+
 
     private GoogleMap mMap;
 
@@ -36,10 +46,23 @@ public class MapsViewActivity extends FragmentActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        ArrayList<EventData> arr = new ArrayList<EventData>();
+        arr.add(new EventData("A1",42,-71,56));
+        arr.add(new EventData("A2",42.1,-71.5,32));
+        arr.add(new EventData("A3",42.3650, -71.2587,42));
+        LatLng sydney = new LatLng(42.3650, -71.2587);
+        for (int i = 0; i < arr.size(); i++) {
+            LatLng temp = new LatLng(arr.get(i).Lat,arr.get(i).Lng);
+            mMap.addMarker(new MarkerOptions().position(temp).title(arr.get(i).name).
+                    snippet("Time: "+ arr.get(i).startdate.toString()+"    People: "+arr.get(i).people_number));
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        }
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 10));
+        mMap.setOnInfoWindowClickListener(this);
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        startActivity(new Intent("com.branter.jiadongyan.branter.MyAccountActivity"));
     }
 }
