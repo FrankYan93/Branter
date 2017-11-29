@@ -41,12 +41,10 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         userName = SaveSharedPreference.getUserName(MainActivity.this);
         if(userName == null || userName.length() == 0)
-<<<<<<< HEAD
         {   super.onCreate(savedInstanceState);
 =======
         {
             super.onCreate(savedInstanceState);
->>>>>>> d0ebb6a200226186217e8d6124ff764259f0c68e
             Intent signin = new Intent(MainActivity.this, SignInActivity.class);
             startActivity(signin);
         }
