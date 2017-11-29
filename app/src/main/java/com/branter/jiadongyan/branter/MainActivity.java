@@ -78,6 +78,16 @@ public class MainActivity extends AppCompatActivity
             init();
             initData();
 
+            // FloatingActionButton
+            FloatingActionButton add_event = (FloatingActionButton) findViewById(R.id.fab);
+            add_event.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //
+                    Intent addEvent = new Intent(MainActivity.this, CreateEventActivity.class);
+                    startActivity(addEvent);
+                }
+            });
         }
     }
 
