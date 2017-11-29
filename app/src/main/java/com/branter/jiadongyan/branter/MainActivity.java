@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity
         userName = SaveSharedPreference.getUserName(MainActivity.this);
         if(userName == null || userName.length() == 0)
         {
+            super.onCreate(savedInstanceState);
             Intent signin = new Intent(MainActivity.this, SignInActivity.class);
             startActivity(signin);
         }
@@ -77,6 +78,16 @@ public class MainActivity extends AppCompatActivity
             init();
             initData();
 
+            // FloatingActionButton
+            FloatingActionButton add_event = (FloatingActionButton) findViewById(R.id.fab);
+            add_event.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //
+                    Intent addEvent = new Intent(MainActivity.this, CreateEventActivity.class);
+                    startActivity(addEvent);
+                }
+            });
         }
     }
 
@@ -112,7 +123,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.map) {
             return true;
         }
 
