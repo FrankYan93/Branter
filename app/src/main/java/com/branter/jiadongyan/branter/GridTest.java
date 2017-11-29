@@ -20,7 +20,7 @@ public class GridTest implements Serializable {
         return eventTitle;
     }
 
-    public void setEventTitle(String username) {
+    public void setEventTitle(String eventTitle) {
         this.eventTitle = eventTitle;
     }
 
