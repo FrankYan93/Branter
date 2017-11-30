@@ -317,6 +317,9 @@ class CSCTest extends AsyncTask<String, Void, Void> {
 //        System.out.println(csc.signIn("xxx@xxx","pass"));
 //        csc.createPost("1","hello world!!!!");
 
+//        csc.createEvent(new String[] {"title"},new String[] {"mysterious event"});
+
+
 //        csc.createEvent(new String[] {"title"},new String[] {"mysterious event"},);
 
 //        csc.createEvent(new String[] {"title"},new String[] {"mysterious event"},MainActivity.this);
