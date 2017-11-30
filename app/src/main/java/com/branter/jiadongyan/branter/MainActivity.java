@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         new CSCTest().execute("");
-        userName = SaveSharedPreference.getUserName(MainActivity.this);
+        userName = SaveSharedPreference.getUserID(MainActivity.this);
         if(userName == null || userName.length() == 0)
         {
             super.onCreate(savedInstanceState);

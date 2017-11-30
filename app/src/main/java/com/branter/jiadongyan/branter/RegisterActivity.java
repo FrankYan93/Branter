@@ -70,11 +70,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             MainActivity.accounts.put(userEmail , password);
             Log.e("pass：",MainActivity.accounts.get(userEmail));
-            CSC client = new CSC();
-            String id = client.createUser(userEmail,password);
-            Log.e("return:", id);
-//            SaveSharedPreference.setUserID(this,client.createUser(userEmail,password));
 
+            Thread one = new Thread() {
+                public void run() {
+                    try {
+                        CSC client = new CSC();
+                        String id = client.createUser(userEmail,password);
+                        SaveSharedPreference.setUserID(RegisterActivity.this,id);
+                        Log.e("return:", id);
+                    } catch(Exception v) {
+                    }
+                }
+            };
+
+            one.start();
             return true;
         }
 
