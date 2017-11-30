@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity
             navigationView.setNavigationItemSelectedListener(this);
 
             init();
+            listgrid = new ArrayList<>();
             if (listgrid.isEmpty()) initData();
 
 
@@ -98,7 +99,7 @@ public class MainActivity extends AppCompatActivity
                              Event singleEvent = allEvents[i];
                              single.setEventTitle(singleEvent.title);
                              single.setContent(singleEvent.contents);
-                             single.setTime("From " + singleEvent.from + " to " + singleEvent.to);
+                             single.setTime("From " + singleEvent.from.split("T")[0] + " to " + singleEvent.to.split("T")[0]);
                              single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
                              single.setImage(singleEvent.imageUrl);
 
@@ -301,12 +302,12 @@ class CSCTest extends AsyncTask<String, Void, Void> {
 //        csc.createEvent(new String[] {"title"},new String[] {"mysterious event"});
 
 //        csc.createEvent(new String[] {"title"},new String[] {"mysterious event1"});
-<<<<<<< HEAD
+
         System.out.println(csc.getEventsByUserId("1"));
-=======
+
 //        System.out.println(csc.getAllEvents());
         csc.followEvent("2");
->>>>>>> ad4aad630d37d048af674f69b71000a10ba3dbe2
+
         return null;
 
     }
