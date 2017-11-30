@@ -108,10 +108,7 @@ public class EventDetail extends AppCompatActivity {
 
         Intent data = getIntent();
         Bundle extras = data.getExtras();
-        TextView hostname = (TextView) findViewById(R.id.EventDetail_HostName);
-        hostname.setText(extras.getString("title"));
-        TextView eventtime = (TextView) findViewById(R.id.EventDetail_TimeName);
-        eventtime.setText(extras.getString("time"));
+
         eventId = extras.getString("id");
         SaveSharedPreference.setEventID(this,eventId);
         System.out.println(SaveSharedPreference.getEventID(this));

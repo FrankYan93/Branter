@@ -27,7 +27,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
-
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     private  String imgs3;
     private  String imgs2;
     private String imgs4;
+
 
     private String userName;
     @Override
@@ -88,6 +90,8 @@ public class MainActivity extends AppCompatActivity
             listgrid = new ArrayList<>();
             if (listgrid.isEmpty()) initData();
 
+
+            //zy!!!!!
 
             // get all events
             Thread one = new Thread() {
@@ -148,6 +152,8 @@ public class MainActivity extends AppCompatActivity
             });
         }
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -318,4 +324,8 @@ class CSCTest extends AsyncTask<String, Void, Void> {
         return null;
 
     }
+
+
+
+
 }

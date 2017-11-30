@@ -29,7 +29,7 @@
             android:layout_width="80dp"
             android:layout_height="30dp"
             android:layout_alignParentLeft="true"
-            android:text="小仙女"
+            android:text="username"
             android:textColor="#444444"
             android:textSize="12sp" />
 
@@ -58,12 +58,12 @@
             android:id="@+id/info_tv_content"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="李睿豪是傻逼哦，李睿豪是傻逼哦，李睿豪是傻逼哦，李睿豪是傻逼哦，李睿豪是傻逼哦，李睿豪是傻逼哦"
-            android:textColor="#615150"
-            android:textSize="14sp"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="textextext"
+            android:textColor="#615150"
+            android:textSize="14sp" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rl4"
