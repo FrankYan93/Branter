@@ -251,12 +251,12 @@ public class EventDetail extends AppCompatActivity {
                     listgrid.add(fake2[i]);
                 break;
             case "Concert":
-                GridTest[] fake3 = FakeImg.celticsposts;
+                GridTest[] fake3 = FakeImg.concertposts;
                 for (int i = 0; i < fake3.length; i++)
                     listgrid.add(fake3[i]);
                 break;
             case "Gourmet":
-                GridTest[] fake4 = FakeImg.celticsposts;
+                GridTest[] fake4 = FakeImg.gourmetposts;
                 for (int i = 0; i < fake4.length; i++)
                     listgrid.add(fake4[i]);
                 break;
