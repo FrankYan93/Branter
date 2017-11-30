@@ -120,8 +120,8 @@ public class CSC {
     // Sign in account(email, password), return empty string for successful sign in or error message
     public boolean signIn(String email, String password) {
         try{
-            url = new URL("http://10.0.2.2:3000/login?email="+email+"&password="+password);
-//            url = new URL("https://branterapi.herokuapp.com/users/"+id);
+//            url = new URL("http://10.0.2.2:3000/login?email="+email+"&password="+password);
+            url = new URL("https://branterapi.herokuapp.com/login?email="+email+"&password="+password);
         }catch (MalformedURLException e){
             System.err.println("wrong url");
         }
@@ -153,8 +153,8 @@ public class CSC {
     public void updateAccount(String username, String gender, String birthday){
         String id = SaveSharedPreference.PREF_USER_ID;
         try{
-            url = new URL("http://10.0.2.2:3000/users/4");
-//            url = new URL("https://branterapi.herokuapp.com/users/"+id);
+//            url = new URL("http://10.0.2.2:3000/users/4");
+            url = new URL("https://branterapi.herokuapp.com/users/"+id);
         }catch (MalformedURLException e){
             System.err.println("wrong url");
         }
