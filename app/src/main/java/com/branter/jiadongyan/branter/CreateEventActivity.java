@@ -84,6 +84,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_create_event);
 
         gridView1 = (GridView) findViewById(R.id.gridView1);
+        getSupportActionBar().setTitle("New Event");
 
 
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.gridview_addpic);
