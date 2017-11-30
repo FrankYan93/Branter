@@ -230,6 +230,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_post) {
             // TODO: start posts info activity
         } else if (id == R.id.nav_signout) {
+
+            SaveSharedPreference.setUserID(this,"");
+            SaveSharedPreference.setEventID(this,"");
+            SaveSharedPreference.setUserName(this,"");
+            Log.e("sign out user id", SaveSharedPreference.getUserID(this));
             Intent intent=new Intent(this,SignInActivity.class);
             startActivity(intent);
         }
