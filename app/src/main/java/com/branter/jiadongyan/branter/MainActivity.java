@@ -302,7 +302,7 @@ class CSCTest extends AsyncTask<String, Void, Void> {
         CSC csc = new CSC();
 //        System.out.println("id:~~~~~~~~~~~~~~~");
 //        System.out.println(csc.createUser("xxx@xxxsss","pass"));
-//        System.out.println(csc.getUserInformation("4").birthday);
+//        System.out.println(csc.getUserInformation("1").num_events_host);
 //        csc.updateAccount("yo","true","11-12-2017");
 //        System.out.println(csc.signIn("xxx@xxx","pass"));
 //        csc.createPost("1","hello world!!!!");
@@ -314,7 +314,7 @@ class CSCTest extends AsyncTask<String, Void, Void> {
 //        System.out.println(csc.getAllEvents());
         // csc.followEvent("2");
 //        csc.eventFollowers("2");
-        System.out.println(csc.getUserPost("1"));
+//        System.out.println(csc.getUserPost("1"));
         return null;
 
     }
