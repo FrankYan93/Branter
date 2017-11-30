@@ -40,11 +40,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         int tag = (int) v.getTag();
         switch (tag) {
             case 1:
-                if (idCorrect()){
+                idCorrect();
+                if (!SaveSharedPreference.getUserID(SignInActivity.this).equals("id")){
+                    Toast.makeText(SignInActivity.this,"Signin Success",Toast.LENGTH_LONG).show();
                     Intent intent1=new Intent(SignInActivity.this,MainActivity.class);
-                    // TODO:create user in database
-                    intent1.putExtra("userName",userName.getText().toString());
-                    intent1.putExtra("password",password.getText().toString());
                     SaveSharedPreference.setUserName(this,userName.getText().toString());
                     startActivity(intent1);
                 }
@@ -63,18 +62,34 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    public boolean idCorrect(){
+    public void idCorrect(){
 
         //TODO: Check if username and password is correct
+
+        Thread one = new Thread() {
+            public void run() {
+                try {
+                    CSC client = new CSC();
+                    String id = client.signIn(userName.getText().toString(),password.getText().toString());
+                    SaveSharedPreference.setUserID(SignInActivity.this,id);
+                    Log.e("return:", id);
+                } catch(Exception v) {
+                }
+            }
+        };
+        one.start();
+        try {
+            one.join();
+        } catch (InterruptedException v) {
+
+        }
         //(Params: username, password) (Return: true or error message)
 //        Log.e("size:", Integer.toString(MainActivity.accounts.size()));
 //        Log.e("pass:", MainActivity.accounts.get(userName.getText().toString()));
-        String truePassword = MainActivity.accounts.get(userName.getText().toString());
-        if (truePassword == null)
-            Toast.makeText(SignInActivity.this,"no such userName",Toast.LENGTH_LONG).show();
-        else if  (truePassword.equals(password.getText().toString())) return true;
-
-        return false;
+//        String truePassword = MainActivity.accounts.get(userName.getText().toString());
+//        if (truePassword == null)
+//            Toast.makeText(SignInActivity.this,"no such userName",Toast.LENGTH_LONG).show();
+//        else if  (truePassword.equals(password.getText().toString())) return true;
 
     }
 

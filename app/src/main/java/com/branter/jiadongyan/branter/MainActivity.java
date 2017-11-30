@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity
     public static List<GridTest> listgrid = new ArrayList<>();
     private ListViewAdapter listViewAdapter;
     private ListView listView;
+    private String userID;
+    private String userEmail;
     private String imgs1;
     private  String imgs3;
     private  String imgs2;
@@ -45,8 +47,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         new CSCTest().execute("");
-        userName = SaveSharedPreference.getUserName(MainActivity.this);
-        if(userName == null || userName.length() == 0)
+        userID = SaveSharedPreference.getUserID(MainActivity.this);
+        userEmail = SaveSharedPreference.getUserName(MainActivity.this);
+        if(userID == null || userID.length() == 0)
         {
             super.onCreate(savedInstanceState);
             Intent signin = new Intent(MainActivity.this, SignInActivity.class);
@@ -81,7 +84,39 @@ public class MainActivity extends AppCompatActivity
             navigationView.setNavigationItemSelectedListener(this);
 
             init();
+            listgrid = new ArrayList<>();
             if (listgrid.isEmpty()) initData();
+
+
+            // get all events
+            Thread one = new Thread() {
+                public void run() {
+                    try {
+                        CSC client = new CSC();
+                         Event[] allEvents = client.getAllEvents();
+                         for (int i = 0; i < allEvents.length; i++) {
+                             GridTest single = new GridTest();
+                             Event singleEvent = allEvents[i];
+                             single.setEventTitle(singleEvent.title);
+                             single.setContent(singleEvent.contents);
+                             single.setTime("From " + singleEvent.from.split("T")[0] + " to " + singleEvent.to.split("T")[0]);
+                             single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
+                             single.setImage(singleEvent.imageUrl);
+
+                             listgrid.add(single);
+                         }
+                    } catch(Exception v) {
+                    }
+                }
+            };
+
+            one.start();
+            try {
+                one.join();
+            } catch (InterruptedException e) {
+
+            }
+
             listViewAdapter = new ListViewAdapter(this,listgrid);
             listView.setAdapter(listViewAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -143,7 +178,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
 
         TextView username = (TextView) findViewById(R.id.usernameM);
-        username.setText(userName);
+        username.setText(userEmail);
 
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -258,10 +293,27 @@ class CSCTest extends AsyncTask<String, Void, Void> {
     @Override
     protected Void doInBackground(String... strings) {
         CSC csc = new CSC();
-        System.out.println("id:~~~~~~~~~~~~~~~");
-        System.out.println(csc.createUser("xxx@xxxss","pass"));
+//        System.out.println("id:~~~~~~~~~~~~~~~");
+//        System.out.println(csc.createUser("xxx@xxxsss","pass"));
 //        System.out.println(csc.getUserInformation("4").birthday);
 //        csc.updateAccount("yo","true","11-12-2017");
+//        System.out.println(csc.signIn("xxx@xxx","pass"));
+//        csc.createPost("1","hello world!!!!");
+//        csc.createEvent(new String[] {"title"},new String[] {"mysterious event"});
+
+//        csc.createEvent(new String[] {"title"},new String[] {"mysterious event1"});
+
+        System.out.println(csc.getEventsByUserId("1"));
+
+//        System.out.println(csc.getAllEvents());
+        csc.followEvent("2");
+
+
+        System.out.println(csc.getEventsByUserId("1"));
+//        System.out.println(csc.getAllEvents());
+        csc.followEvent("2");
+
         return null;
+
     }
 }

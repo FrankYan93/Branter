@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.branter.jiadongyan.branter">
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -66,7 +67,14 @@
             android:label="@string/title_activity_my_account"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-                <action android:name="com.branter.jiadongyan.branter.MyAccountActivity"/>
+                <action android:name="com.branter.jiadongyan.branter.MyAccountActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ProfileUpdateActivity">
+            <intent-filter>
+                <action android:name="com.branter.jiadongyan.branter.ProfileUpdateActivity"></action>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>

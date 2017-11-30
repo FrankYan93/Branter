@@ -31,23 +31,22 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private GridView gridView1;
-    private Button buttonPublish;
+public class ProfileUpdateActivity extends AppCompatActivity implements View.OnClickListener{
+    
+    private GridView gridView1;              //网格显示缩略图
+    private Button buttonPublish;            //发布按钮
     private Button buttonCancel;
-    private Button startbtn, endbtn;
+    private Button startbtn;
     private TextView startDate,endDate;
-    private EditText eventTitle;
-    private EditText eventContent;
-    private int startYear,startMonth,startDay, endYear,endMonth,endDay;
+    private EditText username;
+    private EditText gender;
+    private int startYear,startMonth,startDay;
     final int start_DATE_DIALOG = 1;
-    final int end_DATE_DIALOG = 2;
-    private final int IMAGE_OPEN = 1;
-    private String pathImage;
-    private Bitmap bmp;
+    private final int IMAGE_OPEN = 1;        //打开图片标记
+    private String pathImage;                //选择图片路径
+    private Bitmap bmp;                      //导入临时图片
     private ArrayList<HashMap<String, Object>> imageItem;
-    private SimpleAdapter simpleAdapter;
+    private SimpleAdapter simpleAdapter;     //适配器
     private DatePickerDialog.OnDateSetListener startdateListener = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -60,32 +59,30 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         }
     };
 
-    private DatePickerDialog.OnDateSetListener enddateListener = new DatePickerDialog.OnDateSetListener() {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            endYear = year;
-            endMonth = monthOfYear;
-            endDay = dayOfMonth;
-            display(endDate, endYear,endMonth, endDay);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_event);
-
+        setContentView(R.layout.activity_profile_update);
+        /*
+         * 防止键盘挡住输入框
+         * 不希望遮挡设置activity属性 android:windowSoftInputMode="adjustPan"
+         * 希望动态调整高度 android:windowSoftInputMode="adjustResize"
+         */
         getWindow().setSoftInputMode(WindowManager.LayoutParams.
                 SOFT_INPUT_ADJUST_PAN);
-
+        //锁定屏幕
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.activity_create_event);
+        setContentView(R.layout.activity_profile_update);
+        //获取控件对象
+        gridView1 = (GridView) findViewById(R.id.profile_submit_image);
 
-        gridView1 = (GridView) findViewById(R.id.gridView1);
-
-
+        /*
+         * 载入默认图片添加图片加号
+         * 通过适配器实现
+         * SimpleAdapter参数imageItem为数据源 R.layout.griditem_addpic为布局
+         */
+        //获取资源图片加号
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.gridview_addpic);
         imageItem = new ArrayList<HashMap<String, Object>>();
         HashMap<String, Object> map = new HashMap<String, Object>();
@@ -94,7 +91,14 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         simpleAdapter = new SimpleAdapter(this,
                 imageItem, R.layout.griditem_addpic,
                 new String[] { "itemImage"}, new int[] { R.id.imageView1});
-
+        /*
+         * HashMap载入bmp图片在GridView中不显示,但是如果载入资源ID能显示 如
+         * map.put("itemImage", R.drawable.img);
+         * 解决方法:
+         *              1.自定义继承BaseAdapter实现
+         *              2.ViewBinder()接口实现
+         *  参考 http://blog.csdn.net/admin_/article/details/7257901
+         */
         simpleAdapter.setViewBinder(new SimpleAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Object data,
@@ -110,58 +114,44 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         });
         gridView1.setAdapter(simpleAdapter);
 
-
+        /*
+         * 监听GridView点击事件
+         * 报错:该函数必须抽象方法 故需要手动导入import android.view.View;
+         */
         gridView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
             {
-                if( imageItem.size() == 4) {
-                    Toast.makeText(CreateEventActivity .this, "pics is exceed 3", Toast.LENGTH_SHORT).show();
-                }
-                else if(position == 0) {
-                    Toast.makeText(CreateEventActivity .this, "add pics", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(Intent.ACTION_PICK,
-                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, IMAGE_OPEN);
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, IMAGE_OPEN);
+                //通过onResume()刷新数据
 
-                }
-                else {
-                    dialog(position);
-
-                }
             }
         });
 
 
-        buttonPublish = (Button) findViewById(R.id.buttonpublish);
+        buttonPublish = (Button)findViewById(R.id.profile_submit_update_button);
         buttonPublish.setTag(1);
-        buttonPublish.setOnClickListener(CreateEventActivity.this);
-        buttonCancel = (Button) findViewById(R.id.buttoncancel);
+        buttonPublish.setOnClickListener(ProfileUpdateActivity.this);
+        buttonCancel = (Button) findViewById(R.id.profile_submit_cancel_button);
         buttonCancel.setTag(2);
-        buttonCancel.setOnClickListener(CreateEventActivity.this);
+        buttonCancel.setOnClickListener(ProfileUpdateActivity.this);
 
-        startbtn = (Button) findViewById(R.id.startDateChoose);
-        startDate = (TextView) findViewById(R.id.startDate);
+        startbtn = (Button) findViewById(R.id.profile_submit_pickdate_tag);
+        startDate = (TextView) findViewById(R.id.profile_submit_birthday_tag);
         startbtn.setTag(3);
-        startbtn.setOnClickListener(CreateEventActivity.this);
+        startbtn.setOnClickListener(ProfileUpdateActivity.this);
 
         final Calendar ca = Calendar.getInstance();
         startYear = ca.get(Calendar.YEAR);
         startMonth = ca.get(Calendar.MONTH);
         startDay = ca.get(Calendar.DAY_OF_MONTH);
 
-        endbtn = (Button) findViewById(R.id.endDateChoose);
-        endDate = (TextView) findViewById(R.id.endDate);
-        endbtn.setTag(4);
-        endbtn.setOnClickListener(CreateEventActivity.this);
 
-        endYear = ca.get(Calendar.YEAR);
-        endMonth = ca.get(Calendar.MONTH);
-        endDay = ca.get(Calendar.DAY_OF_MONTH);
-
-        eventTitle = (EditText) findViewById(R.id.eventTitle);
-        eventContent = (EditText) findViewById(R.id.eventContent);
+        username = (EditText) findViewById(R.id.profile_submit_username_tag);
+        gender = (EditText) findViewById(R.id.profile_submit_gender_tag);
 
     }
 
@@ -174,32 +164,13 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 Log.e("I am in create event", "LOL");
 //                Event newEvent = new Event("","","");
                 //TODO: create new event to data servive
-//                GridTest newGridTest = new GridTest();
-//                newGridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
-//                newGridTest.setContent(eventContent.getText().toString());
-//                newGridTest.setTime("From " + startDate.getText().toString() + " to " + endDate.getText().toString());
-//                newGridTest.setImage(pathImage);
-//                newGridTest.setEventTitle(eventTitle.getText().toString());
-//                MainActivity.listgrid.add(newGridTest);
-
-                final String[] att = new String[] {"title", "contents","from","to","lat","lng","imageURL"};
-                final String[] value = new String[] {eventTitle.getText().toString(),eventContent.getText().toString(),
-                        startDate.getText().toString(), endDate.getText().toString(), "0","0",""};
-                Thread one = new Thread() {
-                    public void run() {
-                        try {
-                            CSC client = new CSC();
-                            client.createEvent(att,value);
-                        } catch(Exception v) {
-                        }
-                    }
-                };
-                one.start();
-                try {
-                    one.join();
-                } catch (InterruptedException e) {
-
-                }
+                GridTest newGridTest = new GridTest();
+                newGridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
+                newGridTest.setContent(username.getText().toString());
+                newGridTest.setTime("From " + startDate.getText().toString() + " to " + endDate.getText().toString());
+                newGridTest.setImage(pathImage);
+                newGridTest.setEventTitle(gender.getText().toString());
+                MainActivity.listgrid.add(newGridTest);
 
                 startActivity(intent);
                 break;
@@ -212,9 +183,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 showDialog(start_DATE_DIALOG);
                 break;
 
-            case 4:
-                showDialog(end_DATE_DIALOG);
-                break;
         }
 
     }
@@ -224,46 +192,46 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         switch (id) {
             case start_DATE_DIALOG:
                 return new DatePickerDialog(this, startdateListener, startYear, startMonth, startDay);
-            case end_DATE_DIALOG:
-                return new DatePickerDialog(this, enddateListener, endYear, endMonth, endDay);
 
         }
         return null;
     }
 
-
+    /**
+     * 设置日期 利用StringBuffer追加
+     */
     public void display(TextView v, int month, int day, int year) {
         v.setText(new StringBuffer().append(month + 1).append("-").append(day).append("-").append(year).append(" "));
     }
 
 
-
+    //获取图片路径 响应startActivityForResult
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        //打开图片
         if(resultCode==RESULT_OK && requestCode==IMAGE_OPEN) {
             Uri uri = data.getData();
             if (!TextUtils.isEmpty(uri.getAuthority())) {
-
+                //查询选择图片
                 Cursor cursor = getContentResolver().query(
                         uri,
                         new String[] { MediaStore.Images.Media.DATA },
                         null,
                         null,
                         null);
-
+                //返回 没找到选择图片
                 if (null == cursor) {
                     return;
                 }
-
+                //光标移动至开头 获取图片路径
                 cursor.moveToFirst();
                 pathImage = cursor.getString(cursor
                         .getColumnIndex(MediaStore.Images.Media.DATA));
             }
-        }
+        }  //end if 打开图片
     }
 
-
+    //刷新图片
     @Override
     protected void onResume() {
         super.onResume();
@@ -290,14 +258,17 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             });
             gridView1.setAdapter(simpleAdapter);
             simpleAdapter.notifyDataSetChanged();
-
+            //刷新后释放防止手机休眠后自动添加
             pathImage = null;
         }
     }
 
-
+    /*
+     * Dialog对话框提示用户删除操作
+     * position为删除图片位置
+     */
     protected void dialog(final int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity .this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ProfileUpdateActivity.this);
         builder.setMessage("Are you sure to remove this picture");
         builder.setTitle("Waring");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -316,5 +287,5 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         });
         builder.create().show();
     }
-
+    
 }
