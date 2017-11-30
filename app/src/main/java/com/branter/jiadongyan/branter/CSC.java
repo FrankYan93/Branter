@@ -292,6 +292,58 @@ public class CSC {
         return null;
     }
 
+    public Event[] getEventsByUserId(String id){
+        try{
+            url = new URL("https://branterapi.herokuapp.com/users/"+id+"/events");
+            // url = new URL("https://branterapi.herokuapp.com/users");
+        }catch (MalformedURLException e){
+            System.err.println("wrong url");
+        }
+        try {
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            JSONArray jo = new JSONArray(content.toString());
+            int size=jo.length();
+            Event[] eve = new Event[size];
+            for (int i=0;i<size;i++){
+                JSONObject x = new JSONObject((String) jo.get(i));
+                System.out.println(x);
+                double lat, lng;
+                try{
+                    lat = x.getDouble("lat");
+                    lng = x.getDouble("lng");
+                }catch (Exception e){
+                    lat = 0;
+                    lng = 0;
+                }
+                eve[i] = new Event(
+                        x.getString("id"),
+                        x.getString("title"),
+                        x.getString("from"),
+                        x.getString("to"),
+                        x.getString("contents"),
+                        null,
+                        lat,
+                        lng
+                );
+            }
+            in.close();
+            return eve;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
 
 class ParameterStringBuilder {
