@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity
                              single.setTime("From " + singleEvent.from.split("T")[0] + " to " + singleEvent.to.split("T")[0]);
                              single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
                              single.setImage(FakeImg.img[new Random().nextInt(FakeImg.img.length)]);
-
+                             single.setId(singleEvent.id);
                              listgrid.add(single);
                          }
                     } catch(Exception v) {
@@ -127,6 +127,8 @@ public class MainActivity extends AppCompatActivity
                     GridTest event = listgrid.get(position);
                     intent.putExtra("title", event.getEventTitle());
                     intent.putExtra("time", event.getTime());
+                    intent.putExtra("id",event.getId());
+
                     startActivity(intent);
                     Toast.makeText(MainActivity.this, "clicked on" + (position + 1) + "item", Toast.LENGTH_LONG).show();
                 }

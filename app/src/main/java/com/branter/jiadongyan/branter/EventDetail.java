@@ -21,6 +21,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class EventDetail extends AppCompatActivity {
     private List<GridTest> listgrid;
@@ -30,6 +31,8 @@ public class EventDetail extends AppCompatActivity {
     private  String imgs3;
     private  String imgs2;
     private String imgs4;
+    private String eventId;
+    private Button join;
     ArrayList<String> arrayList = arrayList = new ArrayList<>();
 
     @SuppressWarnings("deprecation")
@@ -79,8 +82,7 @@ public class EventDetail extends AppCompatActivity {
         hostname.setText(extras.getString("title"));
         TextView eventtime = (TextView) findViewById(R.id.EventDetail_TimeName);
         eventtime.setText(extras.getString("time"));
-
-
+        eventId = extras.getString("id");
         //listView = (ListView) findViewById(R.id.f_listview);
         //listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getData()));
 
@@ -90,6 +92,36 @@ public class EventDetail extends AppCompatActivity {
             public void onClick(View view) {
                 startActivityForResult(new Intent(EventDetail.this, PostActivity.class), 1);
 
+            }
+        });
+
+        join = (Button) findViewById(R.id.EventDetail_JoinButton);
+        join.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()) {
+                    case R.id.EventDetail_JoinButton:
+                        // post join events
+                        Thread one = new Thread() {
+                            public void run() {
+                                try {
+                                    CSC client = new CSC();
+                                    client.followEvent(eventId);
+                                } catch(Exception v) {
+                                }
+                            }
+                        };
+
+                        one.start();
+                        try {
+                            one.join();
+                        } catch (InterruptedException e) {
+
+                        }
+                        join.setText("joined");
+                        break;
+                    default: break;
+                }
             }
         });
     }
