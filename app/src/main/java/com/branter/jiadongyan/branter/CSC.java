@@ -150,8 +150,8 @@ public class CSC {
     }
 
     // Update my account (username, gender, etc)
-    public void updateAccount(String username, String gender, String birthday){
-        String id = SaveSharedPreference.PREF_USER_ID;
+    public void updateAccount(String username, String gender, String birthday, Context c){
+        String id = SaveSharedPreference.getUserID(c);
         try{
 //            url = new URL("http://10.0.2.2:3000/users/4");
             url = new URL("https://branterapi.herokuapp.com/users/"+id);
