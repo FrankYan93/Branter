@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 password = pwd.getText().toString();
                 if (insertData()) {
                     Toast.makeText(RegisterActivity.this,"Register Sccuessfully",Toast.LENGTH_LONG).show();
-                    Intent intent1=new Intent(RegisterActivity.this,SignInActivity.class);
+                    Intent intent1 = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent1);
                 } else {
                     Intent intent2=new Intent(RegisterActivity.this,RegisterActivity.class);
@@ -68,13 +68,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         if (pwdCorrect() && checkValid()) {
 
-            MainActivity.accounts.put(userEmail , password);
-            Log.e("pass：",MainActivity.accounts.get(userEmail));
+//            MainActivity.accounts.put(userEmail , password);
+//            Log.e("pass：",MainActivity.accounts.get(userEmail));
 
             Thread one = new Thread() {
                 public void run() {
                     try {
                         CSC client = new CSC();
+                        SaveSharedPreference.setUserName(RegisterActivity.this,userEmail);
                         String id = client.createUser(userEmail,password);
                         SaveSharedPreference.setUserID(RegisterActivity.this,id);
                         Log.e("return:", id);

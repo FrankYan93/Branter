@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity
     public static List<GridTest> listgrid = new ArrayList<>();
     private ListViewAdapter listViewAdapter;
     private ListView listView;
+    private String userID;
+    private String userEmail;
     private String imgs1;
     private  String imgs3;
     private  String imgs2;
@@ -45,8 +47,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         new CSCTest().execute("");
-        userName = SaveSharedPreference.getUserID(MainActivity.this);
-        if(userName == null || userName.length() == 0)
+        userID = SaveSharedPreference.getUserID(MainActivity.this);
+        userEmail = SaveSharedPreference.getUserName(MainActivity.this);
+        if(userID == null || userID.length() == 0)
         {
             super.onCreate(savedInstanceState);
             Intent signin = new Intent(MainActivity.this, SignInActivity.class);
@@ -143,7 +146,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
 
         TextView username = (TextView) findViewById(R.id.usernameM);
-        username.setText(userName);
+        username.setText(userEmail);
 
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
