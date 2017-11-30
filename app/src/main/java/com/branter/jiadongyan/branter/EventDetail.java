@@ -7,12 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.Gallery;
-import android.widget.ImageView;
+import android.widget.*;
 import android.widget.ImageView.ScaleType;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -31,6 +27,9 @@ public class EventDetail extends AppCompatActivity {
     private  String imgs2;
     private String imgs4;
     private String eventId;
+    private String title;
+    private String content;
+    private String time;
     private Button join;
     ArrayList<String> arrayList = new ArrayList<>();
 
@@ -58,6 +57,8 @@ public class EventDetail extends AppCompatActivity {
         Bundle extras = data.getExtras();
 
         eventId = extras.getString("id");
+
+
         SaveSharedPreference.setEventID(this,eventId);
         System.out.println(SaveSharedPreference.getEventID(this));
         System.out.println("debuggggggggg");
@@ -132,6 +133,17 @@ public class EventDetail extends AppCompatActivity {
 
         listViewAdapter = new ListViewAdapter(this,listgrid);
         listView.setAdapter(listViewAdapter);
+
+        title = extras.getString("title");
+        time = extras.getString("time");
+        content = extras.getString("content");
+
+        TextView eTitle = (TextView) findViewById(R.id.EventDetail_EventLable);
+        TextView eTime = (TextView) findViewById(R.id.EventDetail_TimeLable);
+        TextView eContent = (TextView) findViewById(R.id.EventDetail_HostLable);
+        eTitle.setText(title);
+        eTime.setText(time);
+        eContent.setText(content);
     }
 
     public void startActivityForResult(Intent intent, int requestCode) {
