@@ -1,10 +1,17 @@
 package com.branter.jiadongyan.branter;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+<<<<<<< HEAD
 import android.util.Log;
+=======
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
+>>>>>>> 4454b2141d44471a01c0bcc43d7968c2015f577e
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,7 +32,8 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        SearchView.OnQueryTextListener{
 
     public static Hashtable<String,String> accounts = new Hashtable<>();
     public static List<GridTest> listgrid = new ArrayList<>();
@@ -114,12 +122,34 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onQueryTextSubmit(String query){
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText){
+        //Toast.makeText(super.getApplicationContext(),"TextChange!", Toast.LENGTH_LONG).show();
+        listViewAdapter.getFilter().filter(newText);
+
+        return true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
         TextView username = (TextView) findViewById(R.id.usernameM);
         username.setText(userName);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(this);
 
         return true;
     }
@@ -133,6 +163,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.map) {
+            startActivity(new Intent("com.branter.jiadongyan.branter.MapsViewActivity"));
             return true;
         }
 
@@ -146,6 +177,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_account) {
+            startActivity(new Intent("com.branter.jiadongyan.branter.MyAccountActivity"));
             // TODO: start account info activity
         } else if (id == R.id.nav_host) {
             // TODO: start host events info activity

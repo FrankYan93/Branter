@@ -22,6 +22,15 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="58dp">
     </ListView>
+
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="116dp"
+        android:layout_marginStart="116dp" />
     <!--  android:dividerHeight="0.5dp"listview item之间的高度-->
     <!-- android:divider="#70CDCDCD" listview item之间的背景或者说是颜色-->
     <!-- android:fadingEdge="vertical" 上边和下边有黑色的阴影值为none的话就没有阴影-->
