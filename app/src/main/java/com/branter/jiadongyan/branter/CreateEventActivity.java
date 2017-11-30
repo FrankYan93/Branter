@@ -2,6 +2,7 @@ package com.branter.jiadongyan.branter;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -27,6 +28,11 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -45,6 +51,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     final int start_DATE_DIALOG = 1;
     final int end_DATE_DIALOG = 2;
     private final int IMAGE_OPEN = 1;
+    final int PLACE_PICKER_REQUEST = 1;
     private String pathImage;
     private Bitmap bmp;
     private ArrayList<HashMap<String, Object>> imageItem;
@@ -86,6 +93,31 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
         gridView1 = (GridView) findViewById(R.id.gridView1);
         getSupportActionBar().setTitle("New Event");
+
+        Button chooselocation = (Button)findViewById(R.id.choose_location);
+        chooselocation.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                int status;
+                status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(CreateEventActivity.this.getParent());
+                if (status != ConnectionResult.SUCCESS) {
+                    if (GooglePlayServicesUtil.isUserRecoverableError(status)) {
+                        GooglePlayServicesUtil.getErrorDialog(status, CreateEventActivity.this.getParent(),
+                                100).show();
+                    }
+                }
+                if (status == ConnectionResult.SUCCESS) {
+                    PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                    try {
+                        startActivityForResult(builder.build(CreateEventActivity.this.getParent()), PLACE_PICKER_REQUEST);
+                    } catch (com.google.android.gms.common.GooglePlayServicesRepairableException e) {
+                        e.printStackTrace();
+                    } catch (com.google.android.gms.common.GooglePlayServicesNotAvailableException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
 
 
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.gridview_addpic);
@@ -241,6 +273,13 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(data, this);
+                String toastMsg = String.format("Place: %s", place.getName());
+                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+            }
+        }
 
         if(resultCode==RESULT_OK && requestCode==IMAGE_OPEN) {
             Uri uri = data.getData();
@@ -317,5 +356,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         });
         builder.create().show();
     }
+
+
 
 }
