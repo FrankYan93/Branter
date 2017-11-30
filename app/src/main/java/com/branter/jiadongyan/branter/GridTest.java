@@ -14,7 +14,7 @@ public class GridTest implements Serializable {
     private String time;
     private String image;
 
-
+    private String id;
 
     public String getEventTitle() {
         return eventTitle;
@@ -55,4 +55,9 @@ public class GridTest implements Serializable {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public void setId (String id) {this.id = id; }
+
+    public String getId () {return this.id; }
+
 }
