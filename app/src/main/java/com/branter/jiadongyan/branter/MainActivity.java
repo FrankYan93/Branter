@@ -85,6 +85,11 @@ public class MainActivity extends AppCompatActivity
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent=new Intent(MainActivity.this,EventDetail.class);
+                    GridTest event = listgrid.get(position);
+                    intent.putExtra("title", event.getEventTitle());
+                    intent.putExtra("time", event.getTime());
+                    startActivity(intent);
                     Toast.makeText(MainActivity.this, "clicked on" + (position + 1) + "item", Toast.LENGTH_LONG).show();
                 }
             });
