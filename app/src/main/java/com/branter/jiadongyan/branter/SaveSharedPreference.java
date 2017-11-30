@@ -10,9 +10,8 @@ import android.preference.PreferenceManager;
 
 public class SaveSharedPreference {
     static final String PREF_USER_NAME= "username";
-    static final String PREF_USER_ID = "1";
-    static final String PREF_EVENT_ID = "1";
-    static CSC data_client = new CSC();
+    static final String PREF_USER_ID = "userid";
+    static final String PREF_EVENT_ID = "eventid";
 
     static SharedPreferences getSharedPreferences(Context ctx) {
         return PreferenceManager.getDefaultSharedPreferences(ctx);

@@ -45,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 password = pwd.getText().toString();
                 if (insertData()) {
                     Toast.makeText(RegisterActivity.this,"Register Sccuessfully",Toast.LENGTH_LONG).show();
+                    Log.e("register user id", SaveSharedPreference.getUserID(this));
                     Intent intent1 = new Intent(RegisterActivity.this, MainActivity.class);
                     startActivity(intent1);
                 } else {

@@ -128,7 +128,7 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                             System.out.println(content);
                             String event_id = SaveSharedPreference.getEventID(PostActivity.this);
                             System.out.println(event_id);
-                            client.createPost(event_id,content);
+                            client.createPost(event_id,content, PostActivity.this);
                         } catch(Exception e) {
                         }
                     }

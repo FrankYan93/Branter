@@ -45,6 +45,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     Toast.makeText(SignInActivity.this,"Signin Success",Toast.LENGTH_LONG).show();
                     Intent intent1=new Intent(SignInActivity.this,MainActivity.class);
                     SaveSharedPreference.setUserName(this,userName.getText().toString());
+                    Log.e("sign in user id", SaveSharedPreference.getUserID(this));
                     startActivity(intent1);
                 }
                 else {
