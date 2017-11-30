@@ -62,7 +62,6 @@ public class CSC {
             System.out.println(content);
             return content.substring(1,content.length()-1).split(",")[0].split(":")[1];
         }catch (Exception e){
-            System.out.println(e);
             e.printStackTrace();
         }
         System.out.println("created a user");
@@ -103,7 +102,6 @@ public class CSC {
             System.out.println();
             con.disconnect();
         }catch (Exception e){
-            System.out.println(e);
             e.printStackTrace();
         }
         System.out.println("got a user");
@@ -136,7 +134,6 @@ public class CSC {
                 return strs[1].split(",")[0].split(":")[2];
             }
         }catch (Exception e){
-            System.out.println(e);
             e.printStackTrace();
         }
         System.out.println("login a user");
@@ -180,7 +177,6 @@ public class CSC {
             in.close();
             System.out.println(content);
         }catch (Exception e){
-            System.out.println(e);
             e.printStackTrace();
         }
         System.out.println("update a user");
