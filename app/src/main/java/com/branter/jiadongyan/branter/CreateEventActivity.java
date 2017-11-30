@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -32,6 +33,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -50,7 +52,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     final int start_DATE_DIALOG = 1;
     final int end_DATE_DIALOG = 2;
     private final int IMAGE_OPEN = 1;
-    final int PLACE_PICKER_REQUEST = 1;
+    final int PLACE_PICKER_REQUEST = 10;
     private String pathImage;
     private Bitmap bmp;
     private ArrayList<HashMap<String, Object>> imageItem;
@@ -98,17 +100,19 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(View v){
                 int status;
-                status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(CreateEventActivity.this.getParent());
+                status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(CreateEventActivity.this);
                 if (status != ConnectionResult.SUCCESS) {
                     if (GooglePlayServicesUtil.isUserRecoverableError(status)) {
-                        GooglePlayServicesUtil.getErrorDialog(status, CreateEventActivity.this.getParent(),
+                        GooglePlayServicesUtil.getErrorDialog(status, CreateEventActivity.this,
                                 100).show();
                     }
                 }
                 if (status == ConnectionResult.SUCCESS) {
                     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
                     try {
-                        startActivityForResult(builder.build(CreateEventActivity.this.getParent()), PLACE_PICKER_REQUEST);
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                        startActivityForResult(builder.build(CreateEventActivity.this), PLACE_PICKER_REQUEST);
                     } catch (com.google.android.gms.common.GooglePlayServicesRepairableException e) {
                         e.printStackTrace();
                     } catch (com.google.android.gms.common.GooglePlayServicesNotAvailableException e) {
@@ -275,6 +279,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);
+                LatLng pos =  place.getLatLng();
                 String toastMsg = String.format("Place: %s", place.getName());
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
             }
