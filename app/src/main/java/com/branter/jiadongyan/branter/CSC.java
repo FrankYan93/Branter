@@ -371,8 +371,62 @@ public class CSC {
 //        String url = "http://10.0.2.2:3000/events/"+id+"/followers";
         String method = "GET";
         String content = request(url,method, new String[] {}, new String[] {});
+        User[] users = null;
+        try{
+            JSONArray jo = new JSONArray(content);
+            int size = jo.length();
+            users = new User[size];
+            for (int i=0;i<size;i++){
+                users[i] = new User();
+                JSONObject o = (JSONObject) jo.get(i);
+                users[i].id = o.getString("id");
+                users[i].email = o.getString("email");
+                users[i].birthday = o.getString("birthday");
+                users[i].gender = o.getString("gender").equals("true");
+                users[i].username = o.getString("name");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return users;
+    }
 
-        return null;
+    public Event[] joinedEvents(){
+        Event[] eve = null;
+        String id = SaveSharedPreference.PREF_USER_ID;
+        String url = "https://branterapi.herokuapp.com/users/"+id+"/joined_event";
+        String method = "GET";
+        String content = request(url,method, new String[] {}, new String[] {});
+        try{
+            JSONArray jo = new JSONArray(content);
+            int size=jo.length();
+            eve = new Event[size];
+            for (int i=0;i<size;i++) {
+                JSONObject x = (JSONObject) jo.get(i);
+                System.out.println(x);
+                double lat, lng;
+                try {
+                    lat = x.getDouble("lat");
+                    lng = x.getDouble("lng");
+                } catch (Exception e) {
+                    lat = 0;
+                    lng = 0;
+                }
+                eve[i] = new Event(
+                        x.getString("id"),
+                        x.getString("title"),
+                        x.getString("from"),
+                        x.getString("to"),
+                        x.getString("contents"),
+                        null,
+                        lat,
+                        lng
+                );
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return eve;
     }
 
     // Create new post
@@ -406,6 +460,54 @@ public class CSC {
             System.out.println(e);
             e.printStackTrace();
         }
+    }
+
+    public Post[] getEventPosts(String event_id){
+        Post[] posts = null;
+        String url = "https://branterapi.herokuapp.com/events/"+event_id+"/posts";
+        String method = "GET";
+        String content = request(url,method, new String[] {}, new String[] {});
+        try{
+            JSONArray jo = new JSONArray(content);
+            int size = jo.length();
+            posts = new Post[size];
+            for (int i=0;i<size;i++){
+                JSONObject o = (JSONObject) jo.get(i);
+                posts[i] = new Post(
+                        o.getString("id"),
+                        o.getString("user_id"),
+                        o.getString("event_id"),
+                        o.getString("content")
+                );
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return posts;
+    }
+
+    public Post[] getUserPost(String id){
+        Post[] posts = null;
+        String url = "https://branterapi.herokuapp.com/users/"+id+"/posts";
+        String method = "GET";
+        String content = request(url,method, new String[] {}, new String[] {});
+        try{
+            JSONArray jo = new JSONArray(content);
+            int size = jo.length();
+            posts = new Post[size];
+            for (int i=0;i<size;i++){
+                JSONObject o = (JSONObject) jo.get(i);
+                posts[i] = new Post(
+                        o.getString("id"),
+                        o.getString("user_id"),
+                        o.getString("event_id"),
+                        o.getString("content")
+                );
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return posts;
     }
 
     public String request(String s, String method, String[] params, String[] args){

@@ -50,6 +50,8 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.post_activity);
 
+
+
         gridView1 = (GridView) findViewById(R.id.f_gridView1);
 
 
