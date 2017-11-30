@@ -1,5 +1,7 @@
 package com.branter.jiadongyan.branter;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -16,12 +18,15 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener {
@@ -29,11 +34,39 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private GridView gridView1;              //网格显示缩略图
     private Button buttonPublish;            //发布按钮
     private Button buttonCancel;
+    private Button startbtn, endbtn;
+    private TextView startDate,endDate;
+    private int startYear,startMonth,startDay, endYear,endMonth,endDay;
+    final int start_DATE_DIALOG = 1;
+    final int end_DATE_DIALOG = 2;
     private final int IMAGE_OPEN = 1;        //打开图片标记
     private String pathImage;                //选择图片路径
     private Bitmap bmp;                      //导入临时图片
     private ArrayList<HashMap<String, Object>> imageItem;
     private SimpleAdapter simpleAdapter;     //适配器
+    private DatePickerDialog.OnDateSetListener startdateListener = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            startYear = year;
+            startMonth = monthOfYear;
+            startDay = dayOfMonth;
+            display(startDate, startYear,startMonth,startDay);
+        }
+    };
+
+    private DatePickerDialog.OnDateSetListener enddateListener = new DatePickerDialog.OnDateSetListener() {
+
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            endYear = year;
+            endMonth = monthOfYear;
+            endDay = dayOfMonth;
+            display(endDate, endYear,endMonth, endDay);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +157,25 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         buttonCancel.setTag(2);
         buttonCancel.setOnClickListener(CreateEventActivity.this);
 
+        startbtn = (Button) findViewById(R.id.startDateChoose);
+        startDate = (TextView) findViewById(R.id.startDate);
+        startbtn.setTag(3);
+        startbtn.setOnClickListener(CreateEventActivity.this);
+
+        final Calendar ca = Calendar.getInstance();
+        startYear = ca.get(Calendar.YEAR);
+        startMonth = ca.get(Calendar.MONTH);
+        startDay = ca.get(Calendar.DAY_OF_MONTH);
+
+        endbtn = (Button) findViewById(R.id.endDateChoose);
+        endDate = (TextView) findViewById(R.id.endDate);
+        endbtn.setTag(4);
+        endbtn.setOnClickListener(CreateEventActivity.this);
+
+        endYear = ca.get(Calendar.YEAR);
+        endMonth = ca.get(Calendar.MONTH);
+        endDay = ca.get(Calendar.DAY_OF_MONTH);
+
     }
 
     @Override
@@ -141,9 +193,37 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             case 2:
                 startActivity(intent);
                 break;
+
+            case 3:
+                showDialog(start_DATE_DIALOG);
+                break;
+
+            case 4:
+                showDialog(end_DATE_DIALOG);
+                break;
         }
 
     }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case start_DATE_DIALOG:
+                return new DatePickerDialog(this, startdateListener, startYear, startMonth, startDay);
+            case end_DATE_DIALOG:
+                return new DatePickerDialog(this, enddateListener, endYear, endMonth, endDay);
+
+        }
+        return null;
+    }
+
+    /**
+     * 设置日期 利用StringBuffer追加
+     */
+    public void display(TextView v, int month, int day, int year) {
+        v.setText(new StringBuffer().append(month + 1).append("-").append(day).append("-").append(year).append(" "));
+    }
+
 
     //获取图片路径 响应startActivityForResult
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -209,9 +289,9 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
      */
     protected void dialog(final int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity .this);
-        builder.setMessage("确认移除已添加图片吗？");
-        builder.setTitle("提示");
-        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+        builder.setMessage("Are you sure to remove this picture");
+        builder.setTitle("Waring");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -219,7 +299,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 simpleAdapter.notifyDataSetChanged();
             }
         });
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

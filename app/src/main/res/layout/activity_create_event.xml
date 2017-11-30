@@ -11,7 +11,7 @@
         android:id="@+id/Layout_top"
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:layout_marginTop="5dp"
         android:layout_alignParentTop="true"
         android:gravity="center">
@@ -57,22 +57,85 @@
             android:orientation="vertical"
             android:layout_alignParentBottom="true" >
             <!-- 设置运行多行 设置圆角图形 黑色字体-->
+
             <EditText
-                android:id="@+id/editText1"
-                android:layout_height="120dp"
+                android:id="@+id/eventTitle"
+                android:layout_height="50dp"
                 android:layout_width="fill_parent"
                 android:textColor="#000000"
                 android:layout_margin="12dp"
                 android:textSize="20sp"
-                android:hint="随手说出你此刻的心声..."
-                android:maxLength="500"
+                android:hint="Title"
+                android:maxLength="20"
                 android:singleLine="false"
                 android:background="@drawable/editview_shape" />
+
+            <EditText
+                android:id="@+id/eventContent"
+                android:layout_height="78dp"
+                android:layout_width="fill_parent"
+                android:textColor="#000000"
+                android:layout_margin="12dp"
+                android:textSize="20sp"
+                android:hint="Description of your event"
+                android:maxLength="100"
+                android:singleLine="false"
+                android:background="@drawable/editview_shape" />
+
+            <RelativeLayout
+                android:id="@+id/startTime"
+                android:layout_alignParentBottom="true"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:gravity="center" >
+                <TextView
+                    android:id="@+id/startDate"
+                    android:layout_height="50dp"
+                    android:layout_width="150dp"
+                    android:textColor="#000000"
+                    android:layout_margin="12dp"
+                    android:textSize="20sp"
+                    android:text="Start Date"
+                    android:background="@drawable/editview_shape" />
+                <Button
+                    android:id="@+id/startDateChoose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_toRightOf="@+id/startDate"
+                    android:textSize="20sp"
+                    android:text="Pick up Date" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/endTime"
+                android:layout_alignParentBottom="true"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:gravity="center" >
+                <TextView
+                    android:id="@+id/endDate"
+                    android:layout_height="50dp"
+                    android:layout_width="150dp"
+                    android:textColor="#000000"
+                    android:layout_margin="12dp"
+                    android:textSize="20sp"
+                    android:text="End date"
+                    android:background="@drawable/editview_shape" />
+                <Button
+                    android:id="@+id/endDateChoose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_toRightOf="@+id/endDate"
+                    android:textSize="20sp"
+                    android:text="Pick up Date" />
+            </RelativeLayout>
+
             <!-- 网格显示图片 行列间距5dp 每列宽度90dp -->
             <GridView
                 android:id="@+id/gridView1"
                 android:layout_width="fill_parent"
-                android:layout_height="200dp"
+                android:layout_height="100dp"
                 android:layout_margin="10dp"
                 android:background="#EFDFDF"
                 android:horizontalSpacing="5dp"
@@ -85,7 +148,7 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="(友情提示:只能添加9张图片,长按图片可以删除已添加图片)"
+                android:text="Upload at most 3 pics and click for delete"
                 android:gravity="center" />
         </LinearLayout>
     </RelativeLayout>
