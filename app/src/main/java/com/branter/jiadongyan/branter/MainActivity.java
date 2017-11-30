@@ -6,12 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-<<<<<<< HEAD
 import android.util.Log;
-=======
 import android.support.v7.widget.SearchView;
-import android.text.TextUtils;
->>>>>>> 4454b2141d44471a01c0bcc43d7968c2015f577e
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
