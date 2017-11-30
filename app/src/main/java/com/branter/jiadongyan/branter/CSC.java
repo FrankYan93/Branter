@@ -462,6 +462,30 @@ public class CSC {
         }
     }
 
+    public Post[] getEventPosts(String event_id){
+        Post[] posts = null;
+        String url = "https://branterapi.herokuapp.com/events/"+event_id+"/posts";
+        String method = "GET";
+        String content = request(url,method, new String[] {}, new String[] {});
+        try{
+            JSONArray jo = new JSONArray(content);
+            int size = jo.length();
+            posts = new Post[size];
+            for (int i=0;i<size;i++){
+                JSONObject o = (JSONObject) jo.get(i);
+                posts[i] = new Post(
+                        o.getString("id"),
+                        o.getString("user_id"),
+                        o.getString("event_id"),
+                        o.getString("content")
+                );
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return posts;
+    }
+
     public String request(String s, String method, String[] params, String[] args){
         try{
 //            url = new URL("http://10.0.2.2:3000/users");
