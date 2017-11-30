@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.Manifest;
 import android.widget.Toast;
 
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -93,6 +94,11 @@ public class MapsViewActivity extends FragmentActivity implements GoogleMap.OnIn
         //mMap.setMyLocationEnabled(true);
 
         mMap.setOnInfoWindowClickListener(this);
+
+        //zy!!!!!
+
+
+
     }
 
 

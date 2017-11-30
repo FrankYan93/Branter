@@ -27,7 +27,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
-
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     private  String imgs3;
     private  String imgs2;
     private String imgs4;
+    final int PLACE_PICKER_REQUEST = 1;
 
     private String userName;
     @Override
@@ -87,6 +89,13 @@ public class MainActivity extends AppCompatActivity
             init();
             listgrid = new ArrayList<>();
             if (listgrid.isEmpty()) initData();
+
+
+            //zy!!!!!
+
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+           // Context context = getApplicationContext();
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
 
 
             // get all events
@@ -144,6 +153,17 @@ public class MainActivity extends AppCompatActivity
                     startActivity(addEvent);
                 }
             });
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place
+                Place place = PlacePicker.getPlace(data, this);
+                String toastMsg = String.format("Place: %s", place.getName());
+                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -311,4 +331,8 @@ class CSCTest extends AsyncTask<String, Void, Void> {
         return null;
 
     }
+
+
+
+
 }
