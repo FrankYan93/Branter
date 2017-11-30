@@ -84,7 +84,39 @@ public class MainActivity extends AppCompatActivity
             navigationView.setNavigationItemSelectedListener(this);
 
             init();
+            listgrid = new ArrayList<>();
             if (listgrid.isEmpty()) initData();
+
+
+            // get all events
+            Thread one = new Thread() {
+                public void run() {
+                    try {
+                        CSC client = new CSC();
+                         Event[] allEvents = client.getAllEvents();
+                         for (int i = 0; i < allEvents.length; i++) {
+                             GridTest single = new GridTest();
+                             Event singleEvent = allEvents[i];
+                             single.setEventTitle(singleEvent.title);
+                             single.setContent(singleEvent.contents);
+                             single.setTime("From " + singleEvent.from.split("T")[0] + " to " + singleEvent.to.split("T")[0]);
+                             single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
+                             single.setImage(singleEvent.imageUrl);
+
+                             listgrid.add(single);
+                         }
+                    } catch(Exception v) {
+                    }
+                }
+            };
+
+            one.start();
+            try {
+                one.join();
+            } catch (InterruptedException e) {
+
+            }
+
             listViewAdapter = new ListViewAdapter(this,listgrid);
             listView.setAdapter(listViewAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -266,8 +298,15 @@ class CSCTest extends AsyncTask<String, Void, Void> {
 //        System.out.println(csc.getUserInformation("4").birthday);
 //        csc.updateAccount("yo","true","11-12-2017");
 //        System.out.println(csc.signIn("xxx@xxx","pass"));
+//        csc.createPost("1","hello world!!!!");
+//        csc.createEvent(new String[] {"title"},new String[] {"mysterious event"});
+
 //        csc.createEvent(new String[] {"title"},new String[] {"mysterious event1"});
-        System.out.println(csc.getAllEvents());
+
+        // System.out.println(csc.getEventsByUserId("1"));
+//        System.out.println(csc.getAllEvents());
+        // csc.followEvent("2");
+
         return null;
 
     }

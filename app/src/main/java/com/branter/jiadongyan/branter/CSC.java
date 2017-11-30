@@ -1,14 +1,5 @@
 package com.branter.jiadongyan.branter;
 
-import android.app.Activity;
-import android.app.Application;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -286,6 +277,171 @@ public class CSC {
             in.close();
             return eve;
 
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Event[] getEventsByUserId(String id){
+        try{
+            url = new URL("https://branterapi.herokuapp.com/users/"+id+"/events");
+            // url = new URL("https://branterapi.herokuapp.com/users");
+        }catch (MalformedURLException e){
+            System.err.println("wrong url");
+        }
+        try {
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            JSONArray jo = new JSONArray(content.toString());
+            int size=jo.length();
+            Event[] eve = new Event[size];
+            for (int i=0;i<size;i++){
+                JSONObject x = new JSONObject((String) jo.get(i));
+                System.out.println(x);
+                double lat, lng;
+                try{
+                    lat = x.getDouble("lat");
+                    lng = x.getDouble("lng");
+                }catch (Exception e){
+                    lat = 0;
+                    lng = 0;
+                }
+                eve[i] = new Event(
+                        x.getString("id"),
+                        x.getString("title"),
+                        x.getString("from"),
+                        x.getString("to"),
+                        x.getString("contents"),
+                        null,
+                        lat,
+                        lng
+                );
+            }
+            in.close();
+            return eve;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void followEvent(String event_id) {
+        String id = SaveSharedPreference.PREF_USER_ID;
+        try{
+            url = new URL("https://branterapi.herokuapp.com/event_followers");
+        }catch (MalformedURLException e){
+            System.err.println("wrong url");
+        }
+        try{
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            Map<String, String> parameters = new HashMap<>();
+
+            parameters.put("user_id", id);
+            parameters.put("event_id", event_id);
+
+            con.setDoOutput(true);
+
+            DataOutputStream out = new DataOutputStream(con.getOutputStream());
+
+            out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
+            int status = con.getResponseCode();
+            System.out.println(status);
+            out.flush();
+            out.close();
+
+        }catch (Exception e){
+            System.out.println(e);
+            e.printStackTrace();
+        }
+    }
+
+    public User[] eventFollowers(String id){
+        String url = "https://branterapi.herokuapp.com/events/"+id+"/followers";
+//        String url = "http://10.0.2.2:3000/events/"+id+"/followers";
+        String method = "GET";
+        String content = request(url,method, new String[] {}, new String[] {});
+
+        return null;
+    }
+
+    // Create new post
+    public void createPost(String event_id, String content) {
+        String id = SaveSharedPreference.PREF_USER_ID;
+        try{
+            url = new URL("https://branterapi.herokuapp.com/posts");
+        }catch (MalformedURLException e){
+            System.err.println("wrong url");
+        }
+        try{
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            Map<String, String> parameters = new HashMap<>();
+
+            parameters.put("user_id", id);
+            parameters.put("event_id", event_id);
+            parameters.put("content", content);
+
+            con.setDoOutput(true);
+
+            DataOutputStream out = new DataOutputStream(con.getOutputStream());
+
+            out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
+            int status = con.getResponseCode();
+            System.out.println(status);
+            out.flush();
+            out.close();
+
+        }catch (Exception e){
+            System.out.println(e);
+            e.printStackTrace();
+        }
+    }
+
+    public String request(String s, String method, String[] params, String[] args){
+        try{
+//            url = new URL("http://10.0.2.2:3000/users");
+            url = new URL(s);
+        }catch (MalformedURLException e){
+            System.err.println("wrong url");
+        }
+        try{
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod(method);
+            Map<String, String> parameters = new HashMap<>();
+            for (int i = 0; i<args.length; i++){
+                parameters.put(params[i], args[i]);
+            }
+            if (parameters.size()>0) {
+                con.setDoOutput(true);
+                DataOutputStream out = new DataOutputStream(con.getOutputStream());
+                out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
+                int status = con.getResponseCode();
+                System.out.println(status);
+                out.flush();
+                out.close();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            in.close();
+            System.out.println(content);
+            return content.toString();
         }catch (Exception e){
             e.printStackTrace();
         }

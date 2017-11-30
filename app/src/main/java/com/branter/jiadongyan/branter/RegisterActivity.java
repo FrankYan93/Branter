@@ -85,6 +85,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             };
 
             one.start();
+            try {
+                one.join();
+            } catch (InterruptedException e) {
+
+            }
             return true;
         }
 

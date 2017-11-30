@@ -42,6 +42,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             case 1:
                 idCorrect();
                 if (!SaveSharedPreference.getUserID(SignInActivity.this).equals("id")){
+                    Toast.makeText(SignInActivity.this,"Signin Success",Toast.LENGTH_LONG).show();
                     Intent intent1=new Intent(SignInActivity.this,MainActivity.class);
                     SaveSharedPreference.setUserName(this,userName.getText().toString());
                     startActivity(intent1);
@@ -77,6 +78,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
         };
         one.start();
+        try {
+            one.join();
+        } catch (InterruptedException v) {
+
+        }
         //(Params: username, password) (Return: true or error message)
 //        Log.e("size:", Integer.toString(MainActivity.accounts.size()));
 //        Log.e("pass:", MainActivity.accounts.get(userName.getText().toString()));
