@@ -118,7 +118,7 @@ public class CSC {
     }
 
     // Sign in account(email, password), return empty string for successful sign in or error message
-    public boolean signIn(String email, String password) {
+    public String signIn(String email, String password) {
         try{
 //            url = new URL("http://10.0.2.2:3000/login?email="+email+"&password="+password);
             url = new URL("https://branterapi.herokuapp.com/login?email="+email+"&password="+password);
@@ -138,15 +138,16 @@ public class CSC {
             }
             in.close();
             System.out.println(content);
-            if (content.substring(1,content.length()-1).split(",")[0].equals("\"success_flag\":true")){
-                return true;
+            String[] strs = content.substring(1,content.length()-1).split(",");
+            if (strs[0].equals("\"success_flag\":true")){
+                return strs[1].split(",")[0].split(":")[2];
             }
         }catch (Exception e){
             System.out.println(e);
             e.printStackTrace();
         }
         System.out.println("login a user");
-        return false;
+        return "";
     }
 
     // Update my account (username, gender, etc)
@@ -192,13 +193,53 @@ public class CSC {
         System.out.println("update a user");
     }
 
-    // Create event (email, event params)
-    public void createEvent(String email, String[] args){
+    // Create event (event params, event params' content), params can be title,from(datetime),to(datetime), lat(double), lng(double)
+    public void createEvent(String[] eventParam, String[] args){
+        String id = SaveSharedPreference.PREF_USER_ID;
+        try{
+//            url = new URL("http://10.0.2.2:3000/users");
+            url = new URL("https://branterapi.herokuapp.com/users/"+id+"/events");
+        }catch (MalformedURLException e){
+            System.err.println("wrong url");
+        }
+        try{
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            Map<String, String> parameters = new HashMap<>();
+            for (int i = 0; i<args.length; i++){
+                parameters.put(eventParam[i], args[i]);
+            }
+
+            con.setDoOutput(true);
+
+            DataOutputStream out = new DataOutputStream(con.getOutputStream());
+
+            out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
+            int status = con.getResponseCode();
+            System.out.println(status);
+            out.flush();
+            out.close();
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            in.close();
+            System.out.println(content);
+        }catch (Exception e){
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        System.out.println("created a user");
 
     }
 
     // Get all event
     public Event[] getAllEvents(){
+
         return null;
     }
 
