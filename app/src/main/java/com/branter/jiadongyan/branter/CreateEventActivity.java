@@ -174,13 +174,32 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 Log.e("I am in create event", "LOL");
 //                Event newEvent = new Event("","","");
                 //TODO: create new event to data servive
-                GridTest newGridTest = new GridTest();
-                newGridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
-                newGridTest.setContent(eventContent.getText().toString());
-                newGridTest.setTime("From " + startDate.getText().toString() + " to " + endDate.getText().toString());
-                newGridTest.setImage(pathImage);
-                newGridTest.setEventTitle(eventTitle.getText().toString());
-                MainActivity.listgrid.add(newGridTest);
+//                GridTest newGridTest = new GridTest();
+//                newGridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
+//                newGridTest.setContent(eventContent.getText().toString());
+//                newGridTest.setTime("From " + startDate.getText().toString() + " to " + endDate.getText().toString());
+//                newGridTest.setImage(pathImage);
+//                newGridTest.setEventTitle(eventTitle.getText().toString());
+//                MainActivity.listgrid.add(newGridTest);
+
+                final String[] att = new String[] {"title", "contents","from","to","lat","lng","imageURL"};
+                final String[] value = new String[] {eventTitle.getText().toString(),eventContent.getText().toString(),
+                        startDate.getText().toString(), endDate.getText().toString(), "0","0",""};
+                Thread one = new Thread() {
+                    public void run() {
+                        try {
+                            CSC client = new CSC();
+                            client.createEvent(att,value);
+                        } catch(Exception v) {
+                        }
+                    }
+                };
+                one.start();
+                try {
+                    one.join();
+                } catch (InterruptedException e) {
+
+                }
 
                 startActivity(intent);
                 break;
