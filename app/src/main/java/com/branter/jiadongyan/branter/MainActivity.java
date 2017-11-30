@@ -258,8 +258,9 @@ class CSCTest extends AsyncTask<String, Void, Void> {
     @Override
     protected Void doInBackground(String... strings) {
         CSC csc = new CSC();
-//        csc.createUser("xxx@xxx","pass");
-        System.out.println(csc.getUserInformation("4").birthday);
+        System.out.println("id:~~~~~~~~~~~~~~~");
+        System.out.println(csc.createUser("xxx@xxxss","pass"));
+//        System.out.println(csc.getUserInformation("4").birthday);
 //        csc.updateAccount("yo","true","11-12-2017");
         return null;
     }

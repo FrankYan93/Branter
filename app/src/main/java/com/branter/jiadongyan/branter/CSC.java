@@ -33,7 +33,7 @@ public class CSC {
     CSC(){
     }
     // Create user account (email, password)
-    public void createUser(String email, String password) {
+    public String createUser(String email, String password) {
         try{
 //            url = new URL("http://10.0.2.2:3000/users");
              url = new URL("https://branterapi.herokuapp.com/users");
@@ -67,11 +67,13 @@ public class CSC {
             }
             in.close();
             System.out.println(content);
+            return content.substring(1,content.length()-1).split(",")[0].split(":")[1];
         }catch (Exception e){
             System.out.println(e);
             e.printStackTrace();
         }
         System.out.println("created a user");
+        return "";
     }
 
     // GetUserInformation
