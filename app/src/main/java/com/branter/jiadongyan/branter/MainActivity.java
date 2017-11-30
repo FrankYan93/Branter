@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity
                     GridTest event = listgrid.get(position);
                     intent.putExtra("title", event.getEventTitle());
                     intent.putExtra("time", event.getTime());
+                    intent.putExtra("id",event.getId());
                     startActivity(intent);
                     Toast.makeText(MainActivity.this, "clicked on" + (position + 1) + "item", Toast.LENGTH_LONG).show();
                 }

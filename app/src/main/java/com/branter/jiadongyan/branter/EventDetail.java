@@ -55,6 +55,15 @@ public class EventDetail extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);;
+
+
+        Intent data = getIntent();
+        Bundle extras = data.getExtras();
+
+        eventId = extras.getString("id");
+        SaveSharedPreference.setEventID(this,eventId);
+        System.out.println(SaveSharedPreference.getEventID(this));
+
         listgrid = new ArrayList<GridTest>();
         init();
 //        initData();
@@ -64,6 +73,7 @@ public class EventDetail extends AppCompatActivity {
             public void run() {
                 try {
                     CSC client = new CSC();
+                    Log.e("Event id",eventId);
                     Post[] allPosts = client.getEventPosts(eventId);
                     Log.e("Event id",eventId);
                     Log.e("post info", allPosts.toString());
@@ -109,12 +119,6 @@ public class EventDetail extends AppCompatActivity {
         });
 
 
-        Intent data = getIntent();
-        Bundle extras = data.getExtras();
-
-        eventId = extras.getString("id");
-        SaveSharedPreference.setEventID(this,eventId);
-        System.out.println(SaveSharedPreference.getEventID(this));
         //listView = (ListView) findViewById(R.id.f_listview);
         //listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getData()));
 
