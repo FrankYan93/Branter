@@ -30,6 +30,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Random;
 
 public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -173,7 +174,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             case 1:
                 Log.e("I am in create event", "LOL");
 //                Event newEvent = new Event("","","");
-                //TODO: create new event to data servive
 //                GridTest newGridTest = new GridTest();
 //                newGridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
 //                newGridTest.setContent(eventContent.getText().toString());
