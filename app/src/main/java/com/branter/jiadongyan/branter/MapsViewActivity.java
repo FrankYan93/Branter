@@ -17,7 +17,14 @@ import android.view.View;
 import android.widget.Button;
 import android.Manifest;
 import android.widget.Toast;
+import android.app.Activity;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -93,7 +100,11 @@ public class MapsViewActivity extends FragmentActivity implements GoogleMap.OnIn
         //mMap.setMyLocationEnabled(true);
 
         mMap.setOnInfoWindowClickListener(this);
+
+
     }
+
+
 
 
 //    @Override
