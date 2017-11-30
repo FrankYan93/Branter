@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MyAccountActivity extends AppCompatActivity {
     private String usernamestr;
@@ -65,7 +66,9 @@ public class MyAccountActivity extends AppCompatActivity {
 
         username.setText("Username: "+usernamestr);
         gender.setText("Gender: "+genderstr);
-        birthday.setText("Birthday: "+birthstr);
+        birthday.setText("Birthday:"+birthstr);
+
+        Toast.makeText(this, birthstr, Toast.LENGTH_LONG).show();
 
         hostview.setText("Host Events: "+Integer.toString(hoststr));
         joinview.setText("Join Events: "+Integer.toString(joinnum));
