@@ -150,8 +150,8 @@ public class CSC {
     }
 
     // Update my account (username, gender, etc)
-    public void updateAccount(String username, String gender, String birthday){
-        String id = SaveSharedPreference.PREF_USER_ID;
+    public void updateAccount(String username, String gender, String birthday, Context c){
+        String id = SaveSharedPreference.getUserID(c);
         try{
 //            url = new URL("http://10.0.2.2:3000/users/4");
             url = new URL("https://branterapi.herokuapp.com/users/"+id);
@@ -485,21 +485,36 @@ public class CSC {
         String url = "https://branterapi.herokuapp.com/events/"+event_id+"/posts";
         String method = "GET";
         String content = request(url,method, new String[] {}, new String[] {});
-        try{
-            JSONArray jo = new JSONArray(content);
-            int size = jo.length();
-            posts = new Post[size];
-            for (int i=0;i<size;i++){
-                JSONObject o = (JSONObject) jo.get(i);
-                posts[i] = new Post(
+        if (content.charAt(0)=='{'){
+            try{
+                JSONObject o = new JSONObject(content);
+                posts = new Post[1];
+                posts[0] = new Post(
                         o.getString("id"),
                         o.getString("user_id"),
                         o.getString("event_id"),
                         o.getString("content")
                 );
+            }catch (Exception e){
+                e.printStackTrace();
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        } else {
+            try {
+                JSONArray jo = new JSONArray(content);
+                int size = jo.length();
+                posts = new Post[size];
+                for (int i = 0; i < size; i++) {
+                    JSONObject o = (JSONObject) jo.get(i);
+                    posts[i] = new Post(
+                            o.getString("id"),
+                            o.getString("user_id"),
+                            o.getString("event_id"),
+                            o.getString("content")
+                    );
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return posts;
     }
