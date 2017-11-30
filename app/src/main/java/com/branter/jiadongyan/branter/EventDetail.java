@@ -83,6 +83,7 @@ public class EventDetail extends AppCompatActivity {
         TextView eventtime = (TextView) findViewById(R.id.EventDetail_TimeName);
         eventtime.setText(extras.getString("time"));
         eventId = extras.getString("id");
+        SaveSharedPreference.setEventID(this,eventId);
         //listView = (ListView) findViewById(R.id.f_listview);
         //listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getData()));
 
@@ -90,7 +91,9 @@ public class EventDetail extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(EventDetail.this, PostActivity.class), 1);
+                Intent intent1 = new Intent(EventDetail.this, PostActivity.class);
+                startActivityForResult(intent1, 1);
+
 
             }
         });
