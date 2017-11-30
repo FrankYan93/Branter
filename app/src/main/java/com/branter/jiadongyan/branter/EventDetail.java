@@ -15,8 +15,12 @@ import android.widget.ImageView.ScaleType;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import static java.util.Arrays.*;
 
 public class EventDetail extends AppCompatActivity {
     private List<GridTest> listgrid;
@@ -60,40 +64,9 @@ public class EventDetail extends AppCompatActivity {
 
         listgrid = new ArrayList<GridTest>();
         init();
-//        initData();
+        initData();
 
-        // get all posts of this event
-        Thread one = new Thread() {
-            public void run() {
-                try {
-                    CSC client = new CSC();
-                    Log.e("Event id",eventId);
-                    Post[] allPosts = client.getEventPosts(eventId);
-                    Log.e("Event id",eventId);
-                    Log.e("post info", Integer.toString(allPosts.length));
-                    for (int i = 0; i < allPosts.length; i++) {
-                        GridTest single = new GridTest();
-                        Post singlePost = allPosts[i];
-                        User singleUser = client.getUserInformation(singlePost.user_id);
-                        single.setEventTitle(singleUser.username);
-                        single.setContent(singlePost.content);
-                        single.setTime("");
-                        single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
-                        single.setImage(FakeImg.img[new Random().nextInt(FakeImg.img.length)]);
-                        single.setId(singlePost.id);
-                        listgrid.add(single);
-                    }
-                } catch(Exception v) {
-                }
-            }
-        };
 
-        one.start();
-        try {
-            one.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         View header = getLayoutInflater().inflate(R.layout.header, null);
         listView.addHeaderView(header);
 
@@ -263,51 +236,65 @@ public class EventDetail extends AppCompatActivity {
         listView = (ListView)findViewById(R.id.f_listview);
 
     }
-    private void initData(){
 
-        //TODO:get all events data(Event class, now is using GridTest)
-        imgs1="http://pic60.nipic.com/file/20150211/18733170_145247158001_2.jpg#"
-                +"http://mvimg1.meitudata.com/566507ca1bcc65451.jpg";
-        imgs2="http://rj1.douguo.net/upload/diet/6/6/8/666f180617cab130bef1dea9fb3f7fe8.jpg#" +
-                "http://img4.duitang.com/uploads/blog/201312/01/20131201120117_F5QXY.jpeg#"+
-                "http://www.sh.xinhuanet.com/133071048_13905438457501n.jpg";
-        imgs3= "http://image.tianjimedia.com/uploadImages/2014/133/11/EN2I6768CHU1_1000x500.jpg#"+
-                "http://pic72.nipic.com/file/20150716/6659253_104414205000_2.jpg#"+
-                "http://pic36.nipic.com/20131222/10558908_214221305000_2.jpg";
-        imgs4 = "http://h.hiphotos.baidu.com/zhidao/pic/item/5243fbf2b21193133f9f1e3967380cd790238d5f.jpg";
-        GridTest gridTest = null;
-        for(int i = 0;i<=3;i++){
-            gridTest = new GridTest();
-            switch (i){
-                case 0:gridTest.setEventTitle("Cat discovery");
-                    gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
-                    gridTest.setContent("This is the cat event!......");
-                    gridTest.setTime("");
-                    gridTest.setImage(imgs1);
-                    break;
-                case 1:
-                    gridTest.setEventTitle("Enjoy Japanese Food");
-                    gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
-                    gridTest.setContent("This is the food event!.....");
-                    gridTest.setTime("");
-                    gridTest.setImage(imgs2);
-                    break;
-                case 2:
-                    gridTest.setEventTitle("travel to mountain");
-                    gridTest.setHeadphoto("http://img5q.duitang.com/uploads/item/201404/03/20140403135406_XFS3M.jpeg");
-                    gridTest.setContent("This is the travel event!.....");
-                    gridTest.setTime("");
-                    gridTest.setImage(imgs3);
-                    break;
-                case 3:
-                    gridTest.setEventTitle("Coding practice");
-                    gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
-                    gridTest.setContent("This is the programming event!.....");
-                    gridTest.setTime("");
-                    gridTest.setImage(imgs4);
-                    break;
-            }
-            listgrid.add(gridTest);
+    private void initData(){
+        FakeImg.create();
+        switch (eventId) {
+            case "Football":
+                GridTest[] fake = FakeImg.footballposts;
+                for (int i = 0; i < fake.length; i++)
+                    listgrid.add(fake[i]);
+                break;
+            case "Celtics":
+                GridTest[] fake2 = FakeImg.celticsposts;
+                for (int i = 0; i < fake2.length; i++)
+                    listgrid.add(fake2[i]);
+                break;
+            case "Concert":
+                GridTest[] fake3 = FakeImg.celticsposts;
+                for (int i = 0; i < fake3.length; i++)
+                    listgrid.add(fake3[i]);
+                break;
+            case "Gourmet":
+                GridTest[] fake4 = FakeImg.celticsposts;
+                for (int i = 0; i < fake4.length; i++)
+                    listgrid.add(fake4[i]);
+                break;
+
+            default:
+                // get all posts of this event
+                Thread one = new Thread() {
+                    public void run() {
+                        try {
+                            CSC client = new CSC();
+                            Log.e("Event id",eventId);
+                            Post[] allPosts = client.getEventPosts(eventId);
+                            Log.e("Event id",eventId);
+                            Log.e("post info", Integer.toString(allPosts.length));
+                            for (int i = 0; i < allPosts.length; i++) {
+                                GridTest single = new GridTest();
+                                Post singlePost = allPosts[i];
+                                User singleUser = client.getUserInformation(singlePost.user_id);
+                                single.setEventTitle(singleUser.username);
+                                single.setContent(singlePost.content);
+                                single.setTime("");
+                                single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
+                                single.setImage(FakeImg.img[new Random().nextInt(FakeImg.img.length)]);
+                                single.setId(singlePost.id);
+                                listgrid.add(single);
+                            }
+                        } catch(Exception v) {
+                        }
+                    }
+                };
+
+                one.start();
+                try {
+                    one.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
         }
 
     }
