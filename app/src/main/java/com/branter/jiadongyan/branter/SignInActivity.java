@@ -77,6 +77,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
         };
         one.start();
+        try {
+            one.join();
+        } catch (InterruptedException v) {
+
+        }
         //(Params: username, password) (Return: true or error message)
 //        Log.e("size:", Integer.toString(MainActivity.accounts.size()));
 //        Log.e("pass:", MainActivity.accounts.get(userName.getText().toString()));

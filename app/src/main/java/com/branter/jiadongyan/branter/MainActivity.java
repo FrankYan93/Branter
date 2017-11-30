@@ -85,6 +85,37 @@ public class MainActivity extends AppCompatActivity
 
             init();
             if (listgrid.isEmpty()) initData();
+
+
+            // get all events
+            Thread one = new Thread() {
+                public void run() {
+                    try {
+                        CSC client = new CSC();
+                         Event[] allEvents = client.getAllEvents();
+                         for (int i = 0; i < allEvents.length; i++) {
+                             GridTest single = new GridTest();
+                             Event singleEvent = allEvents[i];
+                             single.setEventTitle(singleEvent.title);
+                             single.setContent(singleEvent.contents);
+                             single.setTime("From " + singleEvent.from + " to " + singleEvent.to);
+                             single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
+                             single.setImage(singleEvent.imageUrl);
+
+                             listgrid.add(single);
+                         }
+                    } catch(Exception v) {
+                    }
+                }
+            };
+
+            one.start();
+            try {
+                one.join();
+            } catch (InterruptedException e) {
+
+            }
+
             listViewAdapter = new ListViewAdapter(this,listgrid);
             listView.setAdapter(listViewAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
