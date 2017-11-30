@@ -1,5 +1,19 @@
 package com.branter.jiadongyan.branter;
 
+
+import android.app.Activity;
+import android.app.Application;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -10,7 +24,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-
 /**
  * Created by jiadongyan on 11/29/17.
  */
@@ -229,6 +242,54 @@ public class CSC {
 
     // Get all event
     public Event[] getAllEvents(){
+        try{
+            url = new URL("https://branterapi.herokuapp.com/events");
+            // url = new URL("https://branterapi.herokuapp.com/users");
+        }catch (MalformedURLException e){
+            System.err.println("wrong url");
+        }
+        try {
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            JSONArray jo = new JSONArray(content.toString());
+            int size=jo.length();
+            Event[] eve = new Event[size];
+            for (int i=0;i<size;i++){
+                JSONObject x = new JSONObject((String) jo.get(i));
+                System.out.println(x);
+                double lat, lng;
+                try{
+                    lat = x.getDouble("lat");
+                    lng = x.getDouble("lng");
+                }catch (Exception e){
+                    lat = 0;
+                    lng = 0;
+                }
+                eve[i] = new Event(
+                        x.getString("id"),
+                        x.getString("title"),
+                        x.getString("from"),
+                        x.getString("to"),
+                        x.getString("contents"),
+                        null,
+                        lat,
+                        lng
+                );
+            }
+            in.close();
+            return eve;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return null;
     }
 
