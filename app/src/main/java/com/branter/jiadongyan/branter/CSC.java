@@ -366,6 +366,69 @@ public class CSC {
         }
     }
 
+    public User[] eventFollowers(String id){
+        String url = "https://branterapi.herokuapp.com/events/"+id+"/followers";
+//        String url = "http://10.0.2.2:3000/events/"+id+"/followers";
+        String method = "GET";
+        String content = request(url,method, new String[] {}, new String[] {});
+        User[] users = null;
+        try{
+            JSONArray jo = new JSONArray(content);
+            int size = jo.length();
+            users = new User[size];
+            for (int i=0;i<size;i++){
+                users[i] = new User();
+                JSONObject o = (JSONObject) jo.get(i);
+                users[i].id = o.getString("id");
+                users[i].email = o.getString("email");
+                users[i].birthday = o.getString("birthday");
+                users[i].gender = o.getString("gender").equals("true");
+                users[i].username = o.getString("name");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return users;
+    }
+
+    public Event[] joinedEvents(){
+        Event[] eve = null;
+        String id = SaveSharedPreference.PREF_USER_ID;
+        String url = "https://branterapi.herokuapp.com/users/"+id+"/joined_event";
+        String method = "GET";
+        String content = request(url,method, new String[] {}, new String[] {});
+        try{
+            JSONArray jo = new JSONArray(content);
+            int size=jo.length();
+            eve = new Event[size];
+            for (int i=0;i<size;i++) {
+                JSONObject x = (JSONObject) jo.get(i);
+                System.out.println(x);
+                double lat, lng;
+                try {
+                    lat = x.getDouble("lat");
+                    lng = x.getDouble("lng");
+                } catch (Exception e) {
+                    lat = 0;
+                    lng = 0;
+                }
+                eve[i] = new Event(
+                        x.getString("id"),
+                        x.getString("title"),
+                        x.getString("from"),
+                        x.getString("to"),
+                        x.getString("contents"),
+                        null,
+                        lat,
+                        lng
+                );
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return eve;
+    }
+
     // Create new post
     public void createPost(String event_id, String content) {
         String id = SaveSharedPreference.PREF_USER_ID;
@@ -399,6 +462,93 @@ public class CSC {
         }
     }
 
+    public Post[] getEventPosts(String event_id){
+        Post[] posts = null;
+        String url = "https://branterapi.herokuapp.com/events/"+event_id+"/posts";
+        String method = "GET";
+        String content = request(url,method, new String[] {}, new String[] {});
+        try{
+            JSONArray jo = new JSONArray(content);
+            int size = jo.length();
+            posts = new Post[size];
+            for (int i=0;i<size;i++){
+                JSONObject o = (JSONObject) jo.get(i);
+                posts[i] = new Post(
+                        o.getString("id"),
+                        o.getString("user_id"),
+                        o.getString("event_id"),
+                        o.getString("content")
+                );
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return posts;
+    }
+
+    public Post[] getUserPost(String id){
+        Post[] posts = null;
+        String url = "https://branterapi.herokuapp.com/users/"+id+"/posts";
+        String method = "GET";
+        String content = request(url,method, new String[] {}, new String[] {});
+        try{
+            JSONArray jo = new JSONArray(content);
+            int size = jo.length();
+            posts = new Post[size];
+            for (int i=0;i<size;i++){
+                JSONObject o = (JSONObject) jo.get(i);
+                posts[i] = new Post(
+                        o.getString("id"),
+                        o.getString("user_id"),
+                        o.getString("event_id"),
+                        o.getString("content")
+                );
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return posts;
+    }
+
+    public String request(String s, String method, String[] params, String[] args){
+        try{
+//            url = new URL("http://10.0.2.2:3000/users");
+            url = new URL(s);
+        }catch (MalformedURLException e){
+            System.err.println("wrong url");
+        }
+        try{
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod(method);
+            Map<String, String> parameters = new HashMap<>();
+            for (int i = 0; i<args.length; i++){
+                parameters.put(params[i], args[i]);
+            }
+            if (parameters.size()>0) {
+                con.setDoOutput(true);
+                DataOutputStream out = new DataOutputStream(con.getOutputStream());
+                out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
+                int status = con.getResponseCode();
+                System.out.println(status);
+                out.flush();
+                out.close();
+            }
+
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            in.close();
+            System.out.println(content);
+            return content.toString();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }
 

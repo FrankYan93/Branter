@@ -115,17 +115,19 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         int tag = (int) v.getTag();
-        Intent intent=new Intent(this,MainActivity.class);
+        Intent intent=new Intent(this,EventDetail.class);
         switch (tag) {
             case 1:
 //                Event newEvent = new Event("","","");
                 //TODO: create new event to data servive
 
-                startActivity(intent);
+                setResult(RESULT_OK, intent);
+                finish();
                 break;
 
             case 2:
-                startActivity(intent);
+                setResult(RESULT_OK, intent);
+                finish();
                 break;
         }
 
