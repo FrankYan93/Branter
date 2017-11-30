@@ -13,10 +13,11 @@
      afterDescendants：viewgroup只有当其子类控件不需要获取焦点时才获取焦点
      blocksDescendants：viewgroup会覆盖子类控件而直接获得焦点-->
     <ImageView
-        android:id="@+id/info_iv_head"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_menu_camera"/>
+            android:id="@+id/info_iv_head"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_menu_camera"
+            android:visibility="gone"/>
     <RelativeLayout
         android:id="@+id/rl1"
         android:layout_width="fill_parent"
@@ -25,13 +26,13 @@
         android:layout_toRightOf="@+id/info_iv_head">
 
         <TextView
-            android:id="@+id/info_tv_name"
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:layout_alignParentLeft="true"
-            android:text="username"
-            android:textColor="#444444"
-            android:textSize="12sp" />
+                android:id="@+id/info_tv_name"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="username"
+                android:textColor="#444444"
+                android:textSize="14sp" android:layout_alignParentTop="true"
+        />
 
         <TextView
             android:id="@+id/info_tv_time"

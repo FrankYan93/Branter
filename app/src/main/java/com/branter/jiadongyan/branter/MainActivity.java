@@ -145,7 +145,9 @@ public class MainActivity extends AppCompatActivity
                     startActivity(addEvent);
                 }
             });
+
         }
+
     }
 
     @Override
@@ -252,6 +254,7 @@ public class MainActivity extends AppCompatActivity
                 "http://pic36.nipic.com/20131222/10558908_214221305000_2.jpg";
         imgs4 = "http://h.hiphotos.baidu.com/zhidao/pic/item/5243fbf2b21193133f9f1e3967380cd790238d5f.jpg";
         GridTest gridTest = null;
+
         FakeImg.create();
         for(int i = 0;i<=3;i++){
             gridTest = new GridTest();
@@ -286,6 +289,7 @@ public class MainActivity extends AppCompatActivity
                     gridTest.setTime("From 2017-11-10 to 2017-11-18");
                     gridTest.setImage("https://www.ggcatering.com/system/uploads/fae/image/asset/2954/Global_Gourmet_hp_banner_3.jpg");
                     gridTest.setId("Gourmet");
+
                     break;
             }
             listgrid.add(gridTest);

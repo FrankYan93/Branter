@@ -28,7 +28,7 @@ public class EventDetail extends AppCompatActivity {
     private String imgs4;
     private String eventId;
     private Button join;
-    ArrayList<String> arrayList = arrayList = new ArrayList<>();
+    ArrayList<String> arrayList = new ArrayList<>();
 
     @SuppressWarnings("deprecation")
 //    Gallery Imagegallery;
@@ -56,6 +56,7 @@ public class EventDetail extends AppCompatActivity {
         eventId = extras.getString("id");
         SaveSharedPreference.setEventID(this,eventId);
         System.out.println(SaveSharedPreference.getEventID(this));
+        System.out.println("debuggggggggg");
 
         listgrid = new ArrayList<GridTest>();
         init();
@@ -91,7 +92,7 @@ public class EventDetail extends AppCompatActivity {
         try {
             one.join();
         } catch (InterruptedException e) {
-
+            e.printStackTrace();
         }
         View header = getLayoutInflater().inflate(R.layout.header, null);
         listView.addHeaderView(header);
@@ -167,7 +168,44 @@ public class EventDetail extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
+                listgrid = new ArrayList<GridTest>();
+                init();
+//        initData();
 
+                // get all posts of this event
+                Thread one = new Thread() {
+                    public void run() {
+                        try {
+                            CSC client = new CSC();
+                            Log.e("Event id",eventId);
+                            Post[] allPosts = client.getEventPosts(eventId);
+                            Log.e("Event id",eventId);
+                            Log.e("post info", Integer.toString(allPosts.length));
+                            for (int i = 0; i < allPosts.length; i++) {
+                                GridTest single = new GridTest();
+                                Post singlePost = allPosts[i];
+                                User singleUser = client.getUserInformation(singlePost.user_id);
+                                single.setEventTitle(singleUser.username);
+                                single.setContent(singlePost.content);
+                                single.setTime("");
+                                single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
+                                single.setImage(FakeImg.img[new Random().nextInt(FakeImg.img.length)]);
+                                single.setId(singlePost.id);
+                                listgrid.add(single);
+                            }
+                        } catch(Exception v) {
+                        }
+                    }
+                };
+
+                one.start();
+                try {
+                    one.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                listViewAdapter = new ListViewAdapter(this,listgrid);
+                listView.setAdapter(listViewAdapter);
             }
         }
     }
