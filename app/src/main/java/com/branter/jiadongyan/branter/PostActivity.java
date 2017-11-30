@@ -1,7 +1,5 @@
 package com.branter.jiadongyan.branter;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -9,81 +7,50 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 
-public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener {
+/**
+ * Created by fq on 2017/11/29.
+ */
+
+public class PostActivity extends AppCompatActivity implements View.OnClickListener {
 
     private GridView gridView1;
     private Button buttonPublish;
     private Button buttonCancel;
-    private Button startbtn, endbtn;
-    private TextView startDate,endDate;
-    private EditText eventTitle;
-    private EditText eventContent;
-    private int startYear,startMonth,startDay, endYear,endMonth,endDay;
-    final int start_DATE_DIALOG = 1;
-    final int end_DATE_DIALOG = 2;
     private final int IMAGE_OPEN = 1;
     private String pathImage;
     private Bitmap bmp;
     private ArrayList<HashMap<String, Object>> imageItem;
     private SimpleAdapter simpleAdapter;
-    private DatePickerDialog.OnDateSetListener startdateListener = new DatePickerDialog.OnDateSetListener() {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            startYear = year;
-            startMonth = monthOfYear;
-            startDay = dayOfMonth;
-            display(startDate, startYear,startMonth,startDay);
-        }
-    };
-
-    private DatePickerDialog.OnDateSetListener enddateListener = new DatePickerDialog.OnDateSetListener() {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            endYear = year;
-            endMonth = monthOfYear;
-            endDay = dayOfMonth;
-            display(endDate, endYear,endMonth, endDay);
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_event);
+        setContentView(R.layout.post_activity);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.
                 SOFT_INPUT_ADJUST_PAN);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.activity_create_event);
+        setContentView(R.layout.post_activity);
 
-        gridView1 = (GridView) findViewById(R.id.gridView1);
+        gridView1 = (GridView) findViewById(R.id.f_gridView1);
 
 
         bmp = BitmapFactory.decodeResource(getResources(), R.drawable.gridview_addpic);
@@ -115,14 +82,14 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
             {
-                if( imageItem.size() == 4) {
-                    Toast.makeText(CreateEventActivity .this, "pics is exceed 3", Toast.LENGTH_SHORT).show();
+                if( imageItem.size() == 10) {
+                    Toast.makeText(PostActivity.this, "Cannot add more", Toast.LENGTH_SHORT).show();
                 }
                 else if(position == 0) {
-                    Toast.makeText(CreateEventActivity .this, "add pics", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PostActivity.this, "Add picture", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(Intent.ACTION_PICK,
-                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(intent, IMAGE_OPEN);
 
                 }
@@ -134,34 +101,12 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         });
 
 
-        buttonPublish = (Button) findViewById(R.id.buttonpublish);
+        buttonPublish = (Button) findViewById(R.id.f_buttonpublish);
         buttonPublish.setTag(1);
-        buttonPublish.setOnClickListener(CreateEventActivity.this);
-        buttonCancel = (Button) findViewById(R.id.buttoncancel);
+        buttonPublish.setOnClickListener(PostActivity.this);
+        buttonCancel = (Button) findViewById(R.id.f_buttoncancel);
         buttonCancel.setTag(2);
-        buttonCancel.setOnClickListener(CreateEventActivity.this);
-
-        startbtn = (Button) findViewById(R.id.startDateChoose);
-        startDate = (TextView) findViewById(R.id.startDate);
-        startbtn.setTag(3);
-        startbtn.setOnClickListener(CreateEventActivity.this);
-
-        final Calendar ca = Calendar.getInstance();
-        startYear = ca.get(Calendar.YEAR);
-        startMonth = ca.get(Calendar.MONTH);
-        startDay = ca.get(Calendar.DAY_OF_MONTH);
-
-        endbtn = (Button) findViewById(R.id.endDateChoose);
-        endDate = (TextView) findViewById(R.id.endDate);
-        endbtn.setTag(4);
-        endbtn.setOnClickListener(CreateEventActivity.this);
-
-        endYear = ca.get(Calendar.YEAR);
-        endMonth = ca.get(Calendar.MONTH);
-        endDay = ca.get(Calendar.DAY_OF_MONTH);
-
-        eventTitle = (EditText) findViewById(R.id.eventTitle);
-        eventContent = (EditText) findViewById(R.id.eventContent);
+        buttonCancel.setOnClickListener(PostActivity.this);
 
     }
 
@@ -171,16 +116,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         Intent intent=new Intent(this,MainActivity.class);
         switch (tag) {
             case 1:
-                Log.e("I am in create event", "LOL");
 //                Event newEvent = new Event("","","");
                 //TODO: create new event to data servive
-                GridTest newGridTest = new GridTest();
-                newGridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
-                newGridTest.setContent(eventContent.getText().toString());
-                newGridTest.setTime("From " + startDate.getText().toString() + " to " + endDate.getText().toString());
-                newGridTest.setImage(pathImage);
-                newGridTest.setEventTitle(eventTitle.getText().toString());
-                MainActivity.listgrid.add(newGridTest);
 
                 startActivity(intent);
                 break;
@@ -188,35 +125,9 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             case 2:
                 startActivity(intent);
                 break;
-
-            case 3:
-                showDialog(start_DATE_DIALOG);
-                break;
-
-            case 4:
-                showDialog(end_DATE_DIALOG);
-                break;
         }
 
     }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id) {
-            case start_DATE_DIALOG:
-                return new DatePickerDialog(this, startdateListener, startYear, startMonth, startDay);
-            case end_DATE_DIALOG:
-                return new DatePickerDialog(this, enddateListener, endYear, endMonth, endDay);
-
-        }
-        return null;
-    }
-
-
-    public void display(TextView v, int month, int day, int year) {
-        v.setText(new StringBuffer().append(month + 1).append("-").append(day).append("-").append(year).append(" "));
-    }
-
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -278,10 +189,10 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
 
     protected void dialog(final int position) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(CreateEventActivity .this);
-        builder.setMessage("Are you sure to remove this picture");
-        builder.setTitle("Waring");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PostActivity.this);
+        builder.setMessage("Are you sure to remove picture?");
+        builder.setTitle("Hint");
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();

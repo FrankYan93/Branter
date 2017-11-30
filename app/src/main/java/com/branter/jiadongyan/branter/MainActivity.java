@@ -3,6 +3,7 @@ package com.branter.jiadongyan.branter;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity
     public static List<GridTest> listgrid = new ArrayList<>();
     private ListViewAdapter listViewAdapter;
     private ListView listView;
+    private String userID;
+    private String userEmail;
     private String imgs1;
     private  String imgs3;
     private  String imgs2;
@@ -43,8 +46,10 @@ public class MainActivity extends AppCompatActivity
     private String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        userName = SaveSharedPreference.getUserName(MainActivity.this);
-        if(userName == null || userName.length() == 0)
+        new CSCTest().execute("");
+        userID = SaveSharedPreference.getUserID(MainActivity.this);
+        userEmail = SaveSharedPreference.getUserName(MainActivity.this);
+        if(userID == null || userID.length() == 0)
         {
             super.onCreate(savedInstanceState);
             Intent signin = new Intent(MainActivity.this, SignInActivity.class);
@@ -85,6 +90,11 @@ public class MainActivity extends AppCompatActivity
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent=new Intent(MainActivity.this,EventDetail.class);
+                    GridTest event = listgrid.get(position);
+                    intent.putExtra("title", event.getEventTitle());
+                    intent.putExtra("time", event.getTime());
+                    startActivity(intent);
                     Toast.makeText(MainActivity.this, "clicked on" + (position + 1) + "item", Toast.LENGTH_LONG).show();
                 }
             });
@@ -136,7 +146,7 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.main, menu);
 
         TextView username = (TextView) findViewById(R.id.usernameM);
-        username.setText(userName);
+        username.setText(userEmail);
 
         SearchManager searchManager =
                 (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -242,6 +252,23 @@ public class MainActivity extends AppCompatActivity
             listgrid.add(gridTest);
         }
 
+
+    }
+
+}
+
+class CSCTest extends AsyncTask<String, Void, Void> {
+    @Override
+    protected Void doInBackground(String... strings) {
+        CSC csc = new CSC();
+//        System.out.println("id:~~~~~~~~~~~~~~~");
+//        System.out.println(csc.createUser("xxx@xxxsss","pass"));
+//        System.out.println(csc.getUserInformation("4").birthday);
+//        csc.updateAccount("yo","true","11-12-2017");
+//        System.out.println(csc.signIn("xxx@xxx","pass"));
+//        csc.createEvent(new String[] {"title"},new String[] {"mysterious event1"});
+        System.out.println(csc.getAllEvents());
+        return null;
 
     }
 }

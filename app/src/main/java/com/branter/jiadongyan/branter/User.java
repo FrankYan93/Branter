@@ -6,14 +6,20 @@ package com.branter.jiadongyan.branter;
 
 public class User {
     String id;
+    String email;
     String username;
     boolean gender;
-    String date;
+    String birthday;
 
-    User(String id, String username, boolean gender, String date){
+    User(String id, String email, String username, boolean gender, String birthday){
         this.id = id;
+        this.email = email;
         this.username = username;
         this.gender = gender;
-        this.date = date;
+        this.birthday = birthday;
+    }
+
+    User(){
+
     }
 }
