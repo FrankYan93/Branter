@@ -95,9 +95,9 @@ public class CSC {
             user.id = strs[0].split(":")[1];
             user.email = strs[1].split(":")[1];
             user.username = strs[3].split(":")[1];
-            user.num_post = Integer.parseInt(strs[9].split(":")[1]);
-            user.num_events_host = Integer.parseInt(strs[10].split(":")[1]);
-            user.num_event_joined = Integer.parseInt(strs[11].split(":")[1]);
+            user.num_post = Integer.parseInt(strs[10].split(":")[1]);
+            user.num_events_host = Integer.parseInt(strs[11].split(":")[1]);
+            user.num_event_joined = Integer.parseInt(strs[12].split(":")[1]);
             if (strs[4].equals("true")){
                 user.gender = true;
             }else if (strs[4].equals("false")){

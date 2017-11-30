@@ -37,7 +37,7 @@ public class ProfileUpdateActivity extends AppCompatActivity implements View.OnC
     private Button buttonPublish;            //发布按钮
     private Button buttonCancel;
     private Button startbtn;
-    private TextView startDate,endDate;
+    private TextView startDate;
     private EditText username;
     private EditText gender;
     private int startYear,startMonth,startDay;
@@ -58,6 +58,9 @@ public class ProfileUpdateActivity extends AppCompatActivity implements View.OnC
             display(startDate, startYear,startMonth,startDay);
         }
     };
+    private String usernameinput;
+    private String genderinput;
+    private String birthdayinput;
 
 
     @Override
@@ -164,13 +167,29 @@ public class ProfileUpdateActivity extends AppCompatActivity implements View.OnC
                 Log.e("I am in create event", "LOL");
 //                Event newEvent = new Event("","","");
                 //TODO: create new event to data servive
-                GridTest newGridTest = new GridTest();
-                newGridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
-                newGridTest.setContent(username.getText().toString());
-                newGridTest.setTime("From " + startDate.getText().toString() + " to " + endDate.getText().toString());
-                newGridTest.setImage(pathImage);
-                newGridTest.setEventTitle(gender.getText().toString());
-                MainActivity.listgrid.add(newGridTest);
+//                GridTest newGridTest = new GridTest();
+//                newGridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
+//                newGridTest.setContent(username.getText().toString());
+//                newGridTest.setTime("From " + startDate.getText().toString() + " to " + endDate.getText().toString());
+//                newGridTest.setImage(pathImage);
+//                newGridTest.setEventTitle(gender.getText().toString());
+//                MainActivity.listgrid.add(newGridTest);
+                Thread one = new Thread() {
+                    public void run() {
+                        try {
+                            CSC client = new CSC();
+                            client.updateAccount(username.getText().toString(),gender.getText().toString(),startDate.getText().toString());
+                            //Log.e("return:", id);
+                        } catch(Exception v) {
+                        }
+                    }
+                };
+                one.start();
+                try {
+                    one.join();
+                } catch (InterruptedException vv) {
+
+                }
 
                 startActivity(intent);
                 break;
