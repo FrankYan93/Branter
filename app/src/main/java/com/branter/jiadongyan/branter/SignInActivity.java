@@ -43,6 +43,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 if (idCorrect()){
                     Intent intent1=new Intent(SignInActivity.this,MainActivity.class);
                     // TODO:create user in database
+
                     intent1.putExtra("userName",userName.getText().toString());
                     intent1.putExtra("password",password.getText().toString());
                     SaveSharedPreference.setUserName(this,userName.getText().toString());
@@ -66,6 +67,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     public boolean idCorrect(){
 
         //TODO: Check if username and password is correct
+
         //(Params: username, password) (Return: true or error message)
 //        Log.e("size:", Integer.toString(MainActivity.accounts.size()));
 //        Log.e("pass:", MainActivity.accounts.get(userName.getText().toString()));
