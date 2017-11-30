@@ -54,6 +54,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private final int IMAGE_OPEN = 1;
     final int PLACE_PICKER_REQUEST = 10;
     private String pathImage;
+    private LatLng pos;
     private Bitmap bmp;
     private ArrayList<HashMap<String, Object>> imageItem;
     private SimpleAdapter simpleAdapter;
@@ -220,7 +221,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
                 final String[] att = new String[] {"title", "contents","from","to","lat","lng","imageURL"};
                 final String[] value = new String[] {eventTitle.getText().toString(),eventContent.getText().toString(),
-                        startDate.getText().toString(), endDate.getText().toString(), "0","0",""};
+                        startDate.getText().toString(), endDate.getText().toString(), Double.toString(pos.latitude),Double.toString(pos.longitude),""};
                 Thread one = new Thread() {
                     public void run() {
                         try {
@@ -279,7 +280,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);
-                LatLng pos =  place.getLatLng();
+                pos =  place.getLatLng();
                 String toastMsg = String.format("Place: %s", place.getName());
                 Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
             }
