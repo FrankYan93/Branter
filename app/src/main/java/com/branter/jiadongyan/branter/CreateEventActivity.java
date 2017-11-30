@@ -36,7 +36,6 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Random;
 
 public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener {
 
