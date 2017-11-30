@@ -57,6 +57,36 @@ public class EventDetail extends AppCompatActivity {
         listgrid = new ArrayList<GridTest>();
         init();
         initData();
+
+//        // get all posts of this event
+//        Thread one = new Thread() {
+//            public void run() {
+//                try {
+//                    CSC client = new CSC();
+//                    Post[] allPosts = client.getEventPosts(eventId);
+//                    for (int i = 0; i < allPosts.length; i++) {
+//                        GridTest single = new GridTest();
+//                        Post singlePost = allPosts[i];
+//                        User singleUser = client.getUserInformation(singlePost.user_id);
+//                        single.setEventTitle(singleUser.username);
+//                        single.setContent(singlePost.content);
+//                        single.setTime("");
+//                        single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
+//                        single.setImage(FakeImg.img[new Random().nextInt(FakeImg.img.length)]);
+//                        single.setId(singlePost.id);
+//                        listgrid.add(single);
+//                    }
+//                } catch(Exception v) {
+//                }
+//            }
+//        };
+//
+//        one.start();
+//        try {
+//            one.join();
+//        } catch (InterruptedException e) {
+//
+//        }
         View header = getLayoutInflater().inflate(R.layout.header, null);
         listView.addHeaderView(header);
 
@@ -83,7 +113,7 @@ public class EventDetail extends AppCompatActivity {
         TextView eventtime = (TextView) findViewById(R.id.EventDetail_TimeName);
         eventtime.setText(extras.getString("time"));
         eventId = extras.getString("id");
-        SaveSharedPreference.setEventID(this,eventId);
+        SaveSharedPreference.setEventID(EventDetail.this,eventId);
         //listView = (ListView) findViewById(R.id.f_listview);
         //listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getData()));
 
@@ -127,6 +157,9 @@ public class EventDetail extends AppCompatActivity {
                 }
             }
         });
+
+        listViewAdapter = new ListViewAdapter(this,listgrid);
+        listView.setAdapter(listViewAdapter);
     }
 
     public void startActivityForResult(Intent intent, int requestCode) {
@@ -213,36 +246,34 @@ public class EventDetail extends AppCompatActivity {
                 case 0:gridTest.setEventTitle("Cat discovery");
                     gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
                     gridTest.setContent("This is the cat event!......");
-                    gridTest.setTime("11/25/2017 - 11/28/2017");
+                    gridTest.setTime("");
                     gridTest.setImage(imgs1);
                     break;
                 case 1:
                     gridTest.setEventTitle("Enjoy Japanese Food");
                     gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
                     gridTest.setContent("This is the food event!.....");
-                    gridTest.setTime("11/20/2017 - 11/27/2017");
+                    gridTest.setTime("");
                     gridTest.setImage(imgs2);
                     break;
                 case 2:
                     gridTest.setEventTitle("travel to mountain");
                     gridTest.setHeadphoto("http://img5q.duitang.com/uploads/item/201404/03/20140403135406_XFS3M.jpeg");
                     gridTest.setContent("This is the travel event!.....");
-                    gridTest.setTime("11/12/2017 - 11/20/2017");
+                    gridTest.setTime("");
                     gridTest.setImage(imgs3);
                     break;
                 case 3:
                     gridTest.setEventTitle("Coding practice");
                     gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
                     gridTest.setContent("This is the programming event!.....");
-                    gridTest.setTime("11/10/2017 - 11/18/2017");
+                    gridTest.setTime("");
                     gridTest.setImage(imgs4);
                     break;
             }
             listgrid.add(gridTest);
         }
 
-        listViewAdapter = new ListViewAdapter(this,listgrid);
-        listView.setAdapter(listViewAdapter);
     }
 }
 
