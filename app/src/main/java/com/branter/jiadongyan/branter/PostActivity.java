@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
@@ -50,8 +51,6 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.post_activity);
-
-
 
         gridView1 = (GridView) findViewById(R.id.f_gridView1);
 
@@ -123,7 +122,13 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
                     public void run() {
                         try {
                             CSC client = new CSC();
-                            client.createPost();
+                            EditText ed = (EditText) findViewById(R.id.editText1);
+                            String content = ed.getText().toString();
+                            System.out.println("posted content:......");
+                            System.out.println(content);
+                            String event_id = SaveSharedPreference.getEventID(PostActivity.this);
+                            System.out.println(event_id);
+                            client.createPost(event_id,content);
                         } catch(Exception e) {
                         }
                     }

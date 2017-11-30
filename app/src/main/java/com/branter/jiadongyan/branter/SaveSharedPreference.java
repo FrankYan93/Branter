@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 public class SaveSharedPreference {
     static final String PREF_USER_NAME= "username";
     static final String PREF_USER_ID = "1";
+    static final String PREF_EVENT_ID = "1";
     static CSC data_client = new CSC();
 
     static SharedPreferences getSharedPreferences(Context ctx) {
@@ -40,5 +41,18 @@ public class SaveSharedPreference {
 
     {
         return getSharedPreferences(ctx).getString(PREF_USER_ID, "");
+    }
+
+    public static void setEventID(Context ctx, String id)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(ctx).edit();
+        editor.putString(PREF_EVENT_ID, id);
+        editor.commit();
+    }
+
+    public static String getEventID(Context ctx)
+
+    {
+        return getSharedPreferences(ctx).getString(PREF_EVENT_ID, "");
     }
 }
