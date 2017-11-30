@@ -139,7 +139,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="130dp"
                 android:layout_margin="10dp"
-                android:background="#B0C4DE"
+                android:background="#FF4084"
                 android:columnWidth="90dp"
                 android:gravity="center"
                 android:horizontalSpacing="5dp"
