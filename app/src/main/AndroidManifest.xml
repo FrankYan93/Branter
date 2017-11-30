@@ -38,11 +38,6 @@
         <activity android:name=".SignInActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".CreateEventActivity" />
-        <activity android:name=".SearchResultActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
