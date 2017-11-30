@@ -254,37 +254,42 @@ public class MainActivity extends AppCompatActivity
                 "http://pic36.nipic.com/20131222/10558908_214221305000_2.jpg";
         imgs4 = "http://h.hiphotos.baidu.com/zhidao/pic/item/5243fbf2b21193133f9f1e3967380cd790238d5f.jpg";
         GridTest gridTest = null;
-//        FakeImg.create();
+
+        FakeImg.create();
         for(int i = 0;i<=3;i++){
             gridTest = new GridTest();
-//            gridTest = FakeImg.allposts[i];
             switch (i){
-                case 0:gridTest.setEventTitle("Football Event");
-                    gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
-                    gridTest.setContent("Welcome to football event!");
+                case 0:gridTest.setEventTitle("Football Game");
+                    gridTest.setHeadphoto("http://www.gx8899.com/uploads/allimg/160804/3-160P4111639.jpg");
+                    gridTest.setContent("This is an exciting football game event");
                     gridTest.setTime("From 2017-11-28 to 2017-12-02");
-                    gridTest.setImage("http://www.ifaf.info/wp-content/uploads/2017/07/TWG-2017-Today-American-Football-Finals.jpg");
+                    gridTest.setImage("https://i.pinimg.com/originals/b3/fc/31/b3fc31345130e0d09b54985bedb2d95c.jpg");
+                    gridTest.setId("Football");
                     break;
                 case 1:
-                    gridTest.setEventTitle("Enjoy Japanese Food");
+                    gridTest.setEventTitle("Celtics");
                     gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
-                    gridTest.setContent("This is the food event!.....");
+                    gridTest.setContent("This is for you who are interested in celtics");
                     gridTest.setTime("From 2017-11-20 to 2017-11-28");
-                    gridTest.setImage(imgs2);
+                    gridTest.setImage("http://static2.businessinsider.com/image/56c3485d6e97c623048b7658-1190-625/the-boston-celtics-are-the-nbas-biggest-x-factor-2-days-before-the-trade-deadline.jpg");
+                    gridTest.setId("Celtics");
                     break;
                 case 2:
-                    gridTest.setEventTitle("travel to mountain");
+                    gridTest.setEventTitle("Concert");
                     gridTest.setHeadphoto("http://img5q.duitang.com/uploads/item/201404/03/20140403135406_XFS3M.jpeg");
-                    gridTest.setContent("This is the travel event!.....");
+                    gridTest.setContent("This is a good concert");
                     gridTest.setTime("From 2017-11-12 to 2017-11-20");
-                    gridTest.setImage(imgs3);
+                    gridTest.setImage("https://static.pexels.com/photos/196652/pexels-photo-196652.jpeg");
+                    gridTest.setId("Concert");
                     break;
                 case 3:
-                    gridTest.setEventTitle("Coding practice");
+                    gridTest.setEventTitle("Gourmet Festival");
                     gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
-                    gridTest.setContent("This is the programming event!.....");
+                    gridTest.setContent("Have a dinner at gourmet festival");
                     gridTest.setTime("From 2017-11-10 to 2017-11-18");
-                    gridTest.setImage(imgs4);
+                    gridTest.setImage("https://www.ggcatering.com/system/uploads/fae/image/asset/2954/Global_Gourmet_hp_banner_3.jpg");
+                    gridTest.setId("Gourmet");
+
                     break;
             }
             listgrid.add(gridTest);
