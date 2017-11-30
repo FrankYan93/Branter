@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -56,37 +57,39 @@ public class EventDetail extends AppCompatActivity {
         setContentView(R.layout.activity_event_detail);;
         listgrid = new ArrayList<GridTest>();
         init();
-        initData();
+//        initData();
 
-//        // get all posts of this event
-//        Thread one = new Thread() {
-//            public void run() {
-//                try {
-//                    CSC client = new CSC();
-//                    Post[] allPosts = client.getEventPosts(eventId);
-//                    for (int i = 0; i < allPosts.length; i++) {
-//                        GridTest single = new GridTest();
-//                        Post singlePost = allPosts[i];
-//                        User singleUser = client.getUserInformation(singlePost.user_id);
-//                        single.setEventTitle(singleUser.username);
-//                        single.setContent(singlePost.content);
-//                        single.setTime("");
-//                        single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
-//                        single.setImage(FakeImg.img[new Random().nextInt(FakeImg.img.length)]);
-//                        single.setId(singlePost.id);
-//                        listgrid.add(single);
-//                    }
-//                } catch(Exception v) {
-//                }
-//            }
-//        };
-//
-//        one.start();
-//        try {
-//            one.join();
-//        } catch (InterruptedException e) {
-//
-//        }
+        // get all posts of this event
+        Thread one = new Thread() {
+            public void run() {
+                try {
+                    CSC client = new CSC();
+                    Post[] allPosts = client.getEventPosts(eventId);
+                    Log.e("Event id",eventId);
+                    Log.e("post info", allPosts.toString());
+                    for (int i = 0; i < allPosts.length; i++) {
+                        GridTest single = new GridTest();
+                        Post singlePost = allPosts[i];
+                        User singleUser = client.getUserInformation(singlePost.user_id);
+                        single.setEventTitle(singleUser.username);
+                        single.setContent(singlePost.content);
+                        single.setTime("");
+                        single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
+                        single.setImage(FakeImg.img[new Random().nextInt(FakeImg.img.length)]);
+                        single.setId(singlePost.id);
+                        listgrid.add(single);
+                    }
+                } catch(Exception v) {
+                }
+            }
+        };
+
+        one.start();
+        try {
+            one.join();
+        } catch (InterruptedException e) {
+
+        }
         View header = getLayoutInflater().inflate(R.layout.header, null);
         listView.addHeaderView(header);
 
