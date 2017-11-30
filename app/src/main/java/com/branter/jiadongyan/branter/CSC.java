@@ -391,6 +391,44 @@ public class CSC {
         return users;
     }
 
+    public Event[] joinedEvents(){
+        Event[] eve = null;
+        String id = SaveSharedPreference.PREF_USER_ID;
+        String url = "https://branterapi.herokuapp.com/users/"+id+"/joined_event";
+        String method = "GET";
+        String content = request(url,method, new String[] {}, new String[] {});
+        try{
+            JSONArray jo = new JSONArray(content);
+            int size=jo.length();
+            eve = new Event[size];
+            for (int i=0;i<size;i++) {
+                JSONObject x = (JSONObject) jo.get(i);
+                System.out.println(x);
+                double lat, lng;
+                try {
+                    lat = x.getDouble("lat");
+                    lng = x.getDouble("lng");
+                } catch (Exception e) {
+                    lat = 0;
+                    lng = 0;
+                }
+                eve[i] = new Event(
+                        x.getString("id"),
+                        x.getString("title"),
+                        x.getString("from"),
+                        x.getString("to"),
+                        x.getString("contents"),
+                        null,
+                        lat,
+                        lng
+                );
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return eve;
+    }
+
     // Create new post
     public void createPost(String event_id, String content) {
         String id = SaveSharedPreference.PREF_USER_ID;
