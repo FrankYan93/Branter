@@ -224,6 +224,8 @@ public class MainActivity extends AppCompatActivity
             Intent intentH = new Intent(MainActivity.this, HostEventActivity.class);
             startActivity(intentH);
         } else if (id == R.id.nav_join) {
+            Intent intentJ = new Intent(MainActivity.this, JoinedEventActivity.class);
+            startActivity(intentJ);
             // TODO: start joined events activity
         } else if (id == R.id.nav_post) {
             // TODO: start posts info activity

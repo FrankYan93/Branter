@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Random;
 
 public class HostEventActivity extends AppCompatActivity {
-    public static List<GridTest> listgrid = new ArrayList<>();
+    public List<GridTest> listgrid;
     private ListViewAdapter listViewAdapter;
     private ListView listView;
 
@@ -29,6 +29,8 @@ public class HostEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_host_event);
+
+        listgrid = new ArrayList<>();
 
         // get all host events
         Thread one = new Thread() {
