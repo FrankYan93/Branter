@@ -254,37 +254,39 @@ public class MainActivity extends AppCompatActivity
                 "http://pic36.nipic.com/20131222/10558908_214221305000_2.jpg";
         imgs4 = "http://h.hiphotos.baidu.com/zhidao/pic/item/5243fbf2b21193133f9f1e3967380cd790238d5f.jpg";
         GridTest gridTest = null;
-        for(int i = 0;i<=3;i++){
+        FakeImg.create();
+        for(int i = 0;i<=11;i++){
             gridTest = new GridTest();
-            switch (i){
-                case 0:gridTest.setEventTitle("Cat discovery");
-                    gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
-                    gridTest.setContent("This is the cat event!......");
-                    gridTest.setTime("From 2017-11-28 to 2017-12-02");
-                    gridTest.setImage(imgs1);
-                    break;
-                case 1:
-                    gridTest.setEventTitle("Enjoy Japanese Food");
-                    gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
-                    gridTest.setContent("This is the food event!.....");
-                    gridTest.setTime("From 2017-11-20 to 2017-11-28");
-                    gridTest.setImage(imgs2);
-                    break;
-                case 2:
-                    gridTest.setEventTitle("travel to mountain");
-                    gridTest.setHeadphoto("http://img5q.duitang.com/uploads/item/201404/03/20140403135406_XFS3M.jpeg");
-                    gridTest.setContent("This is the travel event!.....");
-                    gridTest.setTime("From 2017-11-12 to 2017-11-20");
-                    gridTest.setImage(imgs3);
-                    break;
-                case 3:
-                    gridTest.setEventTitle("Coding practice");
-                    gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
-                    gridTest.setContent("This is the programming event!.....");
-                    gridTest.setTime("From 2017-11-10 to 2017-11-18");
-                    gridTest.setImage(imgs4);
-                    break;
-            }
+            gridTest = FakeImg.allposts[i];
+//            switch (i){
+//                case 0:gridTest.setEventTitle("Cat discovery");
+//                    gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
+//                    gridTest.setContent("This is the cat event!......");
+//                    gridTest.setTime("From 2017-11-28 to 2017-12-02");
+//                    gridTest.setImage(imgs1);
+//                    break;
+//                case 1:
+//                    gridTest.setEventTitle("Enjoy Japanese Food");
+//                    gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
+//                    gridTest.setContent("This is the food event!.....");
+//                    gridTest.setTime("From 2017-11-20 to 2017-11-28");
+//                    gridTest.setImage(imgs2);
+//                    break;
+//                case 2:
+//                    gridTest.setEventTitle("travel to mountain");
+//                    gridTest.setHeadphoto("http://img5q.duitang.com/uploads/item/201404/03/20140403135406_XFS3M.jpeg");
+//                    gridTest.setContent("This is the travel event!.....");
+//                    gridTest.setTime("From 2017-11-12 to 2017-11-20");
+//                    gridTest.setImage(imgs3);
+//                    break;
+//                case 3:
+//                    gridTest.setEventTitle("Coding practice");
+//                    gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
+//                    gridTest.setContent("This is the programming event!.....");
+//                    gridTest.setTime("From 2017-11-10 to 2017-11-18");
+//                    gridTest.setImage(imgs4);
+//                    break;
+//            }
             listgrid.add(gridTest);
         }
 
@@ -312,6 +314,7 @@ class CSCTest extends AsyncTask<String, Void, Void> {
 //        System.out.println(csc.getAllEvents());
         // csc.followEvent("2");
 //        csc.eventFollowers("2");
+
         return null;
 
     }
