@@ -12,10 +12,12 @@ import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
@@ -49,8 +51,6 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.post_activity);
-
-
 
         gridView1 = (GridView) findViewById(R.id.f_gridView1);
 
@@ -118,8 +118,27 @@ public class PostActivity extends AppCompatActivity implements View.OnClickListe
         Intent intent=new Intent(this,EventDetail.class);
         switch (tag) {
             case 1:
-//                Event newEvent = new Event("","","");
-                //TODO: create new event to data servive
+                Thread one = new Thread() {
+                    public void run() {
+                        try {
+                            CSC client = new CSC();
+                            EditText ed = (EditText) findViewById(R.id.editText1);
+                            String content = ed.getText().toString();
+                            System.out.println("posted content:......");
+                            System.out.println(content);
+                            String event_id = SaveSharedPreference.getEventID(PostActivity.this);
+                            System.out.println(event_id);
+                            client.createPost(event_id,content);
+                        } catch(Exception e) {
+                        }
+                    }
+                };
+                one.start();
+                try {
+                    one.join();
+                } catch (InterruptedException e) {
+
+                }
 
                 setResult(RESULT_OK, intent);
                 finish();

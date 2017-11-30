@@ -453,7 +453,6 @@ public class CSC {
             out.close();
 
         }catch (Exception e){
-            System.out.println(e);
             e.printStackTrace();
         }
     }

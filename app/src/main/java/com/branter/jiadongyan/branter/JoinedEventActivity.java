@@ -1,16 +1,8 @@
 package com.branter.jiadongyan.branter;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -20,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class HostEventActivity extends AppCompatActivity {
+public class JoinedEventActivity extends AppCompatActivity {
+
     public List<GridTest> listgrid;
     private ListViewAdapter listViewAdapter;
     private ListView listView;
@@ -37,7 +30,7 @@ public class HostEventActivity extends AppCompatActivity {
             public void run() {
                 try {
                     CSC client = new CSC();
-                    Event[] allEvents = client.getEventsByUserId(SaveSharedPreference.PREF_USER_ID);
+                    Event[] allEvents = client.joinedEvents();
                     for (int i = 0; i < allEvents.length; i++) {
                         GridTest single = new GridTest();
                         Event singleEvent = allEvents[i];
@@ -66,18 +59,17 @@ public class HostEventActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(HostEventActivity.this,EventDetail.class);
+                Intent intent=new Intent(JoinedEventActivity.this,EventDetail.class);
                 GridTest event = listgrid.get(position);
                 intent.putExtra("title", event.getEventTitle());
                 intent.putExtra("time", event.getTime());
                 intent.putExtra("id",event.getId());
 
                 startActivity(intent);
-                Toast.makeText(HostEventActivity.this, "clicked on" + (position + 1) + "item", Toast.LENGTH_LONG).show();
+                Toast.makeText(JoinedEventActivity.this, "clicked on" + (position + 1) + "item", Toast.LENGTH_LONG).show();
             }
         });
 
     }
-
 
 }
