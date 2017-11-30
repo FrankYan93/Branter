@@ -13,7 +13,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private Button register;
     private Button back;
-    private String userName;
+    private String userEmail;
     private String password;
     private EditText editUser;
     private EditText pwd;
@@ -41,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         int Tag=(int)v.getTag();
         switch (Tag){
             case 1:
-                userName = editUser.getText().toString();
+                userEmail = editUser.getText().toString();
                 password = pwd.getText().toString();
                 if (insertData()) {
                     Toast.makeText(RegisterActivity.this,"Register Sccuessfully",Toast.LENGTH_LONG).show();
@@ -65,11 +65,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public boolean insertData(){
-        //TODO:Insert username and password into database
-        // Params: username, passwor, Return true or error message // check username is duplicated or not
+
         if (pwdCorrect() && checkValid()) {
-            MainActivity.accounts.put(userName, password);
-            Log.e("pass：",MainActivity.accounts.get(userName));
+
+            MainActivity.accounts.put(userEmail , password);
+            Log.e("pass：",MainActivity.accounts.get(userEmail));
+            CSC client = new CSC();
+            String id = client.createUser(userEmail,password);
+            Log.e("return:", id);
+//            SaveSharedPreference.setUserID(this,client.createUser(userEmail,password));
+
             return true;
         }
 
@@ -87,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public boolean checkValid() {
-        if (userName.matches("") || password.matches("")) {
+        if (userEmail.matches("") || password.matches("")) {
             Toast.makeText(RegisterActivity.this,"can't be blank",Toast.LENGTH_LONG).show();
             return false;
         }
