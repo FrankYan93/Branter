@@ -129,7 +129,7 @@ public class ListViewAdapter  extends BaseAdapter implements Filterable {
         holder.headphoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Toast.makeText(context, "点击了头像", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Click on the head photo", Toast.LENGTH_LONG).show();
             }
         });
 

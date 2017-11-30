@@ -134,11 +134,11 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id)
             {
-                if( imageItem.size() == 10) { //第一张为默认图片
-                    Toast.makeText(CreateEventActivity .this, "图片数9张已满", Toast.LENGTH_SHORT).show();
+                if( imageItem.size() == 4) { //第一张为默认图片
+                    Toast.makeText(CreateEventActivity .this, "pics is exceed 3", Toast.LENGTH_SHORT).show();
                 }
                 else if(position == 0) { //点击图片位置为+ 0对应0张图片
-                    Toast.makeText(CreateEventActivity .this, "添加图片", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateEventActivity .this, "add pics", Toast.LENGTH_SHORT).show();
                     //选择图片
                     Intent intent = new Intent(Intent.ACTION_PICK,
                             android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -197,8 +197,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 GridTest newGridTest = new GridTest();
                 newGridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
                 newGridTest.setContent(eventContent.getText().toString());
-                newGridTest.setTime(startDate.getText().toString() + ":" + endDate.getText().toString());
-                newGridTest.setImage("");
+                newGridTest.setTime("From " + startDate.getText().toString() + " to " + endDate.getText().toString());
+                newGridTest.setImage(pathImage);
                 newGridTest.setEventTitle(eventTitle.getText().toString());
                 MainActivity.listgrid.add(newGridTest);
 

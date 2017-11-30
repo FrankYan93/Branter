@@ -215,28 +215,28 @@ public class MainActivity extends AppCompatActivity
                 case 0:gridTest.setEventTitle("Cat discovery");
                     gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
                     gridTest.setContent("This is the cat event!......");
-                    gridTest.setTime("11/25/2017 - 11/28/2017");
+                    gridTest.setTime("From 2017-11-28 to 2017-12-02");
                     gridTest.setImage(imgs1);
                     break;
                 case 1:
                     gridTest.setEventTitle("Enjoy Japanese Food");
                     gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
                     gridTest.setContent("This is the food event!.....");
-                    gridTest.setTime("11/20/2017 - 11/27/2017");
+                    gridTest.setTime("From 2017-11-20 to 2017-11-28");
                     gridTest.setImage(imgs2);
                     break;
                 case 2:
                     gridTest.setEventTitle("travel to mountain");
                     gridTest.setHeadphoto("http://img5q.duitang.com/uploads/item/201404/03/20140403135406_XFS3M.jpeg");
                     gridTest.setContent("This is the travel event!.....");
-                    gridTest.setTime("11/12/2017 - 11/20/2017");
+                    gridTest.setTime("From 2017-11-12 to 2017-11-20");
                     gridTest.setImage(imgs3);
                     break;
                 case 3:
                     gridTest.setEventTitle("Coding practice");
                     gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
                     gridTest.setContent("This is the programming event!.....");
-                    gridTest.setTime("11/10/2017 - 11/18/2017");
+                    gridTest.setTime("From 2017-11-10 to 2017-11-18");
                     gridTest.setImage(imgs4);
                     break;
             }
