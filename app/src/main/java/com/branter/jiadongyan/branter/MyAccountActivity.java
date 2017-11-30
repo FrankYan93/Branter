@@ -63,13 +63,13 @@ public class MyAccountActivity extends AppCompatActivity {
         TextView joinview = (TextView)findViewById(R.id.joinnumber_tag);
         TextView postview = (TextView)findViewById(R.id.postnumber_tag);
 
-        username.setText(usernamestr);
-        gender.setText(genderstr);
-        birthday.setText(birthstr);
+        username.setText("Username: "+usernamestr);
+        gender.setText("Gender: "+genderstr);
+        birthday.setText("Birthday: "+birthstr);
 
         hostview.setText("Host Events: "+Integer.toString(hoststr));
         joinview.setText("Join Events: "+Integer.toString(joinnum));
-        postview.setText("Have PostsInteger.toString(postnum));
+        postview.setText("Have Posts: "+Integer.toString(postnum));
 
 
 

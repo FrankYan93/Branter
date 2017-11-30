@@ -30,7 +30,7 @@ public class JoinedEventActivity extends AppCompatActivity {
             public void run() {
                 try {
                     CSC client = new CSC();
-                    Event[] allEvents = client.joinedEvents();
+                    Event[] allEvents = client.joinedEvents(JoinedEventActivity.this);
                     for (int i = 0; i < allEvents.length; i++) {
                         GridTest single = new GridTest();
                         Event singleEvent = allEvents[i];
