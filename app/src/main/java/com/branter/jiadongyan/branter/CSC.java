@@ -197,7 +197,7 @@ public class CSC {
     public void createEvent(String[] eventParam, String[] args, Context c){
         String id = SaveSharedPreference.getUserID(c);
         try{
-//            url = new URL("http://10.0.2.2:3000/users");
+//            url = new URL("http://10.0.2.2:3000/users/"+id+"/events");
             url = new URL("https://branterapi.herokuapp.com/users/"+id+"/events");
         }catch (MalformedURLException e){
             System.err.println("wrong url");
@@ -449,6 +449,7 @@ public class CSC {
         String id = SaveSharedPreference.getUserID(c);
         try{
             url = new URL("https://branterapi.herokuapp.com/posts");
+//            url = new URL("http://10.0.2.2:3000/posts");
         }catch (MalformedURLException e){
             System.err.println("wrong url");
         }

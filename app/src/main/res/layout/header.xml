@@ -15,224 +15,73 @@
         android:layout_width="150dp"
         android:layout_height="150dp" />
 
-    <TextView
-        android:id="@+id/EventDetail_EventName"
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="EventName" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="92dp">
-
-        <!--<TextView-->
-        <!--android:id="@+id/EventDetail_HostLabel"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:text="Host: " />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/EventDetail_TimeLabel"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignEnd="@+id/EventDetail_HostLabel"-->
-        <!--android:layout_alignRight="@+id/EventDetail_HostLabel"-->
-        <!--android:layout_below="@+id/EventDetail_HostLabel"-->
-        <!--android:layout_marginTop="18dp"-->
-        <!--android:text="Time:" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/EventDetail_ParticipantsLabe"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_alignParentStart="true"-->
-        <!--android:text="Participants:" />-->
-
-        <!--<Button-->
-        <!--android:id="@+id/EventDetail_JoinButton"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_below="@+id/linearLayout"-->
-        <!--android:layout_marginEnd="27dp"-->
-        <!--android:layout_marginRight="27dp"-->
-        <!--android:text="Join" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/EventDetail_HostName"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentTop="true"-->
-        <!--android:layout_marginLeft="58dp"-->
-        <!--android:layout_marginStart="58dp"-->
-        <!--android:layout_toEndOf="@+id/EventDetail_HostLabel"-->
-        <!--android:layout_toRightOf="@+id/EventDetail_HostLabel"-->
-        <!--android:text="host" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/EventDetail_TimeName"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignEnd="@+id/EventDetail_HostName"-->
-        <!--android:layout_alignRight="@+id/EventDetail_HostName"-->
-        <!--android:layout_alignTop="@+id/EventDetail_TimeLabel"-->
-        <!--android:text="time" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/EventDetail_ParticipantsNum"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignLeft="@+id/EventDetail_TimeName"-->
-        <!--android:layout_alignStart="@+id/EventDetail_TimeName"-->
-        <!--android:layout_alignTop="@+id/EventDetail_ParticipantsLabe"-->
-        <!--android:text="num" />-->
-
-        <!--<Button-->
-        <!--android:id="@+id/EventDetail_fab"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignBottom="@+id/EventDetail_JoinButton"-->
-        <!--android:layout_toLeftOf="@+id/EventDetail_JoinButton"-->
-        <!--android:layout_toStartOf="@+id/EventDetail_JoinButton"-->
-        <!--android:text="Post" />-->
 
         <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:orientation="horizontal">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/EventDetail_EventLable"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                android:id="@+id/EventDetail_HostLabel"
-                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Host: " />
+                android:text="EventLable"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
-                <TextView
-                android:id="@+id/EventDetail_HostName"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:text="host" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/EventDetail_HostLable"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="18dp"
-                android:orientation="vertical">
-
-                <TextView
-                android:id="@+id/EventDetail_TimeLabel"
-                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:text="Time:" />
+                android:text="Host: "
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-                <TextView
-                android:id="@+id/EventDetail_TimeName"
-                android:layout_width="100dp"
+            <TextView
+                android:id="@+id/EventDetail_TimeLable"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="time" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-            </LinearLayout>
-
-
-            <!--<TextView-->
-                <!--android:id="@+id/EventDetail_HostLabel"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="Host: " />-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/EventDetail_TimeLabel"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="18dp"-->
-                <!--android:text="Time:" />-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/EventDetail_ParticipantsLabe"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="18dp"-->
-                <!--android:text="Participants:" />-->
 
         </LinearLayout>
 
-        <!--<LinearLayout-->
-            <!--android:id="@+id/linearLayout2"-->
-            <!--android:layout_width="100dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_alignParentTop="true"-->
-            <!--android:layout_toEndOf="@+id/linearLayout"-->
-            <!--android:layout_toRightOf="@+id/linearLayout"-->
-            <!--android:orientation="vertical">-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/EventDetail_HostName"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="host" />-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/EventDetail_TimeName"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="18dp"-->
-                <!--android:text="time" />-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/EventDetail_ParticipantsNum"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="18dp"-->
-                <!--android:text="num" />-->
-
-        <!--</LinearLayout>-->
-
-        <Button
-            android:id="@+id/EventDetail_JoinButton"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/linearLayout"
-            android:layout_toRightOf="@+id/linearLayout"
-            android:text="Join" />
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/EventDetail_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/EventDetail_JoinButton"
-            android:layout_marginEnd="11dp"
-            android:layout_marginRight="11dp"
-            android:text="Post" />
+            <Button
+                android:id="@+id/EventDetail_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="11dp"
+                android:layout_marginRight="11dp"
+                android:text="Post" />
 
-    </RelativeLayout>
+            <Button
+                android:id="@+id/EventDetail_JoinButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/linearLayout"
+                android:layout_toRightOf="@+id/linearLayout"
+                android:text="Join" />
+        </LinearLayout>
 
 
+    </LinearLayout>
 </LinearLayout>
