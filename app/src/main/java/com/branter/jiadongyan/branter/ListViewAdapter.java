@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,48 +23,58 @@ import java.util.List;
  * Created by Jerry on 11/28/17.
  */
 
-public class ListViewAdapter  extends BaseAdapter {
+public class ListViewAdapter  extends BaseAdapter implements Filterable {
     private LayoutInflater mInflater;
     private Activity context;
     private List<GridTest> list;
+    private List<GridTest> filterlist;
     private FinalBitmap finalBitmap;
     private GridViewAdapter gridViewAdapter;
     private int wh;
+    private FriendFilter friendFilter;
     public ListViewAdapter(Activity context, List<GridTest> list){
         super();
         this.mInflater = LayoutInflater.from(context);
         this.context = context;
         this.wh=(SysUtils.getScreenWidth(context)- SysUtils.Dp2Px(context, 99))/3;
         this.list = list;
+        this.filterlist = list;
         this.finalBitmap = FinalBitmap.create(context);
         this.finalBitmap.configLoadfailImage(R.drawable.ic_menu_camera);
     }
 
+    @Override
+    public Filter getFilter(){
+        if (friendFilter == null){
+            friendFilter = new FriendFilter();
+        }
+        return friendFilter;
+    }
 
 
     public List<GridTest> getlist(){
-        return  list;
+        return  filterlist;
     }
     @Override
     public int getCount() {
 
-        return list == null ? 0 : list.size();
+        return filterlist == null ? 0 : filterlist.size();
     }
 
     @Override
     public Object getItem(int position) {
 
-        return list == null ? null : list.get(position);
+        return filterlist == null ? null : filterlist.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return list == null ? null : position;
+        return filterlist == null ? null : position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (list.size()==0){
+        if (filterlist.size()==0){
             return null;
         }
         final ViewHolder holder;
@@ -79,7 +91,7 @@ public class ListViewAdapter  extends BaseAdapter {
         }else {
             holder = (ViewHolder)convertView.getTag();
         }
-        final GridTest gridTest = list.get(position);
+        final GridTest gridTest = filterlist.get(position);
         String name = null,time = null,content = null,headpath = null,contentimage = null;
         if(gridTest!=null){
             name = gridTest.getEventTitle();
@@ -117,7 +129,7 @@ public class ListViewAdapter  extends BaseAdapter {
         holder.headphoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Toast.makeText(context, "点击了头像", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Click on the head photo", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -174,6 +186,45 @@ public class ListViewAdapter  extends BaseAdapter {
             });
         }
 
+    }
+
+    private class FriendFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults filterResults = new FilterResults();
+            if (constraint!=null && constraint.length()>0) {
+                ArrayList<GridTest> tempList = new ArrayList<GridTest>();
+
+                // search content in friend list
+                for (GridTest user : list) {
+                    if (user.getEventTitle().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        tempList.add(user);
+                    }
+                }
+
+                filterResults.count = tempList.size();
+                filterResults.values = tempList;
+            } else {
+                filterResults.count = list.size();
+                filterResults.values = list;
+            }
+
+            return filterResults;
+        }
+
+        /**
+         * Notify about filtered list to ui
+         * @param constraint text
+         * @param results filtered result
+         */
+        @SuppressWarnings("unchecked")
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            filterlist = (ArrayList<GridTest>) results.values;
+            notifyDataSetChanged();
+        }
     }
 
 }

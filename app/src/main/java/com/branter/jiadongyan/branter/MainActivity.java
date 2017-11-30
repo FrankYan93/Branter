@@ -1,10 +1,14 @@
 package com.branter.jiadongyan.branter;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
+import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,11 +29,11 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        SearchView.OnQueryTextListener{
 
     public static Hashtable<String,String> accounts = new Hashtable<>();
-
-    private List<GridTest> listgrid;
+    public static List<GridTest> listgrid = new ArrayList<>();
     private ListViewAdapter listViewAdapter;
     private ListView listView;
     private String imgs1;
@@ -76,9 +80,23 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
-            listgrid = new ArrayList<GridTest>();
             init();
-            initData();
+            if (listgrid.isEmpty()) initData();
+            listViewAdapter = new ListViewAdapter(this,listgrid);
+            listView.setAdapter(listViewAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent=new Intent(MainActivity.this,EventDetail.class);
+                    GridTest event = listgrid.get(position);
+                    intent.putExtra("title", event.getEventTitle());
+                    intent.putExtra("time", event.getTime());
+                    startActivity(intent);
+                    Toast.makeText(MainActivity.this, "clicked on" + (position + 1) + "item", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            Log.e("listGrid length", Integer.toString(listgrid.size()));
 
             // FloatingActionButton
             FloatingActionButton add_event = (FloatingActionButton) findViewById(R.id.fab);
@@ -107,12 +125,34 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public boolean onQueryTextSubmit(String query){
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText){
+        //Toast.makeText(super.getApplicationContext(),"TextChange!", Toast.LENGTH_LONG).show();
+        listViewAdapter.getFilter().filter(newText);
+
+        return true;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
         TextView username = (TextView) findViewById(R.id.usernameM);
         username.setText(userName);
+
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(this);
 
         return true;
     }
@@ -126,6 +166,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.map) {
+            startActivity(new Intent("com.branter.jiadongyan.branter.MapsViewActivity"));
             return true;
         }
 
@@ -139,7 +180,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_account) {
-            // TODO: start account info activity
+            startActivity(new Intent("com.branter.jiadongyan.branter.MyAccountActivity"));
         } else if (id == R.id.nav_host) {
             // TODO: start host events info activity
         } else if (id == R.id.nav_join) {
@@ -169,9 +210,7 @@ public class MainActivity extends AppCompatActivity
         imgs2="http://rj1.douguo.net/upload/diet/6/6/8/666f180617cab130bef1dea9fb3f7fe8.jpg#" +
                 "http://img4.duitang.com/uploads/blog/201312/01/20131201120117_F5QXY.jpeg#"+
                 "http://www.sh.xinhuanet.com/133071048_13905438457501n.jpg";
-        imgs3="http://t2.fansimg.com/uploads2011/02/userid290276time20110205120020.jpg#" +
-                "http://image81.360doc.com/DownloadImg/2015/01/2113/49316679_9.jpg#" +
-                "http://image.tianjimedia.com/uploadImages/2014/133/11/EN2I6768CHU1_1000x500.jpg#"+
+        imgs3= "http://image.tianjimedia.com/uploadImages/2014/133/11/EN2I6768CHU1_1000x500.jpg#"+
                 "http://pic72.nipic.com/file/20150716/6659253_104414205000_2.jpg#"+
                 "http://pic36.nipic.com/20131222/10558908_214221305000_2.jpg";
         imgs4 = "http://h.hiphotos.baidu.com/zhidao/pic/item/5243fbf2b21193133f9f1e3967380cd790238d5f.jpg";
@@ -180,44 +219,37 @@ public class MainActivity extends AppCompatActivity
             gridTest = new GridTest();
             switch (i){
                 case 0:gridTest.setEventTitle("Cat discovery");
-                    gridTest.setHeadphoto("http://cdn.duitang.com/uploads/item/201412/12/20141212184514_BJjWy.jpeg");
+                    gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
                     gridTest.setContent("This is the cat event!......");
-                    gridTest.setTime("11/25/2017 - 11/28/2017");
+                    gridTest.setTime("From 2017-11-28 to 2017-12-02");
                     gridTest.setImage(imgs1);
                     break;
                 case 1:
                     gridTest.setEventTitle("Enjoy Japanese Food");
-                    gridTest.setHeadphoto("http://cdn.duitang.com/uploads/item/201501/19/20150119171935_ZkRsZ.thumb.224_0.jpeg");
+                    gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
                     gridTest.setContent("This is the food event!.....");
-                    gridTest.setTime("11/20/2017 - 11/27/2017");
+                    gridTest.setTime("From 2017-11-20 to 2017-11-28");
                     gridTest.setImage(imgs2);
                     break;
                 case 2:
                     gridTest.setEventTitle("travel to mountain");
                     gridTest.setHeadphoto("http://img5q.duitang.com/uploads/item/201404/03/20140403135406_XFS3M.jpeg");
                     gridTest.setContent("This is the travel event!.....");
-                    gridTest.setTime("11/12/2017 - 11/20/2017");
+                    gridTest.setTime("From 2017-11-12 to 2017-11-20");
                     gridTest.setImage(imgs3);
                     break;
                 case 3:
                     gridTest.setEventTitle("Coding practice");
                     gridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
                     gridTest.setContent("This is the programming event!.....");
-                    gridTest.setTime("11/10/2017 - 11/18/2017");
+                    gridTest.setTime("From 2017-11-10 to 2017-11-18");
                     gridTest.setImage(imgs4);
                     break;
             }
             listgrid.add(gridTest);
         }
 
-        listViewAdapter = new ListViewAdapter(this,listgrid);
-        listView.setAdapter(listViewAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "clicked on" + (position + 1) + "item", Toast.LENGTH_LONG).show();
-            }
-        });
+
     }
 
 }

@@ -23,10 +23,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/info_iv_head">
+
         <TextView
             android:id="@+id/info_tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
             android:layout_alignParentLeft="true"
             android:text="小仙女"
             android:textColor="#444444"
@@ -58,10 +59,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="50dp"
             android:text="李睿豪是傻逼哦，李睿豪是傻逼哦，李睿豪是傻逼哦，李睿豪是傻逼哦，李睿豪是傻逼哦，李睿豪是傻逼哦"
             android:textColor="#615150"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rl4"
