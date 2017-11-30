@@ -166,7 +166,6 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_account) {
             startActivity(new Intent("com.branter.jiadongyan.branter.MyAccountActivity"));
-            // TODO: start account info activity
         } else if (id == R.id.nav_host) {
             // TODO: start host events info activity
         } else if (id == R.id.nav_join) {

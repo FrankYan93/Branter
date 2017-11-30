@@ -3,6 +3,8 @@ package com.branter.jiadongyan.branter;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -18,10 +20,6 @@ import java.util.ArrayList;
 
 public class MapsViewActivity extends FragmentActivity implements GoogleMap.OnInfoWindowClickListener,OnMapReadyCallback {
 
-    //event_id = getEventId
-
-
-
     private GoogleMap mMap;
 
     @Override
@@ -32,6 +30,15 @@ public class MapsViewActivity extends FragmentActivity implements GoogleMap.OnIn
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Button button = (Button)findViewById(R.id.map_back_button);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                finish();
+            }
+        });
+
     }
 
     /**
@@ -46,23 +53,23 @@ public class MapsViewActivity extends FragmentActivity implements GoogleMap.OnIn
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        ArrayList<EventData> arr = new ArrayList<EventData>();
-        arr.add(new EventData("A1",42,-71,56));
-        arr.add(new EventData("A2",42.1,-71.5,32));
-        arr.add(new EventData("A3",42.3650, -71.2587,42));
-        LatLng sydney = new LatLng(42.3650, -71.2587);
+        ArrayList<Event> arr = new ArrayList<Event>();
+        arr.add(new Event("1","A1","from","to",42,-71));
+        arr.add(new Event("2","A2","from","to",42.1,-71.5));
+        arr.add(new Event("3","A3","fromm","to",42.3650, -71.2587));
+        LatLng Brandeis = new LatLng(42.3650, -71.2587);
         for (int i = 0; i < arr.size(); i++) {
-            LatLng temp = new LatLng(arr.get(i).Lat,arr.get(i).Lng);
-            mMap.addMarker(new MarkerOptions().position(temp).title(arr.get(i).name).
-                    snippet("Time: "+ arr.get(i).startdate.toString()+"    People: "+arr.get(i).people_number));
+            LatLng temp = new LatLng(arr.get(i).lat,arr.get(i).lng);
+            mMap.addMarker(new MarkerOptions().position(temp).title(arr.get(i).title).
+                    snippet("Time: "+ arr.get(i).from+"-"+arr.get(i).to+"    People: "+ "30"));//Need TO DO!!!!
 
         }
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 10));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Brandeis, 9));
         mMap.setOnInfoWindowClickListener(this);
     }
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        startActivity(new Intent("com.branter.jiadongyan.branter.MyAccountActivity"));
+        startActivity(new Intent("com.branter.jiadongyan.branter.MyAccountActivity"));//Need to DO
     }
 }
