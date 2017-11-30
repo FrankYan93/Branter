@@ -63,6 +63,8 @@ public class CSC {
             return content.substring(1,content.length()-1).split(",")[0].split(":")[1];
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            con.disconnect();
         }
         System.out.println("created a user");
         return "";
@@ -90,9 +92,12 @@ public class CSC {
             }
             in.close();
             String[] strs = content.substring(1,content.length()-1).split(",");
-            user.id = strs[0];
-            user.email = strs[1];
-            user.username = strs[3];
+            user.id = strs[0].split(":")[1];
+            user.email = strs[1].split(":")[1];
+            user.username = strs[3].split(":")[1];
+            user.num_post = Integer.parseInt(strs[9].split(":")[1]);
+            user.num_events_host = Integer.parseInt(strs[10].split(":")[1]);
+            user.num_event_joined = Integer.parseInt(strs[11].split(":")[1]);
             if (strs[4].equals("true")){
                 user.gender = true;
             }else if (strs[4].equals("false")){
@@ -100,9 +105,10 @@ public class CSC {
             }
             user.birthday = strs[5];
             System.out.println();
-            con.disconnect();
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            con.disconnect();
         }
         System.out.println("got a user");
         return user;
@@ -135,6 +141,8 @@ public class CSC {
             }
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            con.disconnect();
         }
         System.out.println("login a user");
         return "";
@@ -178,6 +186,8 @@ public class CSC {
             System.out.println(content);
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            con.disconnect();
         }
         System.out.println("update a user");
     }
@@ -221,6 +231,8 @@ public class CSC {
         }catch (Exception e){
             System.out.println(e);
             e.printStackTrace();
+        }finally {
+            con.disconnect();
         }
         System.out.println("created a user");
 
@@ -275,6 +287,8 @@ public class CSC {
 
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            con.disconnect();
         }
         return null;
     }
@@ -327,6 +341,8 @@ public class CSC {
 
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            con.disconnect();
         }
         return null;
     }
@@ -359,6 +375,8 @@ public class CSC {
         }catch (Exception e){
             System.out.println(e);
             e.printStackTrace();
+        }finally {
+            con.disconnect();
         }
     }
 
@@ -443,7 +461,8 @@ public class CSC {
             parameters.put("content", content);
 
             con.setDoOutput(true);
-
+            con.setInstanceFollowRedirects(false);
+            HttpURLConnection.setFollowRedirects(false);
             DataOutputStream out = new DataOutputStream(con.getOutputStream());
 
             out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
@@ -454,6 +473,8 @@ public class CSC {
 
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            con.disconnect();
         }
     }
 
@@ -486,21 +507,36 @@ public class CSC {
         String url = "https://branterapi.herokuapp.com/users/"+id+"/posts";
         String method = "GET";
         String content = request(url,method, new String[] {}, new String[] {});
-        try{
-            JSONArray jo = new JSONArray(content);
-            int size = jo.length();
-            posts = new Post[size];
-            for (int i=0;i<size;i++){
-                JSONObject o = (JSONObject) jo.get(i);
-                posts[i] = new Post(
+        if (content.charAt(0)=='{'){
+            try{
+                JSONObject o = new JSONObject(content);
+                posts = new Post[1];
+                posts[0] = new Post(
                         o.getString("id"),
                         o.getString("user_id"),
                         o.getString("event_id"),
                         o.getString("content")
                 );
+            }catch (Exception e){
+                e.printStackTrace();
             }
-        }catch (Exception e){
-            e.printStackTrace();
+        } else {
+            try {
+                JSONArray jo = new JSONArray(content);
+                int size = jo.length();
+                posts = new Post[size];
+                for (int i = 0; i < size; i++) {
+                    JSONObject o = (JSONObject) jo.get(i);
+                    posts[i] = new Post(
+                            o.getString("id"),
+                            o.getString("user_id"),
+                            o.getString("event_id"),
+                            o.getString("content")
+                    );
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         return posts;
     }
@@ -541,6 +577,8 @@ public class CSC {
             return content.toString();
         }catch (Exception e){
             e.printStackTrace();
+        }finally {
+            con.disconnect();
         }
         return null;
     }
