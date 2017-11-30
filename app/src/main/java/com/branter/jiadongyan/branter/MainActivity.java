@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity
                              single.setEventTitle(singleEvent.title);
                              single.setContent(singleEvent.contents);
                              single.setTime("From " + singleEvent.from.split("T")[0] + " to " + singleEvent.to.split("T")[0]);
-                             single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
+                             single.setHeadphoto("https://www.transparenttextures.com/patterns/asfalt-light.png");
                              single.setImage(FakeImg.img[new Random().nextInt(FakeImg.img.length)]);
                              single.setId(singleEvent.id);
                              listgrid.add(single);
@@ -260,7 +260,7 @@ public class MainActivity extends AppCompatActivity
             gridTest = new GridTest();
             switch (i){
                 case 0:gridTest.setEventTitle("Football Game");
-                    gridTest.setHeadphoto("https://pbs.twimg.com/media/DP6iGTBWkAErwgJ.jpg");
+                    gridTest.setHeadphoto("https://www.transparenttextures.com/patterns/asfalt-light.png");
                     gridTest.setContent("This is an exciting football game event");
                     gridTest.setTime("From 2017-11-28 to 2017-12-02");
                     gridTest.setImage("https://i.pinimg.com/originals/b3/fc/31/b3fc31345130e0d09b54985bedb2d95c.jpg");
@@ -268,7 +268,7 @@ public class MainActivity extends AppCompatActivity
                     break;
                 case 1:
                     gridTest.setEventTitle("Celtics");
-                    gridTest.setHeadphoto("https://pbs.twimg.com/media/DP6iGTBWkAErwgJ.jpg");
+                    gridTest.setHeadphoto("https://www.transparenttextures.com/patterns/asfalt-light.png");
                     gridTest.setContent("This is for you who are interested in celtics");
                     gridTest.setTime("From 2017-11-20 to 2017-11-28");
                     gridTest.setImage("http://static2.businessinsider.com/image/56c3485d6e97c623048b7658-1190-625/the-boston-celtics-are-the-nbas-biggest-x-factor-2-days-before-the-trade-deadline.jpg");
@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity
                     break;
                 case 2:
                     gridTest.setEventTitle("Concert");
-                    gridTest.setHeadphoto("https://pbs.twimg.com/media/DP6iGTBWkAErwgJ.jpg");
+                    gridTest.setHeadphoto("https://www.transparenttextures.com/patterns/asfalt-light.png");
                     gridTest.setContent("This is a good concert");
                     gridTest.setTime("From 2017-11-12 to 2017-11-20");
                     gridTest.setImage("https://static.pexels.com/photos/196652/pexels-photo-196652.jpeg");
@@ -284,7 +284,7 @@ public class MainActivity extends AppCompatActivity
                     break;
                 case 3:
                     gridTest.setEventTitle("Gourmet Festival");
-                    gridTest.setHeadphoto("https://pbs.twimg.com/media/DP6iGTBWkAErwgJ.jpg");
+                    gridTest.setHeadphoto("https://www.transparenttextures.com/patterns/asfalt-light.png");
                     gridTest.setContent("Have a dinner at gourmet festival");
                     gridTest.setTime("From 2017-11-10 to 2017-11-18");
                     gridTest.setImage("https://www.ggcatering.com/system/uploads/fae/image/asset/2954/Global_Gourmet_hp_banner_3.jpg");
