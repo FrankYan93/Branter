@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -54,39 +55,50 @@ public class EventDetail extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);;
+
+        Intent data = getIntent();
+        Bundle extras = data.getExtras();
+
+        eventId = extras.getString("id");
+        SaveSharedPreference.setEventID(this,eventId);
+        System.out.println(SaveSharedPreference.getEventID(this));
+
         listgrid = new ArrayList<GridTest>();
         init();
-        initData();
+//        initData();
 
-//        // get all posts of this event
-//        Thread one = new Thread() {
-//            public void run() {
-//                try {
-//                    CSC client = new CSC();
-//                    Post[] allPosts = client.getEventPosts(eventId);
-//                    for (int i = 0; i < allPosts.length; i++) {
-//                        GridTest single = new GridTest();
-//                        Post singlePost = allPosts[i];
-//                        User singleUser = client.getUserInformation(singlePost.user_id);
-//                        single.setEventTitle(singleUser.username);
-//                        single.setContent(singlePost.content);
-//                        single.setTime("");
-//                        single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
-//                        single.setImage(FakeImg.img[new Random().nextInt(FakeImg.img.length)]);
-//                        single.setId(singlePost.id);
-//                        listgrid.add(single);
-//                    }
-//                } catch(Exception v) {
-//                }
-//            }
-//        };
-//
-//        one.start();
-//        try {
-//            one.join();
-//        } catch (InterruptedException e) {
-//
-//        }
+        // get all posts of this event
+        Thread one = new Thread() {
+            public void run() {
+                try {
+                    CSC client = new CSC();
+                    Log.e("Event id",eventId);
+                    Post[] allPosts = client.getEventPosts(eventId);
+                    Log.e("Event id",eventId);
+                    Log.e("post info", Integer.toString(allPosts.length));
+                    for (int i = 0; i < allPosts.length; i++) {
+                        GridTest single = new GridTest();
+                        Post singlePost = allPosts[i];
+                        User singleUser = client.getUserInformation(singlePost.user_id);
+                        single.setEventTitle(singleUser.username);
+                        single.setContent(singlePost.content);
+                        single.setTime("");
+                        single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
+                        single.setImage(FakeImg.img[new Random().nextInt(FakeImg.img.length)]);
+                        single.setId(singlePost.id);
+                        listgrid.add(single);
+                    }
+                } catch(Exception v) {
+                }
+            }
+        };
+
+        one.start();
+        try {
+            one.join();
+        } catch (InterruptedException e) {
+
+        }
         View header = getLayoutInflater().inflate(R.layout.header, null);
         listView.addHeaderView(header);
 
@@ -106,12 +118,6 @@ public class EventDetail extends AppCompatActivity {
         });
 
 
-        Intent data = getIntent();
-        Bundle extras = data.getExtras();
-
-        eventId = extras.getString("id");
-        SaveSharedPreference.setEventID(this,eventId);
-        System.out.println(SaveSharedPreference.getEventID(this));
         //listView = (ListView) findViewById(R.id.f_listview);
         //listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getData()));
 

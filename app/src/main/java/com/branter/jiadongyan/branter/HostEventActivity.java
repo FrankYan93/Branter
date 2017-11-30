@@ -37,7 +37,7 @@ public class HostEventActivity extends AppCompatActivity {
             public void run() {
                 try {
                     CSC client = new CSC();
-                    Event[] allEvents = client.getEventsByUserId(SaveSharedPreference.PREF_USER_ID);
+                    Event[] allEvents = client.getEventsByUserId(SaveSharedPreference.getUserID(HostEventActivity.this));
                     for (int i = 0; i < allEvents.length; i++) {
                         GridTest single = new GridTest();
                         Event singleEvent = allEvents[i];
