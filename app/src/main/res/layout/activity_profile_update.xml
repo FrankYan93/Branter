@@ -54,13 +54,12 @@
         android:layout_width="391dp"
         android:layout_height="136dp"
 
+
+
+
         android:background="#B0C4DE"
         android:layout_marginTop="30dp"
-        android:columnWidth="90dp"
-        android:gravity="center"
-        android:horizontalSpacing="5dp"
-        android:numColumns="2"
-        android:stretchMode="columnWidth"
+
         android:verticalSpacing="5dp"></GridView>
 
     <LinearLayout

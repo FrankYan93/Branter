@@ -52,8 +52,8 @@
         android:id="@+id/hostnumber_tag"
         android:layout_width="121dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="252dp"
-        android:layout_marginLeft="44dp"
+        android:layout_marginBottom="168dp"
+        android:layout_marginLeft="16dp"
         android:text="Host XX events"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
@@ -62,8 +62,8 @@
         android:id="@+id/joinnumber_tag"
         android:layout_width="121dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="252dp"
-        android:layout_marginLeft="160dp"
+        android:layout_marginBottom="168dp"
+        android:layout_marginLeft="140dp"
         android:text="Join XX events"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
@@ -72,8 +72,8 @@
         android:id="@+id/postnumber_tag"
         android:layout_width="121dp"
         android:layout_height="83dp"
-        android:layout_marginBottom="252dp"
-        android:layout_marginLeft="284dp"
+        android:layout_marginBottom="168dp"
+        android:layout_marginLeft="260dp"
         android:text="Post XX tweets"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
