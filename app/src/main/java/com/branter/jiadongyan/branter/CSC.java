@@ -1,15 +1,5 @@
 package com.branter.jiadongyan.branter;
 
-import android.app.Activity;
-import android.app.Application;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -239,14 +229,45 @@ public class CSC {
 
     // Get all event
     public Event[] getAllEvents(){
-
         return null;
     }
 
-    // Get filtered event (by email, by text content, by map address)
-    public Event[] getFilteredEvents(){
-        return null;
+
+
+    // Create new post
+    public void createPost(String event_id, String content) {
+        String id = SaveSharedPreference.PREF_USER_ID;
+        try{
+            url = new URL("https://branterapi.herokuapp.com/posts");
+        }catch (MalformedURLException e){
+            System.err.println("wrong url");
+        }
+        try{
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            Map<String, String> parameters = new HashMap<>();
+
+            parameters.put("user_id", id);
+            parameters.put("event_id", event_id);
+            parameters.put("content", content);
+
+            con.setDoOutput(true);
+
+            DataOutputStream out = new DataOutputStream(con.getOutputStream());
+
+            out.writeBytes(ParameterStringBuilder.getParamsString(parameters));
+            int status = con.getResponseCode();
+            System.out.println(status);
+            out.flush();
+            out.close();
+
+        }catch (Exception e){
+            System.out.println(e);
+            e.printStackTrace();
+        }
     }
+
+    //
 
 }
 
