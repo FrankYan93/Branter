@@ -54,9 +54,9 @@ public class MapsViewActivity extends FragmentActivity implements GoogleMap.OnIn
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         ArrayList<Event> arr = new ArrayList<Event>();
-        arr.add(new Event("1","A1","from","to",42,-71));
-        arr.add(new Event("2","A2","from","to",42.1,-71.5));
-        arr.add(new Event("3","A3","fromm","to",42.3650, -71.2587));
+        arr.add(new Event("1","A1",null,null,"from","to",42,-71));
+        arr.add(new Event("2","A2",null,null,"from","to",42.1,-71.5));
+        arr.add(new Event("3","A3",null,null,"fromm","to",42.3650, -71.2587));
         LatLng Brandeis = new LatLng(42.3650, -71.2587);
         for (int i = 0; i < arr.size(); i++) {
             LatLng temp = new LatLng(arr.get(i).lat,arr.get(i).lng);

@@ -3,6 +3,7 @@ package com.branter.jiadongyan.branter;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     private String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        new CSCTest().execute("");
         userName = SaveSharedPreference.getUserName(MainActivity.this);
         if(userName == null || userName.length() == 0)
         {
@@ -248,5 +250,18 @@ public class MainActivity extends AppCompatActivity
         }
 
 
+    }
+
+}
+
+class CSCTest extends AsyncTask<String, Void, Void> {
+    @Override
+    protected Void doInBackground(String... strings) {
+        CSC csc = new CSC();
+        System.out.println("id:~~~~~~~~~~~~~~~");
+        System.out.println(csc.createUser("xxx@xxxss","pass"));
+//        System.out.println(csc.getUserInformation("4").birthday);
+//        csc.updateAccount("yo","true","11-12-2017");
+        return null;
     }
 }
