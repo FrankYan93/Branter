@@ -2,6 +2,7 @@ package com.branter.jiadongyan.branter;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -61,7 +62,7 @@ public class ProfileUpdateActivity extends AppCompatActivity implements View.OnC
     private String usernameinput;
     private String genderinput;
     private String birthdayinput;
-
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,11 +175,12 @@ public class ProfileUpdateActivity extends AppCompatActivity implements View.OnC
 //                newGridTest.setImage(pathImage);
 //                newGridTest.setEventTitle(gender.getText().toString());
 //                MainActivity.listgrid.add(newGridTest);
+                context = getApplicationContext();
                 Thread one = new Thread() {
                     public void run() {
                         try {
                             CSC client = new CSC();
-                            client.updateAccount(username.getText().toString(),gender.getText().toString(),startDate.getText().toString());
+                            client.updateAccount(username.getText().toString(),gender.getText().toString(),startDate.getText().toString(),context);
                             //Log.e("return:", id);
                         } catch(Exception v) {
                         }

@@ -1,6 +1,7 @@
 package com.branter.jiadongyan.branter;
 
 
+import android.content.Context;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -103,7 +104,7 @@ public class CSC {
             }else if (strs[4].equals("false")){
                 user.gender = false;
             }
-            user.birthday = strs[5];
+            user.birthday = strs[5].split(":")[1];
             System.out.println();
         }catch (Exception e){
             e.printStackTrace();
@@ -149,8 +150,8 @@ public class CSC {
     }
 
     // Update my account (username, gender, etc)
-    public void updateAccount(String username, String gender, String birthday){
-        String id = SaveSharedPreference.PREF_USER_ID;
+    public void updateAccount(String username, String gender, String birthday, Context c){
+        String id = SaveSharedPreference.getUserID(c);
         try{
 //            url = new URL("http://10.0.2.2:3000/users/4");
             url = new URL("https://branterapi.herokuapp.com/users/"+id);
@@ -193,10 +194,10 @@ public class CSC {
     }
 
     // Create event (event params, event params' content), params can be title,from(datetime),to(datetime), lat(double), lng(double)
-    public void createEvent(String[] eventParam, String[] args){
-        String id = SaveSharedPreference.PREF_USER_ID;
+    public void createEvent(String[] eventParam, String[] args, Context c){
+        String id = SaveSharedPreference.getUserID(c);
         try{
-//            url = new URL("http://10.0.2.2:3000/users");
+//            url = new URL("http://10.0.2.2:3000/users/"+id+"/events");
             url = new URL("https://branterapi.herokuapp.com/users/"+id+"/events");
         }catch (MalformedURLException e){
             System.err.println("wrong url");
@@ -347,8 +348,8 @@ public class CSC {
         return null;
     }
 
-    public void followEvent(String event_id) {
-        String id = SaveSharedPreference.PREF_USER_ID;
+    public void followEvent(String event_id, Context c) {
+        String id = SaveSharedPreference.getUserID(c);
         try{
             url = new URL("https://branterapi.herokuapp.com/event_followers");
         }catch (MalformedURLException e){
@@ -405,9 +406,9 @@ public class CSC {
         return users;
     }
 
-    public Event[] joinedEvents(){
+    public Event[] joinedEvents(Context c){
         Event[] eve = null;
-        String id = SaveSharedPreference.PREF_USER_ID;
+        String id = SaveSharedPreference.getUserID(c);
         String url = "https://branterapi.herokuapp.com/users/"+id+"/joined_event";
         String method = "GET";
         String content = request(url,method, new String[] {}, new String[] {});
@@ -444,10 +445,11 @@ public class CSC {
     }
 
     // Create new post
-    public void createPost(String event_id, String content) {
-        String id = SaveSharedPreference.PREF_USER_ID;
+    public void createPost(String event_id, String content, Context c) {
+        String id = SaveSharedPreference.getUserID(c);
         try{
             url = new URL("https://branterapi.herokuapp.com/posts");
+//            url = new URL("http://10.0.2.2:3000/posts");
         }catch (MalformedURLException e){
             System.err.println("wrong url");
         }

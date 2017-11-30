@@ -13,4 +13,11 @@ public class FakeImg {
             "http://digclub.org/wp-content/uploads/2014/02/featured-tables-night.jpg"
     };
 
+    static GridTest[] events;
+    static GridTest[] posts;
+
+    public static void create() {
+
+
+    }
 }

@@ -226,7 +226,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                     public void run() {
                         try {
                             CSC client = new CSC();
-                            client.createEvent(att,value);
+                            Log.e("create event user id", SaveSharedPreference.getUserID(CreateEventActivity.this));
+                            client.createEvent(att,value,CreateEventActivity.this);
                         } catch(Exception v) {
                         }
                     }

@@ -27,8 +27,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
-import com.google.android.gms.location.places.Places;
-import com.google.android.gms.location.places.ui.PlacePicker;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -236,6 +235,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_post) {
             // TODO: start posts info activity
         } else if (id == R.id.nav_signout) {
+
+            SaveSharedPreference.setUserID(this,"");
+            SaveSharedPreference.setEventID(this,"");
+            SaveSharedPreference.setUserName(this,"");
+            Log.e("sign out user id", SaveSharedPreference.getUserID(this));
             Intent intent=new Intent(this,SignInActivity.class);
             startActivity(intent);
         }
@@ -312,7 +316,7 @@ class CSCTest extends AsyncTask<String, Void, Void> {
 //        csc.updateAccount("yo","true","11-12-2017");
 //        System.out.println(csc.signIn("xxx@xxx","pass"));
 //        csc.createPost("1","hello world!!!!");
-//        csc.createEvent(new String[] {"title"},new String[] {"mysterious event"});
+//        csc.createEvent(new String[] {"title"},new String[] {"mysterious event"},MainActivity.this);
 
 //        csc.createEvent(new String[] {"title"},new String[] {"mysterious event1"});
 

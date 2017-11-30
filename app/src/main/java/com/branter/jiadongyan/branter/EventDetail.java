@@ -137,7 +137,7 @@ public class EventDetail extends AppCompatActivity {
                             public void run() {
                                 try {
                                     CSC client = new CSC();
-                                    client.followEvent(eventId);
+                                    client.followEvent(eventId,EventDetail.this);
                                 } catch(Exception v) {
                                 }
                             }
