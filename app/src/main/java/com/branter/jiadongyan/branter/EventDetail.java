@@ -245,8 +245,22 @@ public class EventDetail extends AppCompatActivity {
                 for (int i = 0; i < fake.length; i++)
                     listgrid.add(fake[i]);
                 break;
-            case "":
+            case "Celtics":
+                GridTest[] fake2 = FakeImg.celticsposts;
+                for (int i = 0; i < fake2.length; i++)
+                    listgrid.add(fake2[i]);
                 break;
+            case "Concert":
+                GridTest[] fake3 = FakeImg.celticsposts;
+                for (int i = 0; i < fake3.length; i++)
+                    listgrid.add(fake3[i]);
+                break;
+            case "Gourmet":
+                GridTest[] fake4 = FakeImg.celticsposts;
+                for (int i = 0; i < fake4.length; i++)
+                    listgrid.add(fake4[i]);
+                break;
+
             default:
                 // get all posts of this event
                 Thread one = new Thread() {

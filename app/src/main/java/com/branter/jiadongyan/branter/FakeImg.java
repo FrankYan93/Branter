@@ -14,11 +14,11 @@ public class FakeImg {
     };
 
 
-    public static GridTest[] allposts = new GridTest[100];
-    public static GridTest[] footballposts = new GridTest[100];
-    public static GridTest[] concertposts = new GridTest[100];
-    public static GridTest[] celticsposts = new GridTest[100];
-    public static GridTest[] gourmetposts = new GridTest[100];
+    public static GridTest[] allposts = new GridTest[12];
+    public static GridTest[] footballposts = new GridTest[3];
+    public static GridTest[] concertposts = new GridTest[3];
+    public static GridTest[] celticsposts = new GridTest[3];
+    public static GridTest[] gourmetposts = new GridTest[3];
 
 
     public static void create() {
