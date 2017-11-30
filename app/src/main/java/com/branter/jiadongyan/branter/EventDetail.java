@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class EventDetail extends AppCompatActivity {
@@ -49,6 +51,11 @@ public class EventDetail extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);;
+        listgrid = new ArrayList<GridTest>();
+        init();
+        initData();
+        View header = getLayoutInflater().inflate(R.layout.header, null);
+        listView.addHeaderView(header);
 
         imgGalleryImage = (ImageView)findViewById(R.id.imgGalleryImage);
         imgGalleryImage.setImageResource(R.drawable.one);
@@ -65,9 +72,6 @@ public class EventDetail extends AppCompatActivity {
             }
         });
 
-        listgrid = new ArrayList<GridTest>();
-        init();
-        initData();
 
         Intent data = getIntent();
         Bundle extras = data.getExtras();
@@ -80,13 +84,26 @@ public class EventDetail extends AppCompatActivity {
         //listView = (ListView) findViewById(R.id.f_listview);
         //listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getData()));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.EventDetail_fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button post = (Button) findViewById(R.id.EventDetail_fab);
+        post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(EventDetail.this, PostActivity.class));
+                startActivityForResult(new Intent(EventDetail.this, PostActivity.class), 1);
+
             }
         });
+    }
+
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(new Intent(this, PostActivity.class), 1);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+
+            }
+        }
     }
 
     private List<String> getData(){
