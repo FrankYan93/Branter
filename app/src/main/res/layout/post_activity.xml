@@ -6,7 +6,7 @@
     tools:context="com.branter.jiadongyan.branter.CreateEventActivity"
     tools:ignore="MergeRootFrame" >
 
-    <!-- 顶部添加文字 -->
+    <!--  -->
     <RelativeLayout
         android:id="@+id/Layout_top"
         android:orientation="horizontal"
@@ -22,7 +22,7 @@
             android:gravity="center"
             android:text="New Post" />
     </RelativeLayout>
-    <!-- 底部按钮 -->
+    <!--  -->
     <RelativeLayout
         android:id="@+id/Layout_bottom"
         android:layout_alignParentBottom="true"
@@ -43,7 +43,7 @@
             android:textSize="20sp"
             android:text="Cancel" />
     </RelativeLayout>
-    <!-- 显示图片 -->
+    <!--  -->
     <RelativeLayout
         android:id="@+id/Content_Layout"
         android:layout_width="fill_parent"
@@ -56,7 +56,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_alignParentBottom="true" >
-            <!-- 设置运行多行 设置圆角图形 黑色字体-->
+            <!-- -->
             <EditText
                 android:id="@+id/editText1"
                 android:layout_height="120dp"
@@ -64,11 +64,11 @@
                 android:textColor="#000000"
                 android:layout_margin="12dp"
                 android:textSize="20sp"
-                android:hint="随手说出你此刻的心声..."
+                android:hint="What you want to say"
                 android:maxLength="500"
                 android:singleLine="false"
                 android:background="@drawable/editview_shape" />
-            <!-- 网格显示图片 行列间距5dp 每列宽度90dp -->
+            <!--  -->
             <GridView
                 android:id="@+id/f_gridView1"
                 android:layout_width="fill_parent"
@@ -85,7 +85,7 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="(友情提示:只能添加9张图片,长按图片可以删除已添加图片)"
+                android:text="Hint: can only add up to 9 pictures and you can delete added picture by holding down it"
                 android:gravity="center" />
         </LinearLayout>
     </RelativeLayout>
