@@ -3,24 +3,18 @@ package com.branter.jiadongyan.branter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -37,7 +31,7 @@ public class EventDetail extends AppCompatActivity {
     ArrayList<String> arrayList = arrayList = new ArrayList<>();
 
     @SuppressWarnings("deprecation")
-    Gallery Imagegallery;
+//    Gallery Imagegallery;
     Integer[] GalleryImagesList =
             {
                     R.drawable.one,
@@ -105,17 +99,17 @@ public class EventDetail extends AppCompatActivity {
         imgGalleryImage = (ImageView)findViewById(R.id.imgGalleryImage);
         imgGalleryImage.setImageResource(R.drawable.one);
 
-        Imagegallery = (Gallery)findViewById(R.id.gallery);
-        Imagegallery.setAdapter(new ImageAdapter(this));
-        Imagegallery.setOnItemClickListener(new OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id)
-            {
-                imgGalleryImage.setImageResource(GalleryImagesList[position]);
-            }
-        });
+//        Imagegallery = (Gallery)findViewById(R.id.gallery);
+//        Imagegallery.setAdapter(new ImageAdapter(this));
+//        Imagegallery.setOnItemClickListener(new OnItemClickListener()
+//        {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                                    int position, long id)
+//            {
+//                imgGalleryImage.setImageResource(GalleryImagesList[position]);
+//            }
+//        });
 
 
         //listView = (ListView) findViewById(R.id.f_listview);
