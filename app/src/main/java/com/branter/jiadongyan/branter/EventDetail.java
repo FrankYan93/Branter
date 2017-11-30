@@ -113,7 +113,8 @@ public class EventDetail extends AppCompatActivity {
         TextView eventtime = (TextView) findViewById(R.id.EventDetail_TimeName);
         eventtime.setText(extras.getString("time"));
         eventId = extras.getString("id");
-        SaveSharedPreference.setEventID(EventDetail.this,eventId);
+        SaveSharedPreference.setEventID(this,eventId);
+        System.out.println(SaveSharedPreference.getEventID(this));
         //listView = (ListView) findViewById(R.id.f_listview);
         //listView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1, getData()));
 
@@ -276,4 +277,3 @@ public class EventDetail extends AppCompatActivity {
 
     }
 }
-

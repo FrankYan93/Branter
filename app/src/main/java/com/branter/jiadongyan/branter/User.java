@@ -10,6 +10,10 @@ public class User {
     String username;
     boolean gender;
     String birthday;
+    String imgUrl;
+    int num_post;
+    int num_events_host;
+    int num_event_joined;
 
     User(String id, String email, String username, boolean gender, String birthday){
         this.id = id;
@@ -17,6 +21,7 @@ public class User {
         this.username = username;
         this.gender = gender;
         this.birthday = birthday;
+//        this.imgUrl = imgUrl;
     }
 
     User(){

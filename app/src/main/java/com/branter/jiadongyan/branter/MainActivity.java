@@ -27,7 +27,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Random;
-
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     private  String imgs3;
     private  String imgs2;
     private String imgs4;
+
 
     private String userName;
     @Override
@@ -88,6 +90,8 @@ public class MainActivity extends AppCompatActivity
             listgrid = new ArrayList<>();
             if (listgrid.isEmpty()) initData();
 
+
+            //zy!!!!!
 
             // get all events
             Thread one = new Thread() {
@@ -148,6 +152,8 @@ public class MainActivity extends AppCompatActivity
             });
         }
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -307,7 +313,7 @@ class CSCTest extends AsyncTask<String, Void, Void> {
         CSC csc = new CSC();
 //        System.out.println("id:~~~~~~~~~~~~~~~");
 //        System.out.println(csc.createUser("xxx@xxxsss","pass"));
-//        System.out.println(csc.getUserInformation("4").birthday);
+//        System.out.println(csc.getUserInformation("1").num_events_host);
 //        csc.updateAccount("yo","true","11-12-2017");
 //        System.out.println(csc.signIn("xxx@xxx","pass"));
 //        csc.createPost("1","hello world!!!!");
@@ -319,8 +325,12 @@ class CSCTest extends AsyncTask<String, Void, Void> {
 //        System.out.println(csc.getAllEvents());
         // csc.followEvent("2");
 //        csc.eventFollowers("2");
-        System.out.println(csc.getUserPost("1"));
+//        System.out.println(csc.getUserPost("1"));
         return null;
 
     }
+
+
+
+
 }
