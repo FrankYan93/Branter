@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity
                              single.setTime("From " + singleEvent.from.split("T")[0] + " to " + singleEvent.to.split("T")[0]);
                              single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
                              single.setImage(FakeImg.img[new Random().nextInt(FakeImg.img.length)]);
-
+                             single.setId(singleEvent.id);
                              listgrid.add(single);
                          }
                     } catch(Exception v) {
