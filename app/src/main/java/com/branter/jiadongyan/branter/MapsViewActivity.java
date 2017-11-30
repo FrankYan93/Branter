@@ -36,6 +36,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class MapsViewActivity extends FragmentActivity implements GoogleMap.OnInfoWindowClickListener,OnMapReadyCallback{
 //LocationListener,GoogleMap.OnMyLocationButtonClickListener
@@ -43,6 +44,7 @@ public class MapsViewActivity extends FragmentActivity implements GoogleMap.OnIn
     LocationManager locationManager;
     String provider;
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    private ArrayList<Event> listgrid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,17 +79,60 @@ public class MapsViewActivity extends FragmentActivity implements GoogleMap.OnIn
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        ArrayList<Event> arr = new ArrayList<Event>();
-        arr.add(new Event("1","A1",null,null,"from","to",42,-71));
-        arr.add(new Event("2","A2",null,null,"from","to",42.1,-71.5));
-        arr.add(new Event("3","A3",null,null,"fromm","to",42.3650, -71.2587));
-        LatLng Brandeis = new LatLng(42.3650, -71.2587);
-        for (int i = 0; i < arr.size(); i++) {
-            LatLng temp = new LatLng(arr.get(i).lat,arr.get(i).lng);
-            mMap.addMarker(new MarkerOptions().position(temp).title(arr.get(i).title).
-                    snippet("Time: "+ arr.get(i).from+"-"+arr.get(i).to+"    People: "+ "30"));//Need TO DO!!!!
+        listgrid = new ArrayList<Event>();
+
+
+
+       // init();
+        listgrid = new ArrayList<>();
+        //if (listgrid.isEmpty()) ititData();
+
+
+        // get all events
+        Thread one = new Thread() {
+            public void run() {
+                try {
+                    CSC client = new CSC();
+                    Event[] allEvents = client.getAllEvents();
+                    for (int i = 0; i < allEvents.length; i++) {
+                        GridTest single = new GridTest();
+                        Event singleEvent = allEvents[i];
+//                        single.setEventTitle(singleEvent.title);
+//                        single.setContent(singleEvent.contents);
+//                        single.setTime("From " + singleEvent.from.split("T")[0] + " to " + singleEvent.to.split("T")[0]);
+//                        single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
+//                        single.setImage(FakeImg.img[new Random().nextInt(FakeImg.img.length)]);
+//                        single.setId(singleEvent.id);
+                        listgrid.add(singleEvent);
+                    }
+                } catch(Exception v) {
+                }
+            }
+        };
+
+        one.start();
+        try {
+            one.join();
+        } catch (InterruptedException e) {
 
         }
+
+
+
+//        arr.add(new Event("1","A1",null,null,"from","to",42,-71));
+//        arr.add(new Event("2","A2",null,null,"from","to",42.1,-71.5));
+//        arr.add(new Event("3","A3",null,null,"fromm","to",42.3650, -71.2587));
+        LatLng Brandeis = new LatLng(42.3650, -71.2587);
+        for (int i = 0; i < listgrid.size(); i++) {
+            LatLng temp = new LatLng(listgrid.get(i).lat,listgrid.get(i).lng);
+            mMap.addMarker(new MarkerOptions().position(temp).title(listgrid.get(i).title).
+                    snippet("Time: from 2019-1-20 to 2019-1-23 People: "+ Integer.toString(i*13+1)));//Need TO DO!!!!
+
+        }
+        mMap.addMarker(new MarkerOptions().position(new LatLng(40.7128,-74.0060)).title("Football Game").snippet("Time: from 2018-5-1 to 2018-5-1 People 12"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(47.6062,-122.3321)).title("Concert").snippet("Time: from 2018-9-12 to 2018-9-12 People 5"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(42.3662,-71.0621)).title("Celtics Games").snippet("Time: from 2017-12-26 to 2017-12-26 People 36"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(42.3650,-71.2587)).title("Gourment Festival").snippet("Time: from 2018-2-1 to 2018-2-1 People 8"));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(Brandeis, 9));
         UiSettings uisettings = mMap.getUiSettings();
         uisettings.setZoomControlsEnabled(true);
@@ -127,7 +172,15 @@ public class MapsViewActivity extends FragmentActivity implements GoogleMap.OnIn
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-        startActivity(new Intent("com.branter.jiadongyan.branter.MyAccountActivity"));//Need to DO
+    //Todo!!!
+//        Intent intent=new Intent(MainActivity.this,EventDetail.class);
+//        GridTest event = listgrid.get(position);
+//        intent.putExtra("title", event.getEventTitle());
+//        intent.putExtra("time", event.getTime());
+//        intent.putExtra("id",event.getId());
+//        startActivity(intent);
+//        Toast.makeText(MainActivity.this, "clicked on" + (position + 1) + "item", Toast.LENGTH_LONG).show();
+     //   startActivity(new Intent("com.branter.jiadongyan.branter.MyAccountActivity"));//Need to DO
     }
 
 
