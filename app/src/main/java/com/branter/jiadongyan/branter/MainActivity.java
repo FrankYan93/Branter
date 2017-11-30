@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity
     private  String imgs2;
     private String imgs4;
 
+
     private String userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +89,8 @@ public class MainActivity extends AppCompatActivity
             listgrid = new ArrayList<>();
             if (listgrid.isEmpty()) initData();
 
+
+            //zy!!!!!
 
             // get all events
             Thread one = new Thread() {
@@ -148,6 +151,8 @@ public class MainActivity extends AppCompatActivity
             });
         }
     }
+
+
 
     @Override
     public void onBackPressed() {
@@ -230,6 +235,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_post) {
             // TODO: start posts info activity
         } else if (id == R.id.nav_signout) {
+
+            SaveSharedPreference.setUserID(this,"");
+            SaveSharedPreference.setEventID(this,"");
+            SaveSharedPreference.setUserName(this,"");
+            Log.e("sign out user id", SaveSharedPreference.getUserID(this));
             Intent intent=new Intent(this,SignInActivity.class);
             startActivity(intent);
         }
@@ -302,11 +312,15 @@ class CSCTest extends AsyncTask<String, Void, Void> {
         CSC csc = new CSC();
 //        System.out.println("id:~~~~~~~~~~~~~~~");
 //        System.out.println(csc.createUser("xxx@xxxsss","pass"));
-//        System.out.println(csc.getUserInformation("4").birthday);
+//        System.out.println(csc.getUserInformation("1").num_events_host);
 //        csc.updateAccount("yo","true","11-12-2017");
 //        System.out.println(csc.signIn("xxx@xxx","pass"));
 //        csc.createPost("1","hello world!!!!");
-//        csc.createEvent(new String[] {"title"},new String[] {"mysterious event"});
+
+//        csc.createEvent(new String[] {"title"},new String[] {"mysterious event"},);
+
+//        csc.createEvent(new String[] {"title"},new String[] {"mysterious event"},MainActivity.this);
+
 
 //        csc.createEvent(new String[] {"title"},new String[] {"mysterious event1"});
 
@@ -314,8 +328,13 @@ class CSCTest extends AsyncTask<String, Void, Void> {
 //        System.out.println(csc.getAllEvents());
         // csc.followEvent("2");
 //        csc.eventFollowers("2");
-        System.out.println(csc.getUserPost("1"));
+//        System.out.println(csc.getUserPost("1"));
+        System.out.println(csc.getEventPosts("1"));
         return null;
 
     }
+
+
+
+
 }
