@@ -118,9 +118,35 @@ public class CSC {
     }
 
     // Sign in account(email, password), return empty string for successful sign in or error message
-    public String signIn(String email, String password) {
+    public boolean signIn(String email, String password) {
+        try{
+            url = new URL("http://10.0.2.2:3000/login?email="+email+"&password="+password);
+//            url = new URL("https://branterapi.herokuapp.com/users/"+id);
+        }catch (MalformedURLException e){
+            System.err.println("wrong url");
+        }
+        try{
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
 
-        return "";
+            BufferedReader in = new BufferedReader(
+                    new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            in.close();
+            System.out.println(content);
+            if (content.substring(1,content.length()-1).split(",")[0].equals("\"success_flag\":true")){
+                return true;
+            }
+        }catch (Exception e){
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        System.out.println("login a user");
+        return false;
     }
 
     // Update my account (username, gender, etc)
