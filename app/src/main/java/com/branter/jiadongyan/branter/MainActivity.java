@@ -26,6 +26,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Random;
 
 
 public class MainActivity extends AppCompatActivity
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity
                              single.setContent(singleEvent.contents);
                              single.setTime("From " + singleEvent.from.split("T")[0] + " to " + singleEvent.to.split("T")[0]);
                              single.setHeadphoto("http://www.ayso1236.us/wp-content/uploads/2017/11/cow-cartoon-drawing-monkey-coloring-page.jpg");
-                             single.setImage(singleEvent.imageUrl);
+                             single.setImage(FakeImg.img[new Random().nextInt(FakeImg.img.length)]);
 
                              listgrid.add(single);
                          }
