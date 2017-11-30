@@ -122,20 +122,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-//    private void handelListItemClick(GridTest event) {
-//        // close search view if its visible
-//        if (searchView.isShown()) {
-//            searchMenuItem.collapseActionView();
-//            searchView.setQuery("", false);
-//        }
-//
-//        // pass selected user and sensor to share activity
-//        Intent intent = new Intent(this, ShareActivity.class);
-//        intent.putExtra("com.score.senzors.pojos.User", user);
-//        this.startActivity(intent);
-//        this.overridePendingTransition(R.anim.right_in, R.anim.stay_in);
-//    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -164,9 +150,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-//        if (id == R.id.map) {
-//            return true;
-//        }
+        if (id == R.id.map) {
+            startActivity(new Intent("com.branter.jiadongyan.branter.MapsViewActivity"));
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -178,6 +165,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_account) {
+            startActivity(new Intent("com.branter.jiadongyan.branter.MyAccountActivity"));
             // TODO: start account info activity
         } else if (id == R.id.nav_host) {
             // TODO: start host events info activity
