@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,8 +28,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static Hashtable<String,String> accounts = new Hashtable<>();
-
-    private List<GridTest> listgrid;
+    public static List<GridTest> listgrid = new ArrayList<>();
     private ListViewAdapter listViewAdapter;
     private ListView listView;
     private String imgs1;
@@ -74,9 +74,18 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
 
-            listgrid = new ArrayList<GridTest>();
             init();
-            initData();
+            if (listgrid.isEmpty()) initData();
+            listViewAdapter = new ListViewAdapter(this,listgrid);
+            listView.setAdapter(listViewAdapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(MainActivity.this, "clicked on" + (position + 1) + "item", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            Log.e("listGrid length", Integer.toString(listgrid.size()));
 
             // FloatingActionButton
             FloatingActionButton add_event = (FloatingActionButton) findViewById(R.id.fab);
@@ -206,13 +215,6 @@ public class MainActivity extends AppCompatActivity
             listgrid.add(gridTest);
         }
 
-        listViewAdapter = new ListViewAdapter(this,listgrid);
-        listView.setAdapter(listViewAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "clicked on" + (position + 1) + "item", Toast.LENGTH_LONG).show();
-            }
-        });
+
     }
 }

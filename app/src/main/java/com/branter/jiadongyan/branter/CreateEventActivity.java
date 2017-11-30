@@ -14,11 +14,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
@@ -36,6 +38,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private Button buttonCancel;
     private Button startbtn, endbtn;
     private TextView startDate,endDate;
+    private EditText eventTitle;
+    private EditText eventContent;
     private int startYear,startMonth,startDay, endYear,endMonth,endDay;
     final int start_DATE_DIALOG = 1;
     final int end_DATE_DIALOG = 2;
@@ -176,6 +180,9 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         endMonth = ca.get(Calendar.MONTH);
         endDay = ca.get(Calendar.DAY_OF_MONTH);
 
+        eventTitle = (EditText) findViewById(R.id.eventTitle);
+        eventContent = (EditText) findViewById(R.id.eventContent);
+
     }
 
     @Override
@@ -184,8 +191,16 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         Intent intent=new Intent(this,MainActivity.class);
         switch (tag) {
             case 1:
+                Log.e("I am in create event", "LOL");
 //                Event newEvent = new Event("","","");
                 //TODO: create new event to data servive
+                GridTest newGridTest = new GridTest();
+                newGridTest.setHeadphoto("http://img3.imgtn.bdimg.com/it/u=3367770910,1075442079&fm=21&gp=0.jpg");
+                newGridTest.setContent(eventContent.getText().toString());
+                newGridTest.setTime(startDate.getText().toString() + ":" + endDate.getText().toString());
+                newGridTest.setImage("");
+                newGridTest.setEventTitle(eventTitle.getText().toString());
+                MainActivity.listgrid.add(newGridTest);
 
                 startActivity(intent);
                 break;
