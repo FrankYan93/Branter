@@ -221,6 +221,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent("com.branter.jiadongyan.branter.MyAccountActivity"));
         } else if (id == R.id.nav_host) {
             // TODO: start host events info activity
+            Intent intentH = new Intent(MainActivity.this, HostEventActivity.class);
+            startActivity(intentH);
         } else if (id == R.id.nav_join) {
             // TODO: start joined events activity
         } else if (id == R.id.nav_post) {
