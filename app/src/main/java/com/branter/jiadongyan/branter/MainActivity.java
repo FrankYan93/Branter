@@ -306,7 +306,7 @@ class CSCTest extends AsyncTask<String, Void, Void> {
         // System.out.println(csc.getEventsByUserId("1"));
 //        System.out.println(csc.getAllEvents());
         // csc.followEvent("2");
-
+        csc.eventFollowers("2");
         return null;
 
     }

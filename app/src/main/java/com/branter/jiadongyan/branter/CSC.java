@@ -371,8 +371,24 @@ public class CSC {
 //        String url = "http://10.0.2.2:3000/events/"+id+"/followers";
         String method = "GET";
         String content = request(url,method, new String[] {}, new String[] {});
-
-        return null;
+        User[] users = null;
+        try{
+            JSONArray jo = new JSONArray(content);
+            int size = jo.length();
+            users = new User[size];
+            for (int i=0;i<size;i++){
+                users[i] = new User();
+                JSONObject o = (JSONObject) jo.get(i);
+                users[i].id = o.getString("id");
+                users[i].email = o.getString("email");
+                users[i].birthday = o.getString("birthday");
+                users[i].gender = o.getString("gender").equals("true");
+                users[i].username = o.getString("name");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return users;
     }
 
     // Create new post
