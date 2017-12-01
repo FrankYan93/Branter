@@ -23,7 +23,7 @@ public class FakeImg {
 
     public static void create() {
         GridTest football_post0 = new GridTest();
-        football_post0.setEventTitle("Football Game");
+        football_post0.setEventTitle("Amy");
         football_post0.setContent("Good game!");
         football_post0.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/KU-vs-Mizzou-Nov-29-08_%282%29.jpg/1200px-KU-vs-Mizzou-Nov-29-08_%282%29.jpg#" +
         "https://i.pinimg.com/originals/b3/fc/31/b3fc31345130e0d09b54985bedb2d95c.jpg#" +
@@ -35,7 +35,7 @@ public class FakeImg {
 
 
         GridTest concert_post0 = new GridTest();
-        concert_post0.setEventTitle("Concert");
+        concert_post0.setEventTitle("Jerry");
         concert_post0.setContent("So happy!");
         concert_post0.setImage("https://static.pexels.com/photos/196652/pexels-photo-196652.jpeg");
         concert_post0.setHeadphoto("http://img.qq745.com/uploads/allimg/20170816/xw1vnloe4od345.jpg");
@@ -46,7 +46,7 @@ public class FakeImg {
 
 
         GridTest celtics_post0 = new GridTest();
-        celtics_post0.setEventTitle("Celtics Games");
+        celtics_post0.setEventTitle("Jam");
         celtics_post0.setContent("Go Celtics!");
         celtics_post0.setImage("http://i2.cdn.turner.com/nba/nba/dam/assets/160118095756-evan-turner-marcus-smart-isaiah-thomas-jae-crowder-jonas-jerebko-nba-new-york-knicks-at-boston-celtics.home-t1.jpeg#" +
         "http://static2.businessinsider.com/image/56c3485d6e97c623048b7658-1190-625/the-boston-celtics-are-the-nbas-biggest-x-factor-2-days-before-the-trade-deadline.jpg");
@@ -57,7 +57,7 @@ public class FakeImg {
         celticsposts[0] = celtics_post0;
 
         GridTest gourmet_post0 = new GridTest();
-        gourmet_post0.setEventTitle("Gourmet Festival");
+        gourmet_post0.setEventTitle("Jon");
         gourmet_post0.setContent("Yummy!");
         gourmet_post0.setImage("http://visitbudapest.travel/images/made/images/content/body/budai-gourmet-festival1_574_383.jpg#" +
                 "https://www.ggcatering.com/system/uploads/fae/image/asset/2954/Global_Gourmet_hp_banner_3.jpg");
@@ -68,7 +68,7 @@ public class FakeImg {
         gourmetposts[0] = gourmet_post0;
 
         GridTest football_post1 = new GridTest();
-        football_post1.setEventTitle("Football Game");
+        football_post1.setEventTitle("Alex");
         football_post1.setContent("So exicted, my team win!");
         football_post1.setImage("https://s.yimg.com/ny/api/res/1.2/qNpaQwkEO7ngAqoyzIRYxA--/YXBwaWQ9aGlnaGxhbmRlcjtzbT0xO3c9ODAwO2lsPXBsYW5l/http://media.zenfs.com/en_us/News/afp.com/c8d00c364d43d5bad43717587c327a268cee5bbf.jpg");
         football_post1.setHeadphoto("http://scimg.jb51.net/touxiang/201709/2017091018241774.jpg");
@@ -77,7 +77,7 @@ public class FakeImg {
         footballposts[1] = football_post1;
 
         GridTest concert_post1 = new GridTest();
-        concert_post1.setEventTitle("Concert");
+        concert_post1.setEventTitle("Jack");
         concert_post1.setContent("Enjoy the music tonight!");
         concert_post1.setImage("https://static.pexels.com/photos/154147/pexels-photo-154147.jpeg#" +
         "https://media.timeout.com/images/102503695/image.jpg");
@@ -88,7 +88,7 @@ public class FakeImg {
         concertposts[1] = concert_post1;
 
         GridTest celtics_post1 = new GridTest();
-        celtics_post1.setEventTitle("Celtics Games");
+        celtics_post1.setEventTitle("Tim");
         celtics_post1.setContent("I bet with my friends Celtics will win tonight");
         celtics_post1.setImage("http://ara-rowing.org/wp-content/uploads/2017/03/boston-celtics.jpg");
         celtics_post1.setHeadphoto("http://img.sc115.com/tx/ka/pic/1509ov0xknruucw.jpg");
@@ -98,7 +98,7 @@ public class FakeImg {
         celticsposts[1] = celtics_post1;
 
         GridTest gourmet_post1 = new GridTest();
-        gourmet_post1.setEventTitle("Gourmet Festival");
+        gourmet_post1.setEventTitle("Leon");
         gourmet_post1.setContent("Like these dishes!");
         gourmet_post1.setImage("http://www.hannasgourmetcatering.com/Hanna_s_Gourmet-19.jpg#" +
                 "http://cdn.skim.gs/image/upload/v1456337831/msi/grilled-salmon-gourmet-dinner-horiz_uyauuc.jpg");
@@ -109,7 +109,7 @@ public class FakeImg {
         gourmetposts[1] = gourmet_post1;
 
         GridTest football_post2 = new GridTest();
-        football_post2.setEventTitle("Football Game");
+        football_post2.setEventTitle("Tom");
         football_post2.setContent("Go ahead for win, warriors");
         football_post2.setImage("https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Larry_Fitzgerald_catches_TD_at_2009_Pro_Bowl.jpg/1200px-Larry_Fitzgerald_catches_TD_at_2009_Pro_Bowl.jpg");
         football_post2.setHeadphoto("http://img2.kanqq.com/upload/2017/1123/7f10f4844cc8e491b79a9557f814db30.jpg");
@@ -118,7 +118,7 @@ public class FakeImg {
         footballposts[2] = football_post2;
 
         GridTest concert_post2 = new GridTest();
-        concert_post2.setEventTitle("Concert");
+        concert_post2.setEventTitle("Yuan");
         concert_post2.setContent("Excellent concert!");
         concert_post2.setImage("https://static.pexels.com/photos/248963/pexels-photo-248963.jpeg");
         concert_post2.setHeadphoto("http://www.onegreen.net/QQ/UploadFiles/201710/2017100710155917.jpg");
@@ -127,7 +127,7 @@ public class FakeImg {
         concertposts[2] = concert_post2;
 
         GridTest celtics_post2 = new GridTest();
-        celtics_post2.setEventTitle("Celtics Games");
+        celtics_post2.setEventTitle("Zhou");
         celtics_post2.setContent("We can win final chanmpionship");
         celtics_post2.setImage("https://cdn.vox-cdn.com/uploads/chorus_asset/file/8431909/usa_today_9804106.jpg");
         celtics_post2.setHeadphoto("http://www.gx8899.com/uploads/allimg/160804/3-160P4111640.jpg");
@@ -137,7 +137,7 @@ public class FakeImg {
         celticsposts[2] = celtics_post2;
 
         GridTest gourmet_post2 = new GridTest();
-        gourmet_post2.setEventTitle("Gourmet Festival");
+        gourmet_post2.setEventTitle("Xu");
         gourmet_post2.setContent("Never tried such kinds of food, so delicious");
         gourmet_post2.setImage("http://www.ramblgyrl.com/wp-content/uploads/2013/04/Gourmet-Chicken.jpg#" +
                 "https://pantograph0.goldbely.com/uploads/merchant/main_image/559/hancock-gourmet-lobster-co.c62365d58493722415029905459b0cc6.jpg#" +
